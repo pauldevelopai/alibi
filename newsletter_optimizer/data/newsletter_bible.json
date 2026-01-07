@@ -1,8 +1,9 @@
 {
   "meta": {
-    "newsletters_analyzed": 44,
+    "newsletters_analyzed": 45,
     "generated_from": "developai.substack.com",
-    "author": "Paul McNally"
+    "author": "Paul McNally",
+    "last_updated": "2026-01-07T06:45:23.036428"
   },
   "headline_formulas": {
     "optimal_length": "10 words (53 characters)",
@@ -104,7 +105,10 @@
         "AI strategies for newsrooms... and the content apocalypse that is coming",
         "Zimbabwe has built an AI newsreader, but she isn't coming for your job"
       ]
-    }
+    },
+    "recent_headlines": [
+      "The future of AI is going to depend on your hardware"
+    ]
   },
   "writing_voice": {
     "characteristics": [
@@ -610,5 +614,8 @@
         "count": 9
       }
     }
-  }
+  },
+  "sample_openings": [
+    "I remember when RAM was a birthday treat. Because simply better hardware meant better games. But as a byproduct you learnt how to open up your Pentium and where to fit in the RAM and how the other components worked (and where they would need upgrading). That was the last time I really thought about computer chips. Since then I’ve relied on my phone and a series of Macbooks and trusted that Moore’s Law and Steve Jobs would take care of everything else. But the latest chip announcements from AMD and the news that AI tools are going to start demanding more from our machines has meant I’m back to thinking about the chips in our laptops again. Here is what I’ve learnt."
+  ]
 }

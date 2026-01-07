@@ -1683,6 +1683,7 @@ def generate_newsletter_direct(
         writing_voice = bible.get('writing_voice', {})
         rules = bible.get('rules_for_success', [])
         cliches = bible.get('cliches_to_avoid', [])
+        learnings = bible.get('learnings_from_edits', {})
         
         bible_context = "\n## YOUR WRITING STYLE (from Newsletter Bible)\n\n"
         
@@ -1710,6 +1711,76 @@ def generate_newsletter_direct(
         if cliches:
             bible_context += "**NEVER use these cliches:**\n"
             bible_context += f"{', '.join(cliches[:10])}\n\n"
+        
+        # Learnings from edits (what the user typically adds/prefers)
+        if learnings:
+            bible_context += "## LEARNINGS FROM YOUR PAST EDITS\n\n"
+            
+            # Frequently added content
+            freq_added = learnings.get('frequently_added_content', [])
+            if freq_added:
+                bible_context += "**Content you often add (consider including):**\n"
+                for item in freq_added[:5]:
+                    bible_context += f"- {item.get('content', '')}\n"
+                bible_context += "\n"
+            
+            # Tone adjustments
+            tone_adj = learnings.get('tone_adjustments', [])
+            if tone_adj:
+                bible_context += "**Tone preferences you've expressed:**\n"
+                for adj in tone_adj[-3:]:
+                    bible_context += f"- {adj}\n"
+                bible_context += "\n"
+            
+            # Headline preferences
+            headline_prefs = learnings.get('headline_preferences', [])
+            if headline_prefs:
+                bible_context += "**Headlines you've written (your style):**\n"
+                for pref in headline_prefs[-3:]:
+                    bible_context += f"- \"{pref.get('preferred', '')}\"\n"
+                bible_context += "\n"
+        
+        # Recent headlines (successful ones)
+        recent_headlines = bible.get('headline_formulas', {}).get('recent_headlines', [])
+        if recent_headlines:
+            bible_context += "**Your recent successful headlines:**\n"
+            for hl in recent_headlines[:5]:
+                bible_context += f"- \"{hl}\"\n"
+            bible_context += "\n"
+    
+    # =========================================================================
+    # LOAD KNOWLEDGE BASE (AI facts, research, insights)
+    # =========================================================================
+    
+    kb_context = ""
+    if KNOWLEDGE_BASE_AVAILABLE:
+        try:
+            # Get the main topic from the idea or main story
+            topic = main_story.get('heading', '') if main_story else idea
+            
+            # Get relevant facts from the knowledge base
+            facts_result = get_relevant_facts_context(topic, max_facts=10)
+            if isinstance(facts_result, tuple):
+                facts_text, facts_used = facts_result
+            else:
+                facts_text = facts_result if facts_result else ""
+                facts_used = []
+            
+            if facts_text:
+                kb_context = "\n## KNOWLEDGE BASE - AI FACTS & INSIGHTS\n\n"
+                kb_context += "*Use these facts to enrich your newsletter with specific, verifiable information:*\n\n"
+                kb_context += facts_text
+                kb_context += "\n"
+            
+            # Also get broader knowledge context
+            knowledge = get_knowledge_context(topic=topic, max_articles=5, max_chars=2000)
+            if knowledge:
+                kb_context += "\n## RECENT AI NEWS & CONTEXT\n\n"
+                kb_context += knowledge
+                kb_context += "\n"
+        except Exception as e:
+            print(f"Error loading KB context: {e}")
+            kb_context = ""
     
     # =========================================================================
     # EXTRACT ALL OUTLINE DATA (user edited this in Step 2)
@@ -1837,7 +1908,7 @@ When citing sources, use inline markdown links: [descriptive text](url)
 Don't use cliches or corporate speak. Be specific and direct.
 Don't invent personal memories or statistics - only use what's provided."""
 
-    # User prompt - includes ALL the outline content and Bible
+    # User prompt - includes ALL the outline content, Bible, and Knowledge Base
     user_prompt = f"""Write a newsletter based on this outline:
 
 # {headline}
@@ -1860,6 +1931,8 @@ Don't invent personal memories or statistics - only use what's provided."""
 
 {bible_context}
 
+{kb_context}
+
 {f"## ADDITIONAL INSTRUCTIONS{chr(10)}{additional_instructions}" if additional_instructions else ""}
 
 ---
@@ -1871,9 +1944,10 @@ Don't invent personal memories or statistics - only use what's provided."""
 3. ✅ **COVER** all the key points from the main story
 4. ✅ **INCLUDE** all bullets from additional sections
 5. ✅ **FOLLOW** your writing style from the Newsletter Bible above
-6. ✅ **AVOID** cliches listed above
+6. ✅ **USE** facts from the Knowledge Base to enrich the content
+7. ✅ **AVOID** cliches listed above
 
-Write the complete newsletter now. Natural and conversational, not formulaic."""
+Write the complete newsletter now. Natural and conversational, not formulaic. Weave in facts from the Knowledge Base where relevant."""
 
     try:
         response = client.chat.completions.create(

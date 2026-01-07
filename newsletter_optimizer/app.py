@@ -1944,13 +1944,437 @@ def render_settings_tab():
 # Tab 6: Training
 # ============================================================================
 
+def render_newsletter_bible_tab():
+    """Render the Newsletter Bible tab - view and edit your writing style guide."""
+    st.subheader("Newsletter Bible")
+    st.markdown("*Your complete writing style guide - everything that makes your newsletters unique*")
+    
+    bible = load_bible()
+    
+    if not bible:
+        st.error("Newsletter Bible not found. Run the style analyzer to generate it.")
+        if st.button("Generate Newsletter Bible", type="primary"):
+            st.info("Go to Settings > Analyze Style to generate your Bible from past newsletters.")
+        return
+    
+    # Stats bar
+    meta = bible.get('meta', {})
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Newsletters Analyzed", meta.get('newsletters_analyzed', 0))
+    with col2:
+        st.metric("Source", meta.get('generated_from', 'Unknown'))
+    with col3:
+        st.metric("Author", meta.get('author', 'Unknown'))
+    
+    st.divider()
+    
+    # =========================================================================
+    # SECTION 1: Writing Voice
+    # =========================================================================
+    with st.expander("📝 Writing Voice", expanded=True):
+        writing_voice = bible.get('writing_voice', {})
+        
+        # Signature Phrases
+        st.markdown("### Signature Phrases")
+        st.markdown("*Phrases that define your unique voice*")
+        signature_phrases = writing_voice.get('signature_phrases', [])
+        if signature_phrases:
+            for i, phrase in enumerate(signature_phrases):
+                st.markdown(f"- \"{phrase}\"")
+        else:
+            st.info("No signature phrases found yet.")
+        
+        # Add new phrase
+        new_phrase = st.text_input("Add a signature phrase:", key="new_sig_phrase")
+        if st.button("Add Phrase", key="add_sig_phrase"):
+            if new_phrase:
+                add_to_bible('writing_voice.signature_phrases', new_phrase)
+                st.success(f"Added: \"{new_phrase}\"")
+                st.rerun()
+        
+        st.divider()
+        
+        # Tone Markers
+        st.markdown("### Tone Markers")
+        tone_markers = writing_voice.get('tone_markers', [])
+        if tone_markers:
+            st.markdown(", ".join(tone_markers))
+        
+        # First Person Usage
+        st.markdown("### First Person Usage")
+        first_person = writing_voice.get('first_person_usage', {})
+        if first_person:
+            st.markdown(f"- Frequency: {first_person.get('frequency', 'N/A')}")
+            st.markdown(f"- Style: {first_person.get('style', 'N/A')}")
+    
+    # =========================================================================
+    # SECTION 2: Headline Formulas
+    # =========================================================================
+    with st.expander("📰 Headline Formulas", expanded=False):
+        headlines = bible.get('headline_formulas', {})
+        
+        st.markdown(f"**Optimal Length:** {headlines.get('optimal_length', 'N/A')}")
+        
+        # Pattern breakdown
+        patterns = headlines.get('pattern_breakdown', {})
+        if patterns:
+            st.markdown("### Headline Patterns")
+            for pattern_name, data in patterns.items():
+                count = data.get('count', 0)
+                pct = data.get('percentage', 0)
+                examples = data.get('examples', [])
+                
+                st.markdown(f"**{pattern_name.replace('_', ' ').title()}** ({count} headlines, {pct:.1f}%)")
+                for ex in examples[:3]:
+                    st.markdown(f"- \"{ex}\"")
+        
+        # Opening words
+        opening_words = headlines.get('opening_words_that_work', {})
+        if opening_words:
+            st.markdown("### Opening Words That Work")
+            top_words = sorted(opening_words.items(), key=lambda x: x[1], reverse=True)[:10]
+            st.markdown(", ".join([f"**{w}** ({c})" for w, c in top_words]))
+    
+    # =========================================================================
+    # SECTION 3: Structure Patterns
+    # =========================================================================
+    with st.expander("🏗️ Structure Patterns", expanded=False):
+        structure = bible.get('structure_patterns', {})
+        
+        if structure:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown(f"**Avg Word Count:** {structure.get('avg_word_count', 'N/A')}")
+                st.markdown(f"**Common Sections:** {structure.get('common_sections', 'N/A')}")
+            with col2:
+                st.markdown(f"**Opening Style:** {structure.get('opening_style', 'N/A')}")
+                st.markdown(f"**Closing Style:** {structure.get('closing_style', 'N/A')}")
+            
+            para_lengths = structure.get('paragraph_lengths', {})
+            if para_lengths:
+                st.markdown("**Paragraph Lengths:**")
+                st.json(para_lengths)
+    
+    # =========================================================================
+    # SECTION 4: Rules for Success
+    # =========================================================================
+    with st.expander("✅ Rules for Success", expanded=True):
+        rules = bible.get('rules_for_success', [])
+        
+        if rules:
+            for rule in rules:
+                st.markdown(f"- {rule}")
+        else:
+            st.info("No rules defined yet.")
+        
+        # Add new rule
+        new_rule = st.text_input("Add a new rule:", key="new_rule")
+        if st.button("Add Rule", key="add_rule"):
+            if new_rule:
+                add_to_bible('rules_for_success', new_rule)
+                st.success(f"Added rule: \"{new_rule}\"")
+                st.rerun()
+    
+    # =========================================================================
+    # SECTION 5: Cliches to Avoid
+    # =========================================================================
+    with st.expander("🚫 Cliches to Avoid", expanded=True):
+        cliches = bible.get('cliches_to_avoid', [])
+        
+        if cliches:
+            # Display in columns
+            cols = st.columns(3)
+            for i, cliche in enumerate(cliches):
+                with cols[i % 3]:
+                    st.markdown(f"- \"{cliche}\"")
+        else:
+            st.info("No cliches defined yet.")
+        
+        # Add new cliche
+        new_cliche = st.text_input("Add a cliche to avoid:", key="new_cliche")
+        if st.button("Add Cliche", key="add_cliche"):
+            if new_cliche:
+                add_to_bible('cliches_to_avoid', new_cliche)
+                st.success(f"Added cliche to avoid: \"{new_cliche}\"")
+                st.rerun()
+    
+    # =========================================================================
+    # SECTION 6: Sample Openings
+    # =========================================================================
+    with st.expander("🎬 Sample Openings", expanded=False):
+        openings = bible.get('sample_openings', [])
+        
+        if openings:
+            for i, opening in enumerate(openings[:10], 1):
+                st.markdown(f"**Opening {i}:**")
+                st.markdown(f"> {opening[:300]}..." if len(opening) > 300 else f"> {opening}")
+                st.divider()
+        else:
+            st.info("No sample openings found.")
+    
+    # =========================================================================
+    # SECTION 7: Recent Headlines (from published newsletters)
+    # =========================================================================
+    with st.expander("📰 Recent Headlines (from your published newsletters)", expanded=False):
+        recent_headlines = bible.get('headline_formulas', {}).get('recent_headlines', [])
+        
+        if recent_headlines:
+            for headline in recent_headlines[:10]:
+                st.markdown(f"- {headline}")
+        else:
+            st.info("No recent headlines yet. Publish newsletters to add them here.")
+    
+    # =========================================================================
+    # SECTION 8: Learnings from Edits (auto-captured)
+    # =========================================================================
+    with st.expander("🧠 Learnings from Your Edits", expanded=True):
+        learnings = bible.get('learnings_from_edits', {})
+        
+        if learnings:
+            st.markdown("*These patterns were automatically learned from your edits to AI-generated content*")
+            
+            # Stats
+            total_edits = learnings.get('total_edits_recorded', 0)
+            last_edit = learnings.get('last_edit', '')[:10] if learnings.get('last_edit') else 'Never'
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Total Edits Recorded", total_edits)
+            with col2:
+                st.metric("Last Edit", last_edit)
+            
+            st.divider()
+            
+            # Headline preferences
+            headline_prefs = learnings.get('headline_preferences', [])
+            if headline_prefs:
+                st.markdown("### Headline Preferences")
+                st.markdown("*Headlines you wrote instead of using AI suggestions:*")
+                for pref in headline_prefs[-5:]:
+                    st.markdown(f"- **You wrote:** \"{pref.get('preferred', '')}\"")
+                    rejected = pref.get('rejected', [])
+                    if rejected:
+                        st.caption(f"  Rejected: {', '.join(rejected[:2])}...")
+            
+            # Frequently added content
+            freq_added = learnings.get('frequently_added_content', [])
+            if freq_added:
+                st.markdown("### Content You Frequently Add")
+                st.markdown("*Bullets/content you often add that the AI missed:*")
+                for item in freq_added[:10]:
+                    st.markdown(f"- \"{item.get('content', '')}\" (added {item.get('times_added', 0)}x)")
+            
+            # Tone adjustments
+            tone_adj = learnings.get('tone_adjustments', [])
+            if tone_adj:
+                st.markdown("### Tone Adjustments")
+                st.markdown("*How you typically adjust the AI's tone:*")
+                for adj in tone_adj[-5:]:
+                    st.markdown(f"- \"{adj}\"")
+            
+            # Edit type frequency
+            edit_types = learnings.get('edit_type_frequency', {})
+            if edit_types:
+                st.markdown("### Edit Patterns")
+                st.markdown("*What types of edits you make most:*")
+                sorted_types = sorted(edit_types.items(), key=lambda x: x[1], reverse=True)
+                for edit_type, count in sorted_types[:5]:
+                    st.markdown(f"- **{edit_type.replace('_', ' ').title()}:** {count} times")
+        else:
+            st.info("No learnings captured yet. Edit AI-generated outlines and publish newsletters to build your learning history.")
+            
+            # Button to sync learnings now
+            if st.button("Sync Learnings Now", key="sync_learnings"):
+                try:
+                    from pathlib import Path
+                    bible_path = Path(__file__).parent / "data" / "newsletter_bible.json"
+                    with open(bible_path, 'r', encoding='utf-8') as f:
+                        current_bible = json.load(f)
+                    sync_learnings_to_bible(current_bible)
+                    with open(bible_path, 'w', encoding='utf-8') as f:
+                        json.dump(current_bible, f, indent=2, ensure_ascii=False)
+                    st.success("Learnings synced to Bible!")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Error syncing: {e}")
+    
+    # =========================================================================
+    # SECTION 9: Raw JSON View
+    # =========================================================================
+    with st.expander("🔧 Raw Bible (JSON)", expanded=False):
+        st.json(bible)
+    
+    st.divider()
+    
+    # Actions
+    st.markdown("### Actions")
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        if st.button("Regenerate Bible", help="Re-analyze all newsletters to update the Bible"):
+            st.info("Go to Settings > Analyze Style to regenerate the Bible.")
+    
+    with col2:
+        # Download Bible
+        bible_json = json.dumps(bible, indent=2)
+        st.download_button(
+            "Download Bible (JSON)",
+            data=bible_json,
+            file_name="newsletter_bible.json",
+            mime="application/json"
+        )
+    
+    with col3:
+        if st.button("Clear Custom Additions", type="secondary"):
+            st.warning("This would clear manually added rules, phrases, and cliches. Not implemented yet.")
+
+
+def add_to_bible(path: str, value: str):
+    """Add a value to the Newsletter Bible at the specified path."""
+    from pathlib import Path
+    import json
+    
+    bible_path = Path(__file__).parent / "data" / "newsletter_bible.json"
+    
+    try:
+        with open(bible_path, 'r', encoding='utf-8') as f:
+            bible = json.load(f)
+        
+        # Navigate to the path and add the value
+        parts = path.split('.')
+        current = bible
+        
+        for part in parts[:-1]:
+            if part not in current:
+                current[part] = {}
+            current = current[part]
+        
+        last_part = parts[-1]
+        if last_part not in current:
+            current[last_part] = []
+        
+        if isinstance(current[last_part], list):
+            if value not in current[last_part]:
+                current[last_part].append(value)
+        
+        with open(bible_path, 'w', encoding='utf-8') as f:
+            json.dump(bible, f, indent=2, ensure_ascii=False)
+        
+        return True
+    except Exception as e:
+        st.error(f"Error updating Bible: {e}")
+        return False
+
+
+def update_bible_from_newsletter(headline: str, content: str, opening_hook: str = ""):
+    """Update the Newsletter Bible when a newsletter is successfully published."""
+    from pathlib import Path
+    import json
+    
+    bible_path = Path(__file__).parent / "data" / "newsletter_bible.json"
+    
+    try:
+        with open(bible_path, 'r', encoding='utf-8') as f:
+            bible = json.load(f)
+        
+        # Update meta
+        if 'meta' not in bible:
+            bible['meta'] = {}
+        bible['meta']['newsletters_analyzed'] = bible['meta'].get('newsletters_analyzed', 0) + 1
+        bible['meta']['last_updated'] = datetime.now().isoformat()
+        
+        # Add opening to sample_openings if it's good
+        if opening_hook and len(opening_hook) > 50:
+            if 'sample_openings' not in bible:
+                bible['sample_openings'] = []
+            # Only keep last 20 openings
+            if opening_hook not in bible['sample_openings']:
+                bible['sample_openings'].insert(0, opening_hook)
+                bible['sample_openings'] = bible['sample_openings'][:20]
+        
+        # Add headline to examples
+        if headline:
+            if 'headline_formulas' not in bible:
+                bible['headline_formulas'] = {}
+            if 'recent_headlines' not in bible['headline_formulas']:
+                bible['headline_formulas']['recent_headlines'] = []
+            if headline not in bible['headline_formulas']['recent_headlines']:
+                bible['headline_formulas']['recent_headlines'].insert(0, headline)
+                bible['headline_formulas']['recent_headlines'] = bible['headline_formulas']['recent_headlines'][:20]
+        
+        # Sync learnings from the learning system into the Bible
+        sync_learnings_to_bible(bible)
+        
+        with open(bible_path, 'w', encoding='utf-8') as f:
+            json.dump(bible, f, indent=2, ensure_ascii=False)
+        
+        return True
+    except Exception as e:
+        print(f"Error updating Bible from newsletter: {e}")
+        return False
+
+
+def sync_learnings_to_bible(bible: dict):
+    """Sync learnings from the learning system into the Bible dict."""
+    from learning_system import load_learnings, load_edit_history
+    
+    learnings = load_learnings()
+    edit_history = load_edit_history()
+    
+    # Add learnings section to Bible
+    if 'learnings_from_edits' not in bible:
+        bible['learnings_from_edits'] = {}
+    
+    # Headline preferences (what headlines the user prefers)
+    headline_prefs = learnings.get('headline_preferences', [])
+    if headline_prefs:
+        bible['learnings_from_edits']['headline_preferences'] = headline_prefs[-10:]  # Last 10
+    
+    # Common additions (bullets/content the user frequently adds)
+    common_additions = learnings.get('common_additions', [])
+    if common_additions:
+        # Count frequency
+        from collections import Counter
+        addition_counts = Counter(common_additions)
+        top_additions = addition_counts.most_common(20)
+        bible['learnings_from_edits']['frequently_added_content'] = [
+            {'content': content, 'times_added': count} 
+            for content, count in top_additions
+        ]
+    
+    # Tone adjustments (how the user adjusts tone)
+    tone_adjustments = learnings.get('tone_adjustments', [])
+    if tone_adjustments:
+        bible['learnings_from_edits']['tone_adjustments'] = tone_adjustments[-10:]  # Last 10
+    
+    # Rejected patterns (what the AI generated that the user rejected)
+    rejected = learnings.get('rejected_patterns', [])
+    if rejected:
+        bible['learnings_from_edits']['rejected_patterns'] = rejected[-10:]
+    
+    # Edit history summary
+    if edit_history:
+        bible['learnings_from_edits']['total_edits_recorded'] = len(edit_history)
+        bible['learnings_from_edits']['last_edit'] = edit_history[-1].get('timestamp', '') if edit_history else ''
+        
+        # Count types of edits
+        edit_types = {}
+        for edit in edit_history[-50:]:  # Last 50 edits
+            for change in edit.get('changes', []):
+                change_type = change.get('type', 'unknown')
+                edit_types[change_type] = edit_types.get(change_type, 0) + 1
+        bible['learnings_from_edits']['edit_type_frequency'] = edit_types
+
+
 def render_training_tab():
     """Render the Training tab - manage what's fed into the AI model."""
     st.header("Training & Model Management")
     st.markdown("*See exactly what's being fed into your AI model and manage training*")
     
     # Sub-tabs for different training areas
-    train_tab1, train_tab2, train_tab3, train_tab4, train_tab5 = st.tabs([
+    train_tab1, train_tab2, train_tab3, train_tab4, train_tab5, train_tab6 = st.tabs([
+        "Newsletter Bible",
         "What's Fed to the Model",
         "Fine-Tuning",
         "AI Learning",
@@ -1959,18 +2383,21 @@ def render_training_tab():
     ])
     
     with train_tab1:
-        render_model_inputs_section()
+        render_newsletter_bible_tab()
     
     with train_tab2:
-        render_fine_tuning_section()
+        render_model_inputs_section()
     
     with train_tab3:
-        render_ai_learning_section()
+        render_fine_tuning_section()
     
     with train_tab4:
-        render_published_newsletters_section()
+        render_ai_learning_section()
     
     with train_tab5:
+        render_published_newsletters_section()
+    
+    with train_tab6:
         render_performance_learnings_section()
 
 
@@ -5961,6 +6388,14 @@ def render_generator_tab():
                                 content=final_content,
                                 story_type=st.session_state.get('generator_story_type', '')
                             )
+                        
+                        # 2b. Update Newsletter Bible with this successful newsletter
+                        opening_hook = edited.get('opening_hook', '')
+                        update_bible_from_newsletter(
+                            headline=edited.get('headline', ''),
+                            content=final_content,
+                            opening_hook=opening_hook
+                        )
                         
                         # 3. Save to library as 'published'
                         if st.session_state.get('current_newsletter_id'):
