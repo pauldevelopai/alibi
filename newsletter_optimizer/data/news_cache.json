@@ -1,0 +1,546 @@
+{
+  "articles": [
+    {
+      "title": "What you need to know about the first SASSA grant payments in 2026",
+      "url": "https://techcabal.com/2026/01/06/sassa-grant-payments-january-2026/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-06T08:06:04+00:00",
+      "summary": "Beneficiaries are still required to update documents and comply with the new verification requirements. Here is everything you need to know about SASSA payments in January 2026.",
+      "fetched": "2026-01-06T11:27:42.449145"
+    },
+    {
+      "title": "👨🏿‍🚀TechCabal Daily – Mono joins the Wave",
+      "url": "https://techcabal.com/2026/01/06/techcabal-daily-mono-joins-the-wave/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-06T06:28:21+00:00",
+      "summary": "In today's edition: Flutterwave acquires Mono &#124;&#124; CNN and 11 other channels will remain on DStv &#124;&#124; iOCO’s share buyback programme &#124;&#124; OADC to acquire data centre operator",
+      "fetched": "2026-01-06T11:27:42.449171"
+    },
+    {
+      "title": "AMD unveils new AI PC processors for general use and gaming at CES",
+      "url": "https://techcrunch.com/2026/01/05/amd-unveils-new-ai-pc-processors-for-general-use-and-gaming-at-ces/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-06T03:30:00+00:00",
+      "summary": "AMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking.",
+      "fetched": "2026-01-06T11:27:38.787360"
+    },
+    {
+      "title": "This desktop charger turns your iPhone into a robotic AI assistant",
+      "url": "https://www.theverge.com/tech/856077/yoona-deskmate-iphone-robot-companion-ai-assistant",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-06T02:59:19-05:00",
+      "summary": "CES is packed with AI companions and assistant robots this year, but the DeskMate from Loona is a clever take on the idea: it's a desktop charging hub, with three USB-C ports, one USB-A, and a MagSafe pad, that automatically activates an AI companion app when you attach your iPhone to the wireless c",
+      "fetched": "2026-01-06T11:27:39.137551"
+    },
+    {
+      "title": "Microsoft’s Nadella wants us to stop thinking of AI as ‘slop’",
+      "url": "https://techcrunch.com/2026/01/05/microsofts-nadella-wants-us-to-stop-thinking-of-ai-as-slop/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-05T23:09:56+00:00",
+      "summary": "Nadella wants us to think of AI as a human helper instead of a slop-generating job killer. New data for 2026 indicates he could be right.",
+      "fetched": "2026-01-06T11:27:38.787384"
+    },
+    {
+      "title": "Jensen Huang Says Nvidia’s New Vera Rubin Chips Are in ‘Full Production’",
+      "url": "https://www.wired.com/story/nvidias-rubin-chips-are-going-into-production/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2026-01-05T23:05:32+00:00",
+      "summary": "The chip giant says Vera Rubin will sharply cut the cost of training and running AI models, strengthening the appeal of its integrated computing platform.",
+      "fetched": "2026-01-06T11:27:39.579680"
+    },
+    {
+      "title": "Nvidia wants to be the Android of generalist robotics",
+      "url": "https://techcrunch.com/2026/01/05/nvidia-wants-to-be-the-android-of-generalist-robotics/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-05T23:00:00+00:00",
+      "summary": "Nvidia unveiled a full-stack robotics ecosystem at CES 2026, including foundation models, simulation tools, and hardware. It wants to be the default platform for robotics.",
+      "fetched": "2026-01-06T11:27:38.787400"
+    },
+    {
+      "title": "Nvidia launches powerful new Rubin chip architecture",
+      "url": "https://techcrunch.com/2026/01/05/nvidia-launches-powerful-new-rubin-chip-architecture/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-05T22:16:58+00:00",
+      "summary": "Nvidia CEO Jensen Huang officially launched the company’s new Rubin computing architecture, which he described as the state of the art in AI computing.",
+      "fetched": "2026-01-06T11:27:38.787419"
+    },
+    {
+      "title": "Nvidia launches Alpamayo, open AI models that allow autonomous vehicles to ‘think like a human’",
+      "url": "https://techcrunch.com/2026/01/05/nvidia-launches-alpamayo-open-ai-models-that-allow-autonomous-vehicles-to-think-like-a-human/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-05T21:52:22+00:00",
+      "summary": "Nvidia unveiled Alpamayo at CES 2026, which includes a reasoning vision language action model that allows an autonomous vehicle to think more like a human and provide chain-of-thought reasoning.",
+      "fetched": "2026-01-06T11:27:38.787433"
+    },
+    {
+      "title": "The nation’s strictest privacy law just took effect, to data brokers’ chagrin",
+      "url": "https://arstechnica.com/tech-policy/2026/01/data-broker-hoarding-is-rampant-new-law-lets-consumers-fight-back/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2026-01-05T21:42:14+00:00",
+      "summary": "Californians can now submit demands requiring 500 brokers to delete their data.",
+      "fetched": "2026-01-06T11:27:40.256865"
+    },
+    {
+      "title": "Google Gemini Is Taking Control of Humanoid Robots on Auto Factory Floors",
+      "url": "https://www.wired.com/story/google-boston-dynamics-gemini-powered-robot-atlas/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2026-01-05T21:00:00+00:00",
+      "summary": "Google DeepMind and Boston Dynamics are teaming up to integrate Gemini into a humanoid robot called Atlas.",
+      "fetched": "2026-01-06T11:27:39.579739"
+    },
+    {
+      "title": "Why Flutterwave bought Mono and what controlling Africa’s financial data layer unlocks",
+      "url": "https://techcabal.com/2026/01/05/flutterwave-mono-acquisition/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-05T20:26:49+00:00",
+      "summary": "Flutterwave has completed the acquisition of open-banking fintech Mono in an all-stock transaction, valued between $25 million and $40 million.",
+      "fetched": "2026-01-06T11:27:42.449190"
+    },
+    {
+      "title": "Nvidia launches Vera Rubin AI computing platform at CES 2026",
+      "url": "https://www.theverge.com/tech/855412/nvidia-launches-vera-rubin-ai-computing-platform-at-ces-2026",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-05T17:46:04-05:00",
+      "summary": "Nvidia is kicking off 2026 with the early launch of its new Vera Rubin computing platform, following a record-breaking year for the Rubin GPU's predecessor Blackwell, fueled by the AI boom (or bubble). During a press briefing ahead of today's keynote, Dion Harris, Nvidia's senior director of HPC and",
+      "fetched": "2026-01-06T11:27:39.137581"
+    },
+    {
+      "title": "$670m Sango Capital on exporting African tech to global markets",
+      "url": "https://techcabal.com/2026/01/05/sango-capital-ask-an-investor/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-05T16:38:28+00:00",
+      "summary": "Sango Capital helped take RapidDeploy, a South African startup, to the United States and get it acquired. Here's how the $670 million firm did it.",
+      "fetched": "2026-01-06T11:27:42.449213"
+    },
+    {
+      "title": "CES 2026: Follow live as Nvidia, Lego, AMD, Amazon, and more make their big reveals",
+      "url": "https://techcrunch.com/storyline/ces-2026-follow-live-as-nvidia-lego-amd-amazon-and-more-make-their-big-reveals/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-05T16:09:26+00:00",
+      "summary": "CES 2026, the annual consumer tech conference held in Las Vegas, is here. And lucky for you, we have TechCrunch editors and reporters on the ground to cover the news, scout out the interesting, weird, and relevant (and some not so relevant) tech, and of course the people working on it. Even before t",
+      "fetched": "2026-01-06T11:27:38.787450"
+    },
+    {
+      "title": "The overlooked driver of digital transformation",
+      "url": "https://www.technologyreview.com/2026/01/05/1124662/the-overlooked-driver-of-digital-transformation/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2026-01-05T16:00:00+00:00",
+      "summary": "When business leaders talk about digital transformation, their focus often jumps straight to cloud platforms, AI tools, or collaboration software. Yet, one of the most fundamental enablers of how organizations now work, and how employees experience that work, is often overlooked: audio. As Genevieve",
+      "fetched": "2026-01-06T11:27:38.656755"
+    },
+    {
+      "title": "How Nigeria plans to use banks and fintechs to recover tax debt",
+      "url": "https://techcabal.com/2026/01/05/how-nigeria-plans-to-use-banks-and-fintechs-to-recover-tax-debt/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-05T15:03:00+00:00",
+      "summary": "Banks, fintechs, and other financial institutions will now serve as debt recovery agents for Nigeria’s tax authority from 2026, according to TechCabal’s analysis of the newly implemented Nigeria Tax Administration Act, 2025.",
+      "fetched": "2026-01-06T11:27:42.449230"
+    },
+    {
+      "title": "Amazon’s AI assistant comes to the web with Alexa.com",
+      "url": "https://techcrunch.com/2026/01/05/alexa-without-an-echo-amazons-ai-chatbot-comes-to-the-web-and-a-revamped-alexa-app/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-05T15:00:00+00:00",
+      "summary": "Amazon is bringing Alexa+ to the web with a new Alexa.com site, expanding its AI assistant beyond devices and positioning it as a family-focused, agent-style chatbot.",
+      "fetched": "2026-01-06T11:27:38.787467"
+    },
+    {
+      "title": "12 Kenyan startups to watch in 2026",
+      "url": "https://techcabal.com/2026/01/05/12-kenyan-startups-to-watch-in-2026/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-05T14:38:09+00:00",
+      "summary": "Some Kenyan startups are already industry leaders in their own right, while others are working to prove themselves.",
+      "fetched": "2026-01-06T11:27:42.449248"
+    },
+    {
+      "title": "Google previews new Gemini features for TV at CES 2026",
+      "url": "https://techcrunch.com/2026/01/05/google-previews-new-gemini-features-for-tv-at-ces-2026/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-05T14:00:00+00:00",
+      "summary": "Google TV will let you ask Gemini to find and edit your photos, adjust your TV settings, and more.",
+      "fetched": "2026-01-06T11:27:38.787481"
+    },
+    {
+      "title": "Japan’s SORA Technology raises $2.5 million to scale health drones in Africa",
+      "url": "https://techcabal.com/2026/01/05/japans-sora-technology-secures-fresh-2-5m/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-05T13:49:50+00:00",
+      "summary": "SORA Technology, a Japan-based drone technology startup, has raised an additional $2.5 million in the second close of its late-seed funding round, strengthening its push to scale drone- and AI-powered health and climate solutions across Africa.",
+      "fetched": "2026-01-06T11:27:42.449265"
+    },
+    {
+      "title": "That viral Reddit post about food delivery apps was an AI scam",
+      "url": "https://www.theverge.com/news/855328/viral-reddit-delivery-app-ai-scam",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-05T13:43:02-05:00",
+      "summary": "A viral Reddit confessional about a \"major food delivery app\" posted January 2nd is most likely AI-generated. The original post by user Trowaway_whistleblow alleged that an unnamed food delivery company regularly delays customer orders, calls couriers \"human assets,\" and exploits their \"desperation\"",
+      "fetched": "2026-01-06T11:27:39.137604"
+    },
+    {
+      "title": "The Download: Kenya’s Great Carbon Valley, and the AI terms that were everywhere in 2025",
+      "url": "https://www.technologyreview.com/2026/01/05/1130672/the-download-kenyas-great-carbon-valley-and-the-ai-terms-that-were-everywhere-in-2025/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2026-01-05T13:10:00+00:00",
+      "summary": "This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. Welcome to Kenya’s Great Carbon Valley: a bold new gamble to fight climate change In June last year, startup Octavia Carbon began running a high-stake",
+      "fetched": "2026-01-06T11:27:38.656782"
+    },
+    {
+      "title": "AI Deepfakes Are Impersonating Pastors to Try to Scam Their Congregations",
+      "url": "https://www.wired.com/story/ai-deepfakes-are-impersonating-pastors-to-try-and-scam-their-congregations/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2026-01-05T11:30:00+00:00",
+      "summary": "Religious communities around the US are getting hit with AI depictions of their leaders sharing incendiary sermons and asking for donations.",
+      "fetched": "2026-01-06T11:27:39.579786"
+    },
+    {
+      "title": "What’s next for AI in 2026",
+      "url": "https://www.technologyreview.com/2026/01/05/1130662/whats-next-for-ai-in-2026/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2026-01-05T11:04:46+00:00",
+      "summary": "MIT Technology Review’s What’s Next series looks across industries, trends, and technologies to give you a first look at the future. You can read the rest of them here. In an industry in constant flux, sticking your neck out to predict what’s coming next may seem reckless. (AI bubble? What AI bubble",
+      "fetched": "2026-01-06T11:27:38.656800"
+    },
+    {
+      "title": "At CES 2026, Everything Is AI. What Matters Is How You Use It",
+      "url": "https://www.wired.com/story/ces-2026-what-to-expect/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2026-01-05T11:00:00+00:00",
+      "summary": "Integrated chatbots and built-in machine intelligence are no longer standout features in consumer tech. If companies want to win in the AI era, they’ve got to hone the user experience.",
+      "fetched": "2026-01-06T11:27:39.579829"
+    },
+    {
+      "title": "The Alexa Plus website is now available to everyone in early access",
+      "url": "https://www.theverge.com/tech/853535/alexa-plus-website-now-available",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-05T10:00:00-05:00",
+      "summary": "Alexa Plus was already popping up online for some users earlier this month, and now it's officially available to everyone through an early access program. Anyone can go sign up at Alexa.com and start playing with the new web interface for Amazon's new AI chatbot. Alexa Plus was already available on ",
+      "fetched": "2026-01-06T11:27:39.137634"
+    },
+    {
+      "title": "The best tech announced at CES 2026 so far",
+      "url": "https://www.theverge.com/tech/854159/ces-2026-best-tech-gadgets-smartphones-appliances-robots-tvs-ai-smart-home",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-05T09:29:14-05:00",
+      "summary": "Ahead of the CES show floor officially opening on Tuesday, January 6th, many companies have already announced new tech, gadgets, concepts, and AI-powered upgrades that will be released over this year. Yesterday's CES Unveiled event delivered even more announcements and reveals. If you're already str",
+      "fetched": "2026-01-06T11:27:39.137675"
+    },
+    {
+      "title": "Gemini on Google TV is getting Nano Banana and voice-controlled settings",
+      "url": "https://www.theverge.com/tech/854112/gemini-google-tv-nano-banana-veo-ces",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-05T09:00:00-05:00",
+      "summary": "Gemini on Google TV is getting a major update that makes the AI assistant more helpful and more visually engaging. The big highlights are obviously the addition of Nano Banana and Veo support for creating AI videos and images directly on your TV. This can be anything from modifying your family photo",
+      "fetched": "2026-01-06T11:27:39.137717"
+    },
+    {
+      "title": "DoorDash says it banned driver who seemingly faked a delivery using AI",
+      "url": "https://techcrunch.com/2026/01/04/doordash-says-it-banned-driver-who-seemingly-faked-a-delivery-using-ai/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-04T21:14:23+00:00",
+      "summary": "DoorDash seems to have confirmed a viral story about a driver using an AI-generated photo to lie about making a delivery.",
+      "fetched": "2026-01-06T11:27:38.787494"
+    },
+    {
+      "title": "French and Malaysian authorities are investigating Grok for generating sexualized deepfakes",
+      "url": "https://techcrunch.com/2026/01/04/french-and-malaysian-authorities-are-investigating-grok-for-generating-sexualized-deepfakes/",
+      "source": "TechCrunch AI",
+      "category": "tech",
+      "published": "2026-01-04T16:50:19+00:00",
+      "summary": "France and Malaysia have joined India in condemning Grok for creating sexualized deepfakes of women and minors.",
+      "fetched": "2026-01-06T11:27:38.787509"
+    },
+    {
+      "title": "LG says its CLOiD home robot will be folding laundry and making breakfast at CES",
+      "url": "https://www.theverge.com/tech/854082/lg-cloid-home-robot-fold-laundry-ces",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-04T14:13:01-05:00",
+      "summary": "LG teased that it would be showing off a new robot for a \"zero labor home\" at CES. We now have a bit more detail on what to expect. The company says that its CLOiD home robot can fetch milk from the fridge, put a croissant in the oven, and even do some laundry, including [&#8230;]",
+      "fetched": "2026-01-06T11:27:39.137797"
+    },
+    {
+      "title": "Plaud updates the NotePin with a button",
+      "url": "https://www.theverge.com/tech/851393/plaud-notepin-s-desktop-app-ces",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-04T12:00:00-05:00",
+      "summary": "Plaud has updated its compact NotePin AI recorder. The new NotePin S is almost identical to the original, except for one major difference: a button. It's joined by a new Plaud Desktop app for recording audio in online meetings, which is free to owners of any Plaud Note or NotePin. The NotePin S has ",
+      "fetched": "2026-01-06T11:27:39.137851"
+    },
+    {
+      "title": "SwitchBot’s AI audio recorder is a ‘second brain’ for memories",
+      "url": "https://www.theverge.com/tech/853109/switchbot-ai-mindclip-audio-recorder-ces-announcement",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-04T11:45:00-05:00",
+      "summary": "SwitchBot is joining the AI voice recorder bandwagon, introducing its own clip-on gadget that captures and organizes your every conversation. The SwitchBot AI MindClip announced at CES records spoken information from your daily life and work meetings and converts those conversations into summaries, ",
+      "fetched": "2026-01-06T11:27:39.137876"
+    },
+    {
+      "title": "This startup brought WALL-E to life and will also sell you WALL-E&#8217;s weird cousin",
+      "url": "https://www.theverge.com/tech/852956/zeroth-wall-e-robot-w1-m1-ces-2026",
+      "source": "The Verge - AI",
+      "category": "tech",
+      "published": "2026-01-04T09:00:00-05:00",
+      "summary": "An AI robotics startup called Zeroth is turning WALL-E into a real-life robot companion. Though the WALL-E version with the Disney-licensed design is currently only on sale in China, Zeroth is launching what looks like an off-brand version of the beloved bot in the US for $5,599. The bot, called the",
+      "fetched": "2026-01-06T11:27:39.137897"
+    },
+    {
+      "title": "Disinformation Floods Social Media After Nicolás Maduro’s Capture",
+      "url": "https://www.wired.com/story/disinformation-floods-social-media-after-nicolas-maduros-capture/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2026-01-03T18:14:47+00:00",
+      "summary": "From seemingly AI-generated videos to repurposed old footage, TikTok, Instagram, and X did little to stop the onslaught of misleading posts in the wake of the US invasion of Venezuela.",
+      "fetched": "2026-01-06T11:27:39.579869"
+    },
+    {
+      "title": "The US Invaded Venezuela and Captured Nicolás Maduro. ChatGPT Disagrees",
+      "url": "https://www.wired.com/story/us-invaded-venezuela-and-captured-nicolas-maduro-chatgpt-disagrees/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2026-01-03T16:03:15+00:00",
+      "summary": "Some AI chatbots have a surprisingly good handle on breaking news. Others decidedly don’t.",
+      "fetched": "2026-01-06T11:27:39.579908"
+    },
+    {
+      "title": "Digital Nomads: A Ghanaian serial tech entrepreneur who’s finding his place in the UK pet-tech industry",
+      "url": "https://techcabal.com/2026/01/03/digital-nomads-ghanaian-freeman-faithful/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-03T10:26:32+00:00",
+      "summary": "Faithful grew up in Ghana, a country and culture which shaped his earliest views, exposure, and instincts. Like many young men raised in West Africa with an aptitude for numbers and logic, Faithful was nudged toward a respectable path early.",
+      "fetched": "2026-01-06T11:27:42.449283"
+    },
+    {
+      "title": "“The crypto ban that made us stronger”: Day 1-1000 of Yellow Card",
+      "url": "https://techcabal.com/2026/01/03/the-crypto-ban-made-us-stronger-day-1-1000-yellowcard/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-03T10:06:59+00:00",
+      "summary": "When Nigeria's CBN restricted crypto banking in 2021, Chris Maurice's Yellow Card was the only company that didn't fire staff. Here's why.",
+      "fetched": "2026-01-06T11:27:42.449302"
+    },
+    {
+      "title": "3 African startups reshaping mobility, management, and markets",
+      "url": "https://techcabal.com/2026/01/02/startups-on-our-radar-4/",
+      "source": "TechCabal",
+      "category": "africa",
+      "published": "2026-01-02T15:21:49+00:00",
+      "summary": "Startups On Our Radar spotlights African startups solving African challenges with innovation. This week, we explore three African startups in the ecommerce, HRTech, and mobility sectors and why they should be on your watchlist.",
+      "fetched": "2026-01-06T11:27:42.449320"
+    },
+    {
+      "title": "3 things Will Douglas Heaven is into right now",
+      "url": "https://www.technologyreview.com/2026/01/02/1129409/will-douglas-heaven-el-estepario-siberiano-ed-atkins-laura-jean-mckay/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2026-01-02T11:00:00+00:00",
+      "summary": "The most amazing drummer on the internet My daughter introduced me to El Estepario Siberiano’s YouTube channel a few months back, and I have been obsessed ever since. The Spanish drummer (real name: Jorge Garrido) posts videos of himself playing supercharged cover versions of popular tracks, hitting",
+      "fetched": "2026-01-06T11:27:38.656815"
+    },
+    {
+      "title": "Job titles of the future: Head-transplant surgeon",
+      "url": "https://www.technologyreview.com/2026/01/02/1129416/head-transplant-surgeon-sergio-canavero-future-job/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2026-01-02T11:00:00+00:00",
+      "summary": "The Italian neurosurgeon Sergio Canavero has been preparing for a surgery that might never happen. His idea? Swap a sick person’s head—or perhaps just the brain—onto a younger, healthier body. Canavero caused a stir in 2017 when he announced that a team he advised in China had exchanged heads betwee",
+      "fetched": "2026-01-06T11:27:38.656830"
+    },
+    {
+      "title": "AI Labor Is Boring. AI Lust Is Big Business",
+      "url": "https://www.wired.com/story/expired-tired-wired-sexy-chatbots/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2026-01-01T11:00:00+00:00",
+      "summary": "After years of hype about generative AI increasing productivity and making lives easier, 2025 was the year erotic chatbots defined AI’s narrative.",
+      "fetched": "2026-01-06T11:27:39.579948"
+    },
+    {
+      "title": "Supply chains, AI, and the cloud: The biggest failures (and one success) of 2025",
+      "url": "https://arstechnica.com/security/2025/12/supply-chains-ai-and-the-cloud-the-biggest-failures-and-one-success-of-2025/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-31T13:15:40+00:00",
+      "summary": "The past year has seen plenty of hacks and outages. Here are the ones topping the list.",
+      "fetched": "2026-01-06T11:27:40.256898"
+    },
+    {
+      "title": "From prophet to product: How AI came back down to earth in 2025",
+      "url": "https://arstechnica.com/ai/2025/12/from-prophet-to-product-how-ai-came-back-down-to-earth-in-2025/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-31T12:00:31+00:00",
+      "summary": "In a year where lofty promises collided with inconvenient research, would-be oracles became software tools.",
+      "fetched": "2026-01-06T11:27:40.256925"
+    },
+    {
+      "title": "AI-Powered Dating Is All Hype. IRL Cruising Is the Future",
+      "url": "https://www.wired.com/story/expired-tired-wired-ai-powered-dating/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2025-12-31T11:00:00+00:00",
+      "summary": "Dating apps and AI companies have been touting bot wingmen for months. But the future might just be good old-fashioned meet-cutes.",
+      "fetched": "2026-01-06T11:27:39.579988"
+    },
+    {
+      "title": "Why inventing new emotions feels so good",
+      "url": "https://www.technologyreview.com/2025/12/31/1129403/new-emotions-online-life-feelings/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2025-12-31T10:10:59+00:00",
+      "summary": "Have you ever felt “velvetmist”?&#160; It’s a “complex and subtle emotion that elicits feelings of comfort, serenity, and a gentle sense of floating.” It’s peaceful, but more ephemeral and intangible than contentment. It might be evoked by the sight of a sunset or a moody, low-key album. &#160; If y",
+      "fetched": "2026-01-06T11:27:38.656844"
+    },
+    {
+      "title": "Condé Nast user database reportedly breached, Ars unaffected",
+      "url": "https://arstechnica.com/information-technology/2025/12/conde-nast-user-database-reportedly-breached-ars-unaffected/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-30T18:45:54+00:00",
+      "summary": "A serious data breach has occurred, but Ars users have nothing to worry about.",
+      "fetched": "2026-01-06T11:27:40.256949"
+    },
+    {
+      "title": "The ascent of the AI therapist",
+      "url": "https://www.technologyreview.com/2025/12/30/1129392/book-reviews-ai-therapy-mental-health/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2025-12-30T11:00:00+00:00",
+      "summary": "We’re in the midst of a global mental-­health crisis. More than a billion people worldwide suffer from a mental-health condition, according to the World Health Organization. The prevalence of anxiety and depression is growing in many demographics, particularly young people, and suicide is claiming h",
+      "fetched": "2026-01-06T11:27:38.656858"
+    },
+    {
+      "title": "The Great Big Power Play",
+      "url": "https://www.wired.com/story/expired-tired-wired-nuclear-plants/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2025-12-30T11:00:00+00:00",
+      "summary": "US support for nuclear energy is soaring. Meanwhile, coal plants are on their way out and electricity-sucking data centers are meeting huge pushback. Welcome to the next front in the energy battle.",
+      "fetched": "2026-01-06T11:27:39.580026"
+    },
+    {
+      "title": "GPS is vulnerable to jamming—here’s how we might fix it",
+      "url": "https://arstechnica.com/information-technology/2025/12/gps-is-vulnerable-to-jamming-heres-how-we-might-fix-it/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-29T15:10:16+00:00",
+      "summary": "GPS jamming has gotten cheap and easy, but there are potential solutions.",
+      "fetched": "2026-01-06T11:27:40.256969"
+    },
+    {
+      "title": "Bangladesh’s garment-making industry is getting greener",
+      "url": "https://www.technologyreview.com/2025/12/29/1129308/bangladesh-garment-sustainability-frugal-factories/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2025-12-29T11:00:00+00:00",
+      "summary": "Pollution from textile production—dyes, chemicals, and heavy metals like lead and cadmium—is common in the waters of the Buriganga River as it runs through Dhaka, Bangladesh. It’s among many harms posed by a garment sector that was once synonymous with tragedy: In 2013, the eight-story Rana Plaza fa",
+      "fetched": "2026-01-06T11:27:38.656871"
+    },
+    {
+      "title": "3 New Tricks to Try With Google Gemini Live After Its Latest Major Upgrade",
+      "url": "https://www.wired.com/story/3-tricks-google-gemini-live-latest-major-upgrade/",
+      "source": "Wired - AI",
+      "category": "tech",
+      "published": "2025-12-29T11:00:00+00:00",
+      "summary": "Google's AI is now even smarter, and more versatile.",
+      "fetched": "2026-01-06T11:27:39.580063"
+    },
+    {
+      "title": "MIT Technology Review’s most popular stories of 2025",
+      "url": "https://www.technologyreview.com/2025/12/26/1130318/mit-technology-review-most-popular-stories-2025/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2025-12-26T12:00:00+00:00",
+      "summary": "It&#8217;s been a busy and productive year here at MIT Technology Review. We published magazine issues on power, creativity, innovation, bodies, relationships, and security. We hosted 14 exclusive virtual conversations with our editors and outside experts in our subscriber-only series, Roundtables, ",
+      "fetched": "2026-01-06T11:27:38.656885"
+    },
+    {
+      "title": "The paints, coatings, and chemicals making the world a cooler place",
+      "url": "https://www.technologyreview.com/2025/12/26/1129301/paint-coating-chemicals-materials-cooling-air-conditioning/",
+      "source": "MIT Technology Review - AI",
+      "category": "tech",
+      "published": "2025-12-26T11:00:00+00:00",
+      "summary": "It’s getting harder to beat the heat. During the summer of 2025, heat waves knocked out power grids in North America, Europe, and the Middle East. Global warming means more people need air-­conditioning, which requires more power and strains grids. But a millennia-old idea (plus 21st-century tech) m",
+      "fetched": "2026-01-06T11:27:38.656898"
+    },
+    {
+      "title": "How AI coding agents work—and what to remember if you use them",
+      "url": "https://arstechnica.com/information-technology/2025/12/how-do-ai-coding-agents-work-we-look-under-the-hood/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-24T12:00:27+00:00",
+      "summary": "From compression tricks to multi-agent teamwork, here's what makes them tick.",
+      "fetched": "2026-01-06T11:27:40.256990"
+    },
+    {
+      "title": "OpenAI’s new ChatGPT image generator makes faking photos easy",
+      "url": "https://arstechnica.com/ai/2025/12/openais-new-chatgpt-image-generator-makes-faking-photos-easy/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-17T22:22:33+00:00",
+      "summary": "New GPT Image 1.5 allows more detailed conversational image editing, for better or worse.",
+      "fetched": "2026-01-06T11:27:40.257010"
+    },
+    {
+      "title": "Browser extensions with 8 million users collect extended AI conversations",
+      "url": "https://arstechnica.com/security/2025/12/browser-extensions-with-8-million-users-collect-extended-ai-conversations/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-17T15:25:25+00:00",
+      "summary": "The extensions, available for Chromium browsers, harvest full AI conversations over months.",
+      "fetched": "2026-01-06T11:27:40.257031"
+    },
+    {
+      "title": "Merriam-Webster’s word of the year delivers a dismissive verdict on junk AI content",
+      "url": "https://arstechnica.com/ai/2025/12/merriam-webster-crowns-slop-word-of-the-year-as-ai-content-floods-internet/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-15T22:41:43+00:00",
+      "summary": "Dictionary codifies the term that took hold in 2024 for low-quality AI-generated content.",
+      "fetched": "2026-01-06T11:27:40.257050"
+    },
+    {
+      "title": "Microsoft will finally kill obsolete cipher that has wreaked decades of havoc",
+      "url": "https://arstechnica.com/security/2025/12/microsoft-will-finally-kill-obsolete-cipher-that-has-wreaked-decades-of-havoc/",
+      "source": "Ars Technica - AI",
+      "category": "tech",
+      "published": "2025-12-15T21:15:55+00:00",
+      "summary": "The weak RC4 for administrative authentication has been a hacker holy grail for decades.",
+      "fetched": "2026-01-06T11:27:40.257070"
+    }
+  ],
+  "source_count": 8,
+  "last_updated": "2026-01-06T11:27:44.215258"
+}

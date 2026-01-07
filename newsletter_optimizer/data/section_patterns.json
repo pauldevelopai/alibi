@@ -1,0 +1,427 @@
+{
+  "newsletter_count": 44,
+  "total_sections_analyzed": 400,
+  "avg_sections_per_newsletter": 9.1,
+  "min_sections": 1,
+  "max_sections": 17,
+  "section_types": {
+    "future_predictions": {
+      "name": "Future / Predictions",
+      "icon": "🔮",
+      "description": "What's coming next, predictions",
+      "count": 27,
+      "percentage": 6.8,
+      "newsletters_with": 16,
+      "example_headings": [
+        "AI & Work: how is your job going to change?",
+        "The answer is to be free",
+        "4. The paperwork is going to be a nightmare",
+        "AI in the culture",
+        "AI Solution #1: Major Floods",
+        "See you next year. Cheers.",
+        "3. Your suppliers will no longer be terrible",
+        "1. Some AI stuff is going to get banned",
+        "What’s new at Develop AI? We are going to Namibia to help innovators discover their potential!",
+        "1. Predicting problems will suddenly be easy"
+      ],
+      "avg_word_count": 269.0
+    },
+    "podcast_episode": {
+      "name": "Podcast Episode",
+      "icon": "🎙️",
+      "description": "Podcast content or episode notes",
+      "count": 27,
+      "percentage": 6.8,
+      "newsletters_with": 22,
+      "example_headings": [
+        "How this relates to everyone…",
+        "[Main Story]",
+        "What’s new at Develop Media?",
+        "Moldova & what AI is doing to podcasting",
+        "How this relates to audio…",
+        "What is happening at Develop Audio?"
+      ],
+      "avg_word_count": 131.0
+    },
+    "africa_focus": {
+      "name": "Africa / Global South Focus",
+      "icon": "🌍",
+      "description": "Africa-specific AI news and analysis",
+      "count": 35,
+      "percentage": 8.8,
+      "newsletters_with": 26,
+      "example_headings": [
+        "What’s new at Develop AI?",
+        "First: a train the trainer program that benefits communities of all sizes",
+        "Africa’s spots in the The Time Magazine AI 100",
+        "Africa, AI and the M20",
+        "The Pacific Rim & ethics training",
+        "4 lessons on AI from theAfrica Media Perspectivesconference",
+        "What’s new at Develop AI? I am at AIJC this week and Develop AI is getting involved in advising on the regulation of AI in Africa.",
+        "South Africa & The M20",
+        "[Main Story]",
+        "Second: an AI marketplace for members to sell and test their applications"
+      ],
+      "avg_word_count": 175.0
+    },
+    "research_data": {
+      "name": "Research & Data",
+      "icon": "📊",
+      "description": "Studies, statistics, and research findings",
+      "count": 13,
+      "percentage": 3.2,
+      "newsletters_with": 11,
+      "example_headings": [
+        "Is AI coding losing its value? Here's what you need to know",
+        "Germany & the need to report on AI companies more critically",
+        "Version Control Your Models and Data.",
+        "This is your brain... on AI",
+        "Serbia & data security",
+        "[Main Story]",
+        "The big threat"
+      ],
+      "avg_word_count": 401.0
+    },
+    "tools_and_tips": {
+      "name": "Tools & Tips",
+      "icon": "🛠️",
+      "description": "Practical AI tools and how to use them",
+      "count": 49,
+      "percentage": 12.2,
+      "newsletters_with": 35,
+      "example_headings": [
+        "This week’s AI tool to use…",
+        "Coding corner (the gradual process of a journalist learning how to code)",
+        "This week’s AI tool for journalists to use…",
+        "The AI tool of the week that you can use",
+        "Coming soon:",
+        "This week’s AI tool for people NOT to use…",
+        "How to code with AI",
+        "[Main Story]",
+        "Namibia & using AI for archiving",
+        "This week’s AI tool for people to use"
+      ],
+      "avg_word_count": 185.0
+    },
+    "news_roundup": {
+      "name": "News Roundup / This Week",
+      "icon": "📋",
+      "description": "Quick news items and updates",
+      "count": 119,
+      "percentage": 29.8,
+      "newsletters_with": 42,
+      "example_headings": [
+        "Newsrooms in exile & AI for fundraising",
+        "The bad: OpenAI is finally paying for news content (but way too late).",
+        "3 AI lessons I observed from giving consultations to media organisations in North Macedonia",
+        "This week’s AI tool for journalists to use…",
+        "In the news…",
+        "AI as a pathway to sustainability.",
+        "Updates from our WhatsApp Community",
+        "What AI was used in creating this newsletter",
+        "This week’s AI tools for people to use… detecting AI with AI",
+        "Afghanistan & audience modelling"
+      ],
+      "avg_word_count": 113.0
+    },
+    "links_resources": {
+      "name": "Links & Resources",
+      "icon": "🔗",
+      "description": "External links and further reading",
+      "count": 20,
+      "percentage": 5.0,
+      "newsletters_with": 13,
+      "example_headings": [
+        "Third: a glossary and resource of AI knowledge",
+        "[Main Story]"
+      ],
+      "avg_word_count": 22.0
+    },
+    "regulation_legal": {
+      "name": "Regulation & Legal",
+      "icon": "⚖️",
+      "description": "Policy, law, and regulatory updates",
+      "count": 11,
+      "percentage": 2.8,
+      "newsletters_with": 5,
+      "example_headings": [
+        "Judging AI, the legal landscape",
+        "4. The Intercept Media vs. OpenAI & Microsoft: Copyright Infringement",
+        "Author’s Guild vs. OpenAI Copyright Infringement",
+        "5. Mike Huckabee & Others vs. Meta Platforms: Copyright Infringement",
+        "2. UMG Recordings vs. Suno: Copyright Infringement",
+        "A.T. & J.H vs. OpenAI & Microsoft: Privacy Infringement",
+        "[Main Story]",
+        "3. Andre Dubus III & Susan Orlean vs. NVIDIA: Copyright Infringement"
+      ],
+      "avg_word_count": 213.0
+    },
+    "develop_ai_updates": {
+      "name": "What's Happening at Develop AI",
+      "icon": "🏠",
+      "description": "Updates about Develop AI, upcoming events, projects",
+      "count": 33,
+      "percentage": 8.2,
+      "newsletters_with": 32,
+      "example_headings": [
+        "What’s new at Develop AI?",
+        "What’s new at Develop AI? We were featured in Podnews, I did a radio interview on Power FM and participated in a full week of conferences",
+        "What is happening at Develop AI?",
+        "What’s new at Develop AI? We are expanding beyond media into helping other start-ups.",
+        "What’s new at Develop AI? We are speaking on a panel at Jamfest in Johannesburg",
+        "What’s new? Our Develop AI training workshops",
+        "What’s new at Develop AI? Jamfest in Johannesburg, Innovation Lab in Windhoek & The Egypt Media Forum in Cairo",
+        "What’s new at Develop AI? I went to Ethiopia and spoke about AI to stacks of lovely people from community radio stations.",
+        "Watch Develop AI on YouTube"
+      ],
+      "avg_word_count": 167.0
+    },
+    "closing_signoff": {
+      "name": "Closing / Sign-off",
+      "icon": "👋",
+      "description": "The ending of the newsletter",
+      "count": 41,
+      "percentage": 10.2,
+      "newsletters_with": 41,
+      "example_headings": [
+        "See you next week. All the best,",
+        "See you all next year!",
+        "See you next week. Cheers.",
+        "All the best,"
+      ],
+      "avg_word_count": 27.0
+    },
+    "interview_quote": {
+      "name": "Interview / Expert Quote",
+      "icon": "🎤",
+      "description": "Quotes or insights from experts",
+      "count": 4,
+      "percentage": 1.0,
+      "newsletters_with": 4,
+      "example_headings": [
+        "One journalist thought it was a good idea to interview an AI avatar of a dead teenager",
+        "[Main Story]"
+      ],
+      "avg_word_count": 536.0
+    },
+    "practical_advice": {
+      "name": "Practical Advice",
+      "icon": "✅",
+      "description": "Actionable recommendations for readers",
+      "count": 3,
+      "percentage": 0.8,
+      "newsletters_with": 3,
+      "example_headings": [
+        "3 points from my session “AI in Action” conducted in Serbia",
+        "[Main Story]"
+      ],
+      "avg_word_count": 426.0
+    },
+    "call_to_action": {
+      "name": "Call to Action",
+      "icon": "📣",
+      "description": "Engagement requests, subscriptions, sharing",
+      "count": 15,
+      "percentage": 3.8,
+      "newsletters_with": 13,
+      "example_headings": [
+        "Plug WhatsApp into ChatGPT",
+        "Fourth: a forum to share ideas, thoughts and ambitions",
+        "[Main Story]",
+        "What’s new at Develop AI? Our WhatsApp Community is growing"
+      ],
+      "avg_word_count": 78.0
+    },
+    "event_conference": {
+      "name": "Event / Conference",
+      "icon": "📅",
+      "description": "Conference coverage or event announcements",
+      "count": 3,
+      "percentage": 0.8,
+      "newsletters_with": 3,
+      "example_headings": [
+        "What happened at Innovation Days in Belgrade, Serbia?",
+        "[Main Story]",
+        "3 AI Lessons from the iMEdD International Journalism Forum 2024"
+      ],
+      "avg_word_count": 398.0
+    }
+  },
+  "common_patterns": [
+    {
+      "pattern": [
+        "news_roundup",
+        "news_roundup"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "News Roundup / This Week"
+      ],
+      "count": 44
+    },
+    {
+      "pattern": [
+        "develop_ai_updates",
+        "closing_signoff"
+      ],
+      "pattern_names": [
+        "What's Happening at Develop AI",
+        "Closing / Sign-off"
+      ],
+      "count": 31
+    },
+    {
+      "pattern": [
+        "tools_and_tips",
+        "news_roundup"
+      ],
+      "pattern_names": [
+        "Tools & Tips",
+        "News Roundup / This Week"
+      ],
+      "count": 22
+    },
+    {
+      "pattern": [
+        "news_roundup",
+        "develop_ai_updates"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "What's Happening at Develop AI"
+      ],
+      "count": 17
+    },
+    {
+      "pattern": [
+        "tools_and_tips",
+        "news_roundup",
+        "news_roundup"
+      ],
+      "pattern_names": [
+        "Tools & Tips",
+        "News Roundup / This Week",
+        "News Roundup / This Week"
+      ],
+      "count": 15
+    },
+    {
+      "pattern": [
+        "news_roundup",
+        "develop_ai_updates",
+        "closing_signoff"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "What's Happening at Develop AI",
+        "Closing / Sign-off"
+      ],
+      "count": 15
+    },
+    {
+      "pattern": [
+        "news_roundup",
+        "news_roundup",
+        "news_roundup"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "News Roundup / This Week",
+        "News Roundup / This Week"
+      ],
+      "count": 13
+    },
+    {
+      "pattern": [
+        "news_roundup",
+        "tools_and_tips"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "Tools & Tips"
+      ],
+      "count": 12
+    },
+    {
+      "pattern": [
+        "news_roundup",
+        "africa_focus"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "Africa / Global South Focus"
+      ],
+      "count": 12
+    },
+    {
+      "pattern": [
+        "news_roundup",
+        "news_roundup",
+        "develop_ai_updates"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "News Roundup / This Week",
+        "What's Happening at Develop AI"
+      ],
+      "count": 12
+    },
+    {
+      "pattern": [
+        "tools_and_tips",
+        "tools_and_tips"
+      ],
+      "pattern_names": [
+        "Tools & Tips",
+        "Tools & Tips"
+      ],
+      "count": 12
+    },
+    {
+      "pattern": [
+        "closing_signoff",
+        "news_roundup"
+      ],
+      "pattern_names": [
+        "Closing / Sign-off",
+        "News Roundup / This Week"
+      ],
+      "count": 10
+    },
+    {
+      "pattern": [
+        "develop_ai_updates",
+        "closing_signoff",
+        "news_roundup"
+      ],
+      "pattern_names": [
+        "What's Happening at Develop AI",
+        "Closing / Sign-off",
+        "News Roundup / This Week"
+      ],
+      "count": 9
+    },
+    {
+      "pattern": [
+        "news_roundup",
+        "call_to_action"
+      ],
+      "pattern_names": [
+        "News Roundup / This Week",
+        "Call to Action"
+      ],
+      "count": 9
+    },
+    {
+      "pattern": [
+        "future_predictions",
+        "future_predictions"
+      ],
+      "pattern_names": [
+        "Future / Predictions",
+        "Future / Predictions"
+      ],
+      "count": 8
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "title": "What do the new PC chips mean for the future of AI?",
+    "summary": "AMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This points to a future where we are all going to need to have better machines to keep pace with the AI race.",
+    "angle": "The idea of what we will need to process the AI tools of the near future is fascinating. I was recently told I need to upgrade my computer to ensure I can continue to use some tools.",
+    "story_type": "future",
+    "sources": [
+      {
+        "title": "AMD unveils new AI PC processors for general use and gaming at CES",
+        "url": "https://techcrunch.com/2026/01/05/amd-unveils-new-ai-pc-processors-for-general-use-and-gaming-at-ces/",
+        "publication": "TechCrunch AI",
+        "date": "2026-01-06"
+      }
+    ],
+    "why_it_works": "Fits perfectly with what we have been working on in our newsletter.",
+    "sections": [
+      "Main Story"
+    ],
+    "search_query": "",
+    "id": "idea_20260106_112858_0",
+    "saved_at": "2026-01-06T11:28:58.993255",
+    "used": true,
+    "used_at": "2026-01-06T12:14:32.960377"
+  }
+]

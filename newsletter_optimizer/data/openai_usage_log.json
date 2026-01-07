@@ -1,0 +1,554 @@
+{
+  "entries": [
+    {
+      "timestamp": "2026-01-01T12:31:09.167576",
+      "model": "test-model",
+      "feature": "test_feature",
+      "input_tokens": 100,
+      "output_tokens": 50,
+      "is_image": false,
+      "cost": 4.5e-05
+    },
+    {
+      "timestamp": "2026-01-01T12:32:38.410747",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "idea_generation",
+      "input_tokens": 1464,
+      "output_tokens": 1172,
+      "is_image": false,
+      "cost": 0.001846
+    },
+    {
+      "timestamp": "2026-01-01T12:33:30.961759",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "newsletter_outline",
+      "input_tokens": 7501,
+      "output_tokens": 821,
+      "is_image": false,
+      "cost": 0.003235
+    },
+    {
+      "timestamp": "2026-01-01T12:42:07.500046",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "newsletter_generation",
+      "input_tokens": 7757,
+      "output_tokens": 805,
+      "is_image": false,
+      "cost": 0.003293
+    },
+    {
+      "timestamp": "2026-01-01T12:54:54.729026",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "newsletter_outline",
+      "input_tokens": 7313,
+      "output_tokens": 1745,
+      "is_image": false,
+      "cost": 0.004288
+    },
+    {
+      "timestamp": "2026-01-01T12:55:05.978329",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "style_prompt_generation",
+      "input_tokens": 570,
+      "output_tokens": 1181,
+      "is_image": false,
+      "cost": 0.001588
+    },
+    {
+      "timestamp": "2026-01-01T12:55:14.739569",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "style_prompt_generation",
+      "input_tokens": 570,
+      "output_tokens": 1388,
+      "is_image": false,
+      "cost": 0.001837
+    },
+    {
+      "timestamp": "2026-01-01T12:55:33.285396",
+      "model": "gpt-4.1",
+      "feature": "newsletter_generation",
+      "input_tokens": 9832,
+      "output_tokens": 1359,
+      "is_image": false,
+      "cost": 0.030536
+    },
+    {
+      "timestamp": "2026-01-01T12:55:48.276568",
+      "model": "dall-e-3",
+      "feature": "image_generation",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "is_image": true,
+      "cost": 0.04
+    },
+    {
+      "timestamp": "2026-01-01T12:59:10.153840",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "idea_generation",
+      "input_tokens": 1464,
+      "output_tokens": 1307,
+      "is_image": false,
+      "cost": 0.002008
+    },
+    {
+      "timestamp": "2026-01-01T13:00:15.324259",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "newsletter_outline",
+      "input_tokens": 7555,
+      "output_tokens": 1115,
+      "is_image": false,
+      "cost": 0.003604
+    },
+    {
+      "timestamp": "2026-01-01T13:01:45.873405",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "style_prompt_generation",
+      "input_tokens": 654,
+      "output_tokens": 893,
+      "is_image": false,
+      "cost": 0.001268
+    },
+    {
+      "timestamp": "2026-01-01T13:02:04.831658",
+      "model": "gpt-4.1",
+      "feature": "newsletter_generation",
+      "input_tokens": 8912,
+      "output_tokens": 1443,
+      "is_image": false,
+      "cost": 0.029368
+    },
+    {
+      "timestamp": "2026-01-01T13:02:21.548011",
+      "model": "dall-e-3",
+      "feature": "image_generation",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "is_image": true,
+      "cost": 0.04
+    },
+    {
+      "timestamp": "2026-01-01T13:06:40.911179",
+      "model": "dall-e-3",
+      "feature": "image_generation",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "is_image": true,
+      "cost": 0.04
+    },
+    {
+      "timestamp": "2026-01-01T15:55:19.281042",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "idea_generation",
+      "input_tokens": 1556,
+      "output_tokens": 1659,
+      "is_image": false,
+      "cost": 0.002458
+    },
+    {
+      "timestamp": "2026-01-01T15:56:15.685340",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "newsletter_outline",
+      "input_tokens": 9130,
+      "output_tokens": 884,
+      "is_image": false,
+      "cost": 0.0038
+    },
+    {
+      "timestamp": "2026-01-01T15:59:56.556601",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "style_prompt_generation",
+      "input_tokens": 776,
+      "output_tokens": 302,
+      "is_image": false,
+      "cost": 0.000595
+    },
+    {
+      "timestamp": "2026-01-01T16:00:27.679588",
+      "model": "gpt-4.1",
+      "feature": "newsletter_generation",
+      "input_tokens": 10064,
+      "output_tokens": 1510,
+      "is_image": false,
+      "cost": 0.032208
+    },
+    {
+      "timestamp": "2026-01-02T09:30:22.556468",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "newsletter_outline",
+      "input_tokens": 9257,
+      "output_tokens": 868,
+      "is_image": false,
+      "cost": 0.003819
+    },
+    {
+      "timestamp": "2026-01-02T09:32:26.152877",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "style_prompt_generation",
+      "input_tokens": 803,
+      "output_tokens": 594,
+      "is_image": false,
+      "cost": 0.000954
+    },
+    {
+      "timestamp": "2026-01-02T09:32:45.825375",
+      "model": "gpt-4.1",
+      "feature": "newsletter_generation",
+      "input_tokens": 10516,
+      "output_tokens": 1705,
+      "is_image": false,
+      "cost": 0.034672
+    },
+    {
+      "timestamp": "2026-01-02T12:02:56.742956",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "newsletter_outline",
+      "input_tokens": 9223,
+      "output_tokens": 887,
+      "is_image": false,
+      "cost": 0.003831
+    },
+    {
+      "timestamp": "2026-01-02T12:04:02.182478",
+      "model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll",
+      "feature": "style_prompt_generation",
+      "input_tokens": 1089,
+      "output_tokens": 958,
+      "is_image": false,
+      "cost": 0.001476
+    },
+    {
+      "timestamp": "2026-01-02T12:04:23.934255",
+      "model": "gpt-4.1",
+      "feature": "newsletter_generation",
+      "input_tokens": 11278,
+      "output_tokens": 1268,
+      "is_image": false,
+      "cost": 0.0327
+    },
+    {
+      "timestamp": "2026-01-05T15:32:10.383709",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 1556,
+      "output_tokens": 1497,
+      "is_image": false,
+      "cost": 0.002263
+    },
+    {
+      "timestamp": "2026-01-05T15:36:56.427569",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 9594,
+      "output_tokens": 936,
+      "is_image": false,
+      "cost": 0.004001
+    },
+    {
+      "timestamp": "2026-01-05T15:40:18.482167",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 9594,
+      "output_tokens": 1218,
+      "is_image": false,
+      "cost": 0.00434
+    },
+    {
+      "timestamp": "2026-01-05T15:59:09.165726",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8981,
+      "output_tokens": 483,
+      "is_image": false,
+      "cost": 0.003274
+    },
+    {
+      "timestamp": "2026-01-05T16:04:39.410271",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "blueprint_generation",
+      "input_tokens": 4574,
+      "output_tokens": 1059,
+      "is_image": false,
+      "cost": 0.002643
+    },
+    {
+      "timestamp": "2026-01-05T16:04:44.717541",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "blueprint_execution",
+      "input_tokens": 1406,
+      "output_tokens": 1145,
+      "is_image": false,
+      "cost": 0.001796
+    },
+    {
+      "timestamp": "2026-01-05T16:48:51.484202",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 4590,
+      "output_tokens": 83,
+      "is_image": false,
+      "cost": 0.001477
+    },
+    {
+      "timestamp": "2026-01-05T16:49:26.259986",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 4590,
+      "output_tokens": 733,
+      "is_image": false,
+      "cost": 0.002257
+    },
+    {
+      "timestamp": "2026-01-05T16:55:54.065940",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 5033,
+      "output_tokens": 458,
+      "is_image": false,
+      "cost": 0.00206
+    },
+    {
+      "timestamp": "2026-01-05T17:03:22.699070",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 5450,
+      "output_tokens": 966,
+      "is_image": false,
+      "cost": 0.002794
+    },
+    {
+      "timestamp": "2026-01-05T17:09:00.920190",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 5975,
+      "output_tokens": 1278,
+      "is_image": false,
+      "cost": 0.003326
+    },
+    {
+      "timestamp": "2026-01-05T17:10:05.060768",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 5972,
+      "output_tokens": 954,
+      "is_image": false,
+      "cost": 0.002936
+    },
+    {
+      "timestamp": "2026-01-05T17:15:20.749033",
+      "model": "gpt-4.1",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 6053,
+      "output_tokens": 4376,
+      "is_image": false,
+      "cost": 0.047114
+    },
+    {
+      "timestamp": "2026-01-05T17:16:22.553406",
+      "model": "gpt-4.1",
+      "feature": "newsletter_execution",
+      "input_tokens": 4696,
+      "output_tokens": 1011,
+      "is_image": false,
+      "cost": 0.01748
+    },
+    {
+      "timestamp": "2026-01-06T11:27:52.945714",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 2298,
+      "output_tokens": 1027,
+      "is_image": false,
+      "cost": 0.001922
+    },
+    {
+      "timestamp": "2026-01-06T11:41:16.742006",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8261,
+      "output_tokens": 118,
+      "is_image": false,
+      "cost": 0.00262
+    },
+    {
+      "timestamp": "2026-01-06T11:46:58.590665",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8277,
+      "output_tokens": 908,
+      "is_image": false,
+      "cost": 0.003573
+    },
+    {
+      "timestamp": "2026-01-06T11:58:02.632229",
+      "model": "gpt-4o",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 6607,
+      "output_tokens": 1719,
+      "is_image": false,
+      "cost": 0.05882
+    },
+    {
+      "timestamp": "2026-01-06T11:58:53.330349",
+      "model": "gpt-4o",
+      "feature": "newsletter_execution",
+      "input_tokens": 2441,
+      "output_tokens": 640,
+      "is_image": false,
+      "cost": 0.021805
+    },
+    {
+      "timestamp": "2026-01-06T12:15:30.409488",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8338,
+      "output_tokens": 515,
+      "is_image": false,
+      "cost": 0.003119
+    },
+    {
+      "timestamp": "2026-01-06T12:21:51.048605",
+      "model": "gpt-4o",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 7432,
+      "output_tokens": 1944,
+      "is_image": false,
+      "cost": 0.06632
+    },
+    {
+      "timestamp": "2026-01-06T12:31:24.072492",
+      "model": "gpt-4o",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 8201,
+      "output_tokens": 1810,
+      "is_image": false,
+      "cost": 0.068155
+    },
+    {
+      "timestamp": "2026-01-07T06:02:24.781499",
+      "model": "gpt-4o",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 9302,
+      "output_tokens": 2158,
+      "is_image": false,
+      "cost": 0.07888
+    },
+    {
+      "timestamp": "2026-01-07T06:02:47.555817",
+      "model": "gpt-4o",
+      "feature": "newsletter_execution",
+      "input_tokens": 2984,
+      "output_tokens": 632,
+      "is_image": false,
+      "cost": 0.0244
+    },
+    {
+      "timestamp": "2026-01-07T06:11:33.826908",
+      "model": "gpt-4o",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 9697,
+      "output_tokens": 1662,
+      "is_image": false,
+      "cost": 0.073415
+    },
+    {
+      "timestamp": "2026-01-07T06:12:00.109297",
+      "model": "gpt-4o",
+      "feature": "newsletter_execution",
+      "input_tokens": 2576,
+      "output_tokens": 640,
+      "is_image": false,
+      "cost": 0.02248
+    }
+  ],
+  "totals": {
+    "input_tokens": 271862,
+    "output_tokens": 53884,
+    "images": 3,
+    "estimated_cost": 0.8426976999999998
+  },
+  "by_model": {
+    "test-model": {
+      "calls": 1,
+      "tokens": 150,
+      "cost": 4.4999999999999996e-05
+    },
+    "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll": {
+      "calls": 16,
+      "tokens": 83261,
+      "cost": 0.0398994
+    },
+    "gpt-4.1": {
+      "calls": 7,
+      "tokens": 74023,
+      "cost": 0.224078
+    },
+    "dall-e-3": {
+      "calls": 3,
+      "tokens": 0,
+      "cost": 0.12
+    },
+    "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR": {
+      "calls": 16,
+      "tokens": 107867,
+      "cost": 0.0444003
+    },
+    "gpt-4o": {
+      "calls": 8,
+      "tokens": 60445,
+      "cost": 0.414275
+    }
+  },
+  "by_feature": {
+    "test_feature": {
+      "calls": 1,
+      "tokens": 150,
+      "cost": 4.4999999999999996e-05
+    },
+    "idea_generation": {
+      "calls": 5,
+      "tokens": 15000,
+      "cost": 0.010495799999999998
+    },
+    "newsletter_outline": {
+      "calls": 12,
+      "tokens": 113522,
+      "cost": 0.043504799999999996
+    },
+    "newsletter_generation": {
+      "calls": 6,
+      "tokens": 66449,
+      "cost": 0.1627771
+    },
+    "style_prompt_generation": {
+      "calls": 6,
+      "tokens": 9778,
+      "cost": 0.0077177999999999995
+    },
+    "image_generation": {
+      "calls": 3,
+      "tokens": 0,
+      "cost": 0.12
+    },
+    "blueprint_generation": {
+      "calls": 1,
+      "tokens": 5633,
+      "cost": 0.0026429999999999995
+    },
+    "blueprint_execution": {
+      "calls": 1,
+      "tokens": 2551,
+      "cost": 0.0017958
+    },
+    "meticulous_prompt_generation": {
+      "calls": 12,
+      "tokens": 97043,
+      "cost": 0.4075534
+    },
+    "newsletter_execution": {
+      "calls": 4,
+      "tokens": 15620,
+      "cost": 0.086165
+    }
+  },
+  "session_start": "2026-01-01T12:31:09.167564"
+}

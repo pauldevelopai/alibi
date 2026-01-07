@@ -1,0 +1,106 @@
+# Topic keyword definitions for newsletter classification
+# Add or modify keywords to customize topic detection
+
+topics:
+  regulation:
+    - "EU AI Act"
+    - "regulation"
+    - "law"
+    - "lawsuit"
+    - "legal"
+    - "compliance"
+    - "policy"
+    - "government"
+    - "legislation"
+    - "court"
+    - "ruling"
+    - "ban"
+    - "restrict"
+
+  media_survival:
+    - "newsroom"
+    - "media"
+    - "journalism"
+    - "journalist"
+    - "public service media"
+    - "content apocalypse"
+    - "news industry"
+    - "publisher"
+    - "newspaper"
+    - "broadcast"
+    - "editorial"
+    - "reporter"
+
+  tools:
+    - "how to"
+    - "tools"
+    - "build"
+    - "tutorial"
+    - "guide"
+    - "step-by-step"
+    - "workflow"
+    - "prompt"
+    - "template"
+    - "automation"
+
+  geopolitics:
+    - "Africa"
+    - "Asia"
+    - "Europe"
+    - "China"
+    - "India"
+    - "election"
+    - "global"
+    - "international"
+    - "BBC"
+    - "Apple"
+    - "Meta"
+    - "Google"
+    - "democracy"
+    - "disinformation"
+
+# Strong verbs that often correlate with higher engagement
+strong_verbs:
+  - "destroy"
+  - "implode"
+  - "save"
+  - "endanger"
+  - "invade"
+  - "collapse"
+  - "transform"
+  - "revolutionize"
+  - "disrupt"
+  - "dominate"
+  - "crush"
+  - "kill"
+  - "expose"
+  - "reveal"
+  - "threaten"
+  - "challenge"
+
+# AI-related terms
+ai_terms:
+  - "AI"
+  - "ChatGPT"
+  - "OpenAI"
+  - "GPT"
+  - "Claude"
+  - "Gemini"
+  - "artificial intelligence"
+  - "machine learning"
+  - "LLM"
+  - "large language model"
+  - "generative AI"
+  - "Anthropic"
+  - "Copilot"
+  - "Midjourney"
+  - "DALL-E"
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,614 @@
+{
+  "meta": {
+    "newsletters_analyzed": 44,
+    "generated_from": "developai.substack.com",
+    "author": "Paul McNally"
+  },
+  "headline_formulas": {
+    "optimal_length": "10 words (53 characters)",
+    "most_effective_patterns": [],
+    "pattern_breakdown": {
+      "question_headlines": {
+        "count": 14,
+        "percentage": 31.818181818181817,
+        "examples": [
+          "What is the AI EU Act backtracking on?",
+          "AI video creation tools. How good are they now? ",
+          "Let’s not dismiss the EU AI Act… but if Meta and Apple don’t comply what’s the point?",
+          "Is more \"media literacy\" the answer to AI slop? Not if we keep doing it the same way.",
+          "Could OpenAI be wide open for extreme legal action?"
+        ]
+      },
+      "colon_headlines": {
+        "count": 2,
+        "percentage": 4.545454545454546,
+        "examples": [
+          "The AI Wars Have Begun: Apple vs the BBC",
+          "Formula 1 with AI drivers: total disaster"
+        ]
+      },
+      "number_headlines": {
+        "count": 1,
+        "percentage": 2.272727272727273,
+        "examples": [
+          "3 Incredible AI solutions for Africa (that don't involve the media or podcasting) "
+        ]
+      },
+      "ellipsis_headlines": {
+        "count": 8,
+        "percentage": 18.181818181818183,
+        "examples": [
+          "AI will turn the web into a wasteland... what's next? ",
+          "AI at The Met Gala and the horror that is to come...",
+          "ChatGPT drinks 500ml of fresh water for every 50 texts you send it... ",
+          "AI can now change your opinion... on any topic",
+          "AI So White... and why the AI \"white racism\" at Google was overblown"
+        ]
+      }
+    },
+    "headline_templates": [],
+    "opening_words_that_work": {
+      "ai": 13,
+      "is": 3,
+      "how": 3,
+      "the": 3,
+      "what": 1,
+      "let’s": 1,
+      "new": 1,
+      "five": 1,
+      "we": 1,
+      "could": 1,
+      "will": 1,
+      "why": 1,
+      "formula": 1,
+      "with": 1,
+      "not": 1
+    },
+    "examples_by_type": {
+      "provocative_questions": [
+        "What is the AI EU Act backtracking on?",
+        "AI video creation tools. How good are they now? ",
+        "Let’s not dismiss the EU AI Act… but if Meta and Apple don’t comply what’s the point?",
+        "Is more \"media literacy\" the answer to AI slop? Not if we keep doing it the same way.",
+        "Could OpenAI be wide open for extreme legal action?",
+        "Will Google & AI destroy podcasting?",
+        "AI & Data Incest - What is the Solution?",
+        "Is it too late for us to fight AI over copyright?",
+        "AI will turn the web into a wasteland... what's next? ",
+        "Why is the media selling their prized content to OpenAI?",
+        "With AI will Facebook finally improve the world?",
+        "AI vs The Law - who will win? ",
+        "How will AI invade the world's elections this year? ",
+        "Is AI funnier than we want to accept?"
+      ],
+      "how_to": [
+        "How to build your own AI model and trap it in your house",
+        "How to plug WhatsApp directly into ChatGPT"
+      ],
+      "listicles": [
+        "3 Incredible AI solutions for Africa (that don't involve the media or podcasting) "
+      ],
+      "vs_confrontation": [
+        "The AI Wars Have Begun: Apple vs the BBC",
+        "AI vs The Law - who will win? "
+      ],
+      "future_predictions": [
+        "Will Google & AI destroy podcasting?",
+        "AI in Africa and Asia - we need to produce our own AI tools and here's how Develop AI will help",
+        "AI will turn the web into a wasteland... what's next? ",
+        "With AI will Facebook finally improve the world?",
+        "AI vs The Law - who will win? ",
+        "Here's how AI will improve your business forever ",
+        "How will AI invade the world's elections this year? ",
+        "Spotify's annoying AI DJ and the future of AI in audio ",
+        "AI strategies for newsrooms... and the content apocalypse that is coming",
+        "Zimbabwe has built an AI newsreader, but she isn't coming for your job"
+      ]
+    }
+  },
+  "writing_voice": {
+    "characteristics": [
+      "Conversational tone (uses contractions)"
+    ],
+    "signature_vocabulary": [
+      "media",
+      "people",
+      "develop",
+      "newsletter",
+      "week",
+      "chatgpt",
+      "going",
+      "content",
+      "training",
+      "news",
+      "africa",
+      "used",
+      "using",
+      "podcast",
+      "need",
+      "these",
+      "here",
+      "work",
+      "journalists",
+      "whatsapp",
+      "code",
+      "next",
+      "created",
+      "best",
+      "community",
+      "help",
+      "because",
+      "openai",
+      "world",
+      "year"
+    ],
+    "signature_phrases": [
+      "our whatsapp community",
+      "is going to",
+      "see you next",
+      "you next week.",
+      "ai was used",
+      "all the best,",
+      "was used in",
+      "used in creating",
+      "going to be",
+      "what ai was",
+      "in creating this",
+      "creating this newsletter",
+      "this newsletter ?",
+      "email me directly",
+      "me directly on",
+      "at develop ai?",
+      "are going to",
+      "if you are",
+      "support this newsletter",
+      "cape town, south"
+    ],
+    "sentence_style": {
+      "avg_length": "19.7 words",
+      "punchy_short_sentences": "23.7% are 10 words or less"
+    },
+    "paragraph_style": {
+      "avg_length": "40.4 words",
+      "keeps_paragraphs_short": true
+    },
+    "opening_techniques": {
+      "sample_openings": [
+        "The media has always been at the centre of the AI explosion and while last year it looked like it was taking serious hits, in 2025 it showed that there was a willingness to embrace AI and double down on quality journalism that holds the powerful to account. Here are the lessons learnt from the workDevelop AIhas done this year around the world.",
+        "I was in Copenhagen last week, which is a lovely theme park type of city. I was speaking at IMS’sCopenhagen Conference on Information Integrityon a panel about AI and the future of media. One of my fellow panellists was the Danish Tech Ambassador, Anne Marie Engtoft Meldgaard. She was the first in the world to hold this kind of position and she had just come from the US where everyone she spoke to was obsessed with AIG (the development of a super intelligence that will replace us all). In contrast, the tone and incredible calibre of speakers at the conference (which took place at UN City) made me feel like the EU is focused on the moral and humane use of tech in the world and how we can harness it for good.",
+        "It is always good to let the relentless wave of AI text-to-video hype wash over you and then check in every few months on what the actual quality is looking like.",
+        "Versions of these stories first appeared on my LinkedIn newsletter,Develop AI Daily.",
+        "These stories first appeared on my daily LinkedIn newsletter,Develop AI Daily.",
+        "These stories first appeared on my daily LinkedIn newsletter,Develop AI Daily.",
+        "Please welcome the return of our podcast \"Burn It Down\" which will, going forward, focus exclusively on AI and education.",
+        "A version of this article was originally published byPublic Media Alliance.",
+        "For the longest time I have told people, “I’m not a coder. I use ChatGPT.” But that has begun to change. I still use ChatGPT for help, but I am getting a tighter grip every day on how software is built and what it is capable of.",
+        "I remember when my PC began to search the actual words inside my Word documents rather than just the titles of my files… it was a complete game changer. It felt like this evolution in search would solve all of my life’s problems. But now, decades later, I just feel like I am drowning in Zoom call recordings and endless WhatsApp group images. The most exciting part of the AI revolution, for me, is that we will finally have order and insights from all this data we have been collecting."
+      ],
+      "common_opening_words": [
+        [
+          "i",
+          9
+        ],
+        [
+          "the",
+          4
+        ],
+        [
+          "this",
+          3
+        ],
+        [
+          "it",
+          2
+        ],
+        [
+          "these",
+          2
+        ],
+        [
+          "a",
+          2
+        ],
+        [
+          "last",
+          2
+        ],
+        [
+          "my",
+          2
+        ],
+        [
+          "remember",
+          2
+        ],
+        [
+          "versions",
+          1
+        ]
+      ]
+    },
+    "closing_techniques": {
+      "sample_closings": [
+        "Email me directly on paul@developai.co.za, find me onLinkedInor chat to me on ourWhatsApp Community.",
+        "Email me directly on paul@developai.co.za, find me onLinkedInor chat to me on ourWhatsApp Community.",
+        "Email me directly on paul@developai.co.za, find me onLinkedInor chat to me on ourWhatsApp Community. We have also recently started chatting onDiscordand uploading toHugging Face.",
+        "Email me directly on paul@developai.co.za, find me onLinkedInor chat to me on ourWhatsApp Community. We have also recently started chatting onDiscordand uploading toHugging Face.",
+        "Pay $5 to support this newsletter",
+        "Pay $5 to support this newsletter",
+        "In this first episode I talk to celebrated journalist (and one of my oldest friends) Gavin Haynes about what AI will do to the job market, what tech will do to schooling and how his janky, largely tech free 90s education did a pretty good job.WATCH onYouTube:",
+        "Thank you to all our paid subscribers.For $5 a month you canhelp supportthis newsletter (and keep it free for everyone).",
+        "Thank you to all our paid subscribers.For $5 a month you canhelp supportthis newsletter (and keep it free for everyone).",
+        "Thank you to all our paid subscribers.For $5 a month you canhelp supportthis newsletter (and keep it free for everyone)."
+      ]
+    }
+  },
+  "structure_blueprint": {
+    "typical_length": "821 - 1525 words",
+    "avg_word_count": 1173.590909090909,
+    "sections": {
+      "avg_h2_sections": 0.022727272727272728,
+      "avg_h3_sections": 0.1590909090909091,
+      "uses_numbered_sections_pct": 0.0
+    },
+    "elements": {
+      "avg_paragraphs": 29.181818181818183,
+      "avg_lists": 2.977272727272727,
+      "avg_blockquotes": 1.0909090909090908,
+      "avg_links": 28.477272727272727,
+      "avg_images": 4.386363636363637
+    },
+    "section_heading_styles": {
+      "What... questions": 2,
+      "Short declarative": 1
+    }
+  },
+  "topic_strategy": {
+    "primary_themes": [
+      "media_industry",
+      "future_predictions",
+      "ai_tools",
+      "how_to_practical",
+      "africa",
+      "controversy",
+      "ai_regulation",
+      "global_south"
+    ],
+    "topic_mix": {
+      "media_industry": {
+        "count": 44,
+        "percentage": 100.0,
+        "examples": [
+          "AI Lessons for 2025 from around the world ",
+          "What is the AI EU Act backtracking on?",
+          "AI video creation tools. How good are they now? "
+        ]
+      },
+      "future_predictions": {
+        "count": 44,
+        "percentage": 100.0,
+        "examples": [
+          "AI Lessons for 2025 from around the world ",
+          "What is the AI EU Act backtracking on?",
+          "AI video creation tools. How good are they now? "
+        ]
+      },
+      "ai_tools": {
+        "count": 43,
+        "percentage": 97.72727272727273,
+        "examples": [
+          "AI Lessons for 2025 from around the world ",
+          "What is the AI EU Act backtracking on?",
+          "AI video creation tools. How good are they now? "
+        ]
+      },
+      "how_to_practical": {
+        "count": 43,
+        "percentage": 97.72727272727273,
+        "examples": [
+          "AI Lessons for 2025 from around the world ",
+          "What is the AI EU Act backtracking on?",
+          "AI video creation tools. How good are they now? "
+        ]
+      },
+      "africa": {
+        "count": 41,
+        "percentage": 93.18181818181817,
+        "examples": [
+          "AI Lessons for 2025 from around the world ",
+          "What is the AI EU Act backtracking on?",
+          "AI video creation tools. How good are they now? "
+        ]
+      },
+      "controversy": {
+        "count": 37,
+        "percentage": 84.0909090909091,
+        "examples": [
+          "AI Lessons for 2025 from around the world ",
+          "What is the AI EU Act backtracking on?",
+          "AI video creation tools. How good are they now? "
+        ]
+      },
+      "ai_regulation": {
+        "count": 31,
+        "percentage": 70.45454545454545,
+        "examples": [
+          "AI Lessons for 2025 from around the world ",
+          "What is the AI EU Act backtracking on?",
+          "Let’s not dismiss the EU AI Act… but if Meta and Apple don’t comply what’s the point?"
+        ]
+      },
+      "global_south": {
+        "count": 11,
+        "percentage": 25.0,
+        "examples": [
+          "What is the AI EU Act backtracking on?",
+          "Let’s not dismiss the EU AI Act… but if Meta and Apple don’t comply what’s the point?",
+          "Is more \"media literacy\" the answer to AI slop? Not if we keep doing it the same way."
+        ]
+      }
+    },
+    "winning_angles": []
+  },
+  "rules_for_success": [
+    "Use question headlines ~32% of the time - they create engagement",
+    "Keep headlines around 10 words",
+    "Target 1173 words per newsletter",
+    "Voice: Conversational tone (uses contractions)",
+    "NEVER use generic cliches or corporate speak - be specific, direct, and authentic"
+  ],
+  "cliches_to_avoid": [
+    "Change is coming, and it's coming fast",
+    "land on your feet",
+    "this is your moment",
+    "double down",
+    "what makes you human",
+    "Let's get ready for [year], together",
+    "the future is now",
+    "game changer",
+    "think outside the box",
+    "at the end of the day",
+    "it's not rocket science",
+    "the writing is on the wall",
+    "paradigm shift",
+    "low-hanging fruit",
+    "move the needle",
+    "circle back",
+    "touch base",
+    "synergy",
+    "leverage",
+    "disrupt",
+    "innovative solution",
+    "cutting edge",
+    "state of the art",
+    "take it to the next level",
+    "raise the bar",
+    "step up your game",
+    "the bottom line",
+    "it goes without saying",
+    "needless to say",
+    "in this day and age",
+    "now more than ever",
+    "the time is now",
+    "seize the opportunity",
+    "embrace change",
+    "adapt or die",
+    "survival of the fittest",
+    "the only constant is change",
+    "knowledge is power",
+    "work smarter, not harder"
+  ],
+  "sample_high_performers": [
+    {
+      "title": "It is time to Develop AI for African media",
+      "open_rate": 1.0164,
+      "views": null
+    },
+    {
+      "title": "How to plug WhatsApp directly into ChatGPT",
+      "open_rate": 0.8528,
+      "views": null
+    },
+    {
+      "title": "Develop AI tools, coding tips and the Time magazine AI 100",
+      "open_rate": 0.8056,
+      "views": null
+    },
+    {
+      "title": "Use AI to build a complete podcast episode - no mics required",
+      "open_rate": 0.8026,
+      "views": null
+    },
+    {
+      "title": "Those insane AI videos... we need to talk",
+      "open_rate": 0.7419,
+      "views": null
+    },
+    {
+      "title": "Zimbabwe has built an AI newsreader, but she isn't coming for your job",
+      "open_rate": 0.724,
+      "views": null
+    },
+    {
+      "title": "The insane bias in generative images... and if it is possible to fix",
+      "open_rate": 0.6711,
+      "views": null
+    },
+    {
+      "title": "Five ways AI can save and endanger Public Service Media",
+      "open_rate": 0.6533,
+      "views": null
+    },
+    {
+      "title": "AI strategies for newsrooms... and the content apocalypse that is coming",
+      "open_rate": 0.6397,
+      "views": null
+    },
+    {
+      "title": "The 7 African projects that are embracing AI and data journalism",
+      "open_rate": 0.6068,
+      "views": null
+    }
+  ],
+  "performance_insights": {
+    "sample_size": 44,
+    "avg_open_rate": 0.5818272727272726,
+    "feature_impact": {
+      "Question headlines (?)": {
+        "with_feature": 0.5221,
+        "without_feature": 0.6097,
+        "difference": -0.0875,
+        "difference_pct": "-8.8%",
+        "count_with": 14,
+        "count_without": 30,
+        "recommendation": "AVOID"
+      },
+      "Colon headlines (:)": {
+        "with_feature": 0.5388,
+        "without_feature": 0.5839,
+        "difference": -0.045,
+        "difference_pct": "-4.5%",
+        "count_with": 2,
+        "count_without": 42,
+        "recommendation": "AVOID"
+      },
+      "Ellipsis headlines (...)": {
+        "with_feature": 0.6026,
+        "without_feature": 0.5772,
+        "difference": 0.0254,
+        "difference_pct": "+2.5%",
+        "count_with": 8,
+        "count_without": 36,
+        "recommendation": "NEUTRAL"
+      },
+      "\"How to\" headlines": {
+        "with_feature": 0.7087,
+        "without_feature": 0.5758,
+        "difference": 0.1329,
+        "difference_pct": "+13.3%",
+        "count_with": 2,
+        "count_without": 42,
+        "recommendation": "USE MORE"
+      },
+      "\"Will\" predictions": {
+        "with_feature": 0.5502,
+        "without_feature": 0.5878,
+        "difference": -0.0376,
+        "difference_pct": "-3.8%",
+        "count_with": 7,
+        "count_without": 37,
+        "recommendation": "AVOID"
+      },
+      "AI terminology": {
+        "with_feature": 0.5821,
+        "without_feature": 0.5784,
+        "difference": 0.0037,
+        "difference_pct": "+0.4%",
+        "count_with": 41,
+        "count_without": 3,
+        "recommendation": "NEUTRAL"
+      },
+      "Africa mentions": {
+        "with_feature": 0.6286,
+        "without_feature": 0.5758,
+        "difference": 0.0528,
+        "difference_pct": "+5.3%",
+        "count_with": 5,
+        "count_without": 39,
+        "recommendation": "USE MORE"
+      },
+      "Strong emotional words": {
+        "with_feature": 0.5633,
+        "without_feature": 0.5848,
+        "difference": -0.0215,
+        "difference_pct": "-2.1%",
+        "count_with": 6,
+        "count_without": 38,
+        "recommendation": "NEUTRAL"
+      }
+    },
+    "top_performers": [
+      {
+        "title": "It is time to Develop AI for African media",
+        "open_rate": 1.0164,
+        "features": []
+      },
+      {
+        "title": "How to plug WhatsApp directly into ChatGPT",
+        "open_rate": 0.8528,
+        "features": [
+          "how-to"
+        ]
+      },
+      {
+        "title": "Develop AI tools, coding tips and the Time magazine AI 100",
+        "open_rate": 0.8056,
+        "features": []
+      },
+      {
+        "title": "Use AI to build a complete podcast episode - no mics required",
+        "open_rate": 0.8026,
+        "features": []
+      },
+      {
+        "title": "Those insane AI videos... we need to talk",
+        "open_rate": 0.7419,
+        "features": [
+          "ellipsis",
+          "strong-word"
+        ]
+      },
+      {
+        "title": "Zimbabwe has built an AI newsreader, but she isn't coming for your job",
+        "open_rate": 0.724,
+        "features": []
+      },
+      {
+        "title": "The insane bias in generative images... and if it is possible to fix",
+        "open_rate": 0.6711,
+        "features": [
+          "ellipsis",
+          "strong-word"
+        ]
+      },
+      {
+        "title": "Five ways AI can save and endanger Public Service Media",
+        "open_rate": 0.6533,
+        "features": []
+      },
+      {
+        "title": "AI strategies for newsrooms... and the content apocalypse that is coming",
+        "open_rate": 0.6397,
+        "features": [
+          "ellipsis"
+        ]
+      },
+      {
+        "title": "The 7 African projects that are embracing AI and data journalism",
+        "open_rate": 0.6068,
+        "features": []
+      }
+    ],
+    "insights": [
+      "✓ \"How to\" headlines: +13.3% open rate (2 newsletters)",
+      "✓ Africa mentions: +5.3% open rate (5 newsletters)",
+      "✓ Ellipsis headlines (...): +2.5% open rate (8 newsletters)",
+      "✗ Question headlines (?): -8.8% open rate (14 newsletters)",
+      "✗ Colon headlines (:): -4.5% open rate (2 newsletters)"
+    ],
+    "headline_length": {
+      "short_1_7_words": {
+        "avg_open_rate": 0.5757,
+        "count": 7
+      },
+      "medium_8_12_words": {
+        "avg_open_rate": 0.5826,
+        "count": 28
+      },
+      "long_13_plus_words": {
+        "avg_open_rate": 0.5843,
+        "count": 9
+      }
+    }
+  }
+}

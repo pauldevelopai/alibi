@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.developai.newsletter-optimizer</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/paulmcnally/.asdf/shims/streamlit</string>
+        <string>run</string>
+        <string>/Users/paulmcnally/Developai Dropbox/Paul McNally/DROPBOX/ONMAC/PYTHON 2025/substack/newsletter_optimizer/app.py</string>
+        <string>--server.headless</string>
+        <string>true</string>
+        <string>--server.port</string>
+        <string>8501</string>
+    </array>
+    
+    <key>WorkingDirectory</key>
+    <string>/Users/paulmcnally/Developai Dropbox/Paul McNally/DROPBOX/ONMAC/PYTHON 2025/substack/newsletter_optimizer</string>
+    
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/paulmcnally/.asdf/shims:/usr/local/bin:/usr/bin:/bin</string>
+        <key>OPENAI_API_KEY</key>
+        <string>YOUR_OPENAI_API_KEY_HERE</string>
+    </dict>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <true/>
+    
+    <key>StandardOutPath</key>
+    <string>/Users/paulmcnally/Developai Dropbox/Paul McNally/DROPBOX/ONMAC/PYTHON 2025/substack/newsletter_optimizer/app.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/Users/paulmcnally/Developai Dropbox/Paul McNally/DROPBOX/ONMAC/PYTHON 2025/substack/newsletter_optimizer/app_error.log</string>
+</dict>
+</plist>
+

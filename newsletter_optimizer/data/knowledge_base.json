@@ -1,0 +1,47 @@
+{
+  "articles": [
+    {
+      "id": "71008efe7134",
+      "title": "AMD unveils new AI PC processors for general use and gaming at CES",
+      "url": "https://techcrunch.com/2026/01/05/amd-unveils-new-ai-pc-processors-for-general-use-and-gaming-at-ces/",
+      "source": "TechCrunch AI",
+      "summary": "",
+      "published": "2026-01-06",
+      "category": "idea_source",
+      "key_points": [],
+      "added_at": "2026-01-06T11:28:59.087356",
+      "used_count": 3,
+      "usage_history": [
+        {
+          "date": "2026-01-06T12:21:14.029924",
+          "newsletter_headline": "PC chips are getting an upgrade. Here’s why you should care.",
+          "newsletter_id": "",
+          "usage_type": "generation"
+        },
+        {
+          "date": "2026-01-06T12:30:53.306448",
+          "newsletter_headline": "PC chips are getting an upgrade. Here’s why you should care.",
+          "newsletter_id": "",
+          "usage_type": "generation"
+        },
+        {
+          "date": "2026-01-07T05:53:13.623245",
+          "newsletter_headline": "PC chips are getting an upgrade. Here’s why you should care.",
+          "newsletter_id": "",
+          "usage_type": "generation"
+        }
+      ],
+      "url_validated": true,
+      "url_validation_date": "2026-01-06T11:28:59.087381",
+      "url_validation_error": null,
+      "last_used": "2026-01-07T05:53:13.623252"
+    }
+  ],
+  "facts": [],
+  "topics": {},
+  "metadata": {
+    "created": "2026-01-06T11:28:58.995219",
+    "last_updated": "2026-01-07T05:53:13.623298",
+    "total_articles": 1
+  }
+}

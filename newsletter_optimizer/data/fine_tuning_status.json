@@ -1,0 +1,24 @@
+{
+  "jobs": [
+    {
+      "job_id": "ftjob-jeQbOXVIitN5wq4ozIHfOaKa",
+      "status": "succeeded",
+      "base_model": "gpt-4o-mini-2024-07-18",
+      "suffix": "newsletter-paul",
+      "created_at": "2026-01-01T09:04:41.017875",
+      "training_file_id": "file-E3PceFz9SPpM6y7iySc9Tv",
+      "fine_tuned_model": "ft:gpt-4o-mini-2024-07-18:developai:newsletter-paul:Ct79Rjll"
+    },
+    {
+      "job_id": "ftjob-JoChhTf23YvhBEJ73yvkLNnF",
+      "status": "succeeded",
+      "base_model": "gpt-4o-2024-08-06",
+      "suffix": "newsletter-jan03",
+      "created_at": "2026-01-03T10:33:55.765597",
+      "training_file_id": "file-H5Xp9RkVRq3Ca9MSuJ9je2",
+      "fine_tuned_model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR"
+    }
+  ],
+  "active_model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+  "last_updated": "2026-01-07T06:12:00.741036"
+}

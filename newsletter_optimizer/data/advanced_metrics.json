@@ -1,0 +1,739 @@
+{
+  "newsletter_count": 44,
+  "metrics": {
+    "doom_level": {
+      "name": "Doom Level",
+      "description": "How apocalyptic/negative is the content?",
+      "category": "tone",
+      "mean": 20.6,
+      "min": 15.0,
+      "max": 27.8,
+      "std": 3.1
+    },
+    "optimism_level": {
+      "name": "Optimism Level",
+      "description": "How positive/hopeful is the content?",
+      "category": "tone",
+      "mean": 25.9,
+      "min": 18.4,
+      "max": 39.8,
+      "std": 4.8
+    },
+    "urgency_level": {
+      "name": "Urgency Level",
+      "description": "How time-sensitive does the content feel?",
+      "category": "tone",
+      "mean": 30.1,
+      "min": 20.0,
+      "max": 41.2,
+      "std": 5.0
+    },
+    "controversy_level": {
+      "name": "Controversy Level",
+      "description": "How provocative/controversial is the take?",
+      "category": "tone",
+      "mean": 30.5,
+      "min": 20.0,
+      "max": 50.9,
+      "std": 6.4
+    },
+    "humor_usage": {
+      "name": "Humor Usage",
+      "description": "How much humor/wit is used?",
+      "category": "style",
+      "mean": 21.2,
+      "min": 20.0,
+      "max": 41.8,
+      "std": 3.6
+    },
+    "personal_voice": {
+      "name": "Personal Voice",
+      "description": "How personal/first-person is the writing?",
+      "category": "style",
+      "mean": 31.6,
+      "min": 20.0,
+      "max": 53.7,
+      "std": 6.8
+    },
+    "storytelling": {
+      "name": "Storytelling",
+      "description": "How narrative-driven is the content?",
+      "category": "style",
+      "mean": 27.0,
+      "min": 20.0,
+      "max": 35.7,
+      "std": 4.5
+    },
+    "conversational_tone": {
+      "name": "Conversational Tone",
+      "description": "How casual/conversational vs formal?",
+      "category": "style",
+      "mean": 63.3,
+      "min": 35.5,
+      "max": 100.0,
+      "std": 17.2
+    },
+    "research_depth": {
+      "name": "Research Depth",
+      "description": "How well-researched with data/sources?",
+      "category": "depth",
+      "mean": 33.8,
+      "min": 20.0,
+      "max": 53.7,
+      "std": 8.3
+    },
+    "expert_citations": {
+      "name": "Expert Citations",
+      "description": "How many experts/sources are quoted?",
+      "category": "depth",
+      "mean": 32.0,
+      "min": 21.9,
+      "max": 69.6,
+      "std": 9.7
+    },
+    "technical_depth": {
+      "name": "Technical Depth",
+      "description": "How technical/detailed is the explanation?",
+      "category": "depth",
+      "mean": 35.3,
+      "min": 20.0,
+      "max": 59.5,
+      "std": 9.9
+    },
+    "actionability": {
+      "name": "Actionability",
+      "description": "How actionable/practical is the content?",
+      "category": "practical",
+      "mean": 36.1,
+      "min": 20.0,
+      "max": 55.6,
+      "std": 7.1
+    },
+    "tool_focus": {
+      "name": "Tool Focus",
+      "description": "How focused on specific tools/products?",
+      "category": "practical",
+      "mean": 63.4,
+      "min": 20.0,
+      "max": 100.0,
+      "std": 14.9
+    },
+    "africa_focus": {
+      "name": "Africa Focus",
+      "description": "How focused on African perspectives?",
+      "category": "geographic",
+      "mean": 38.1,
+      "min": 20.0,
+      "max": 100.0,
+      "std": 17.9
+    },
+    "global_south_focus": {
+      "name": "Global South Focus",
+      "description": "How focused on Global South perspectives?",
+      "category": "geographic",
+      "mean": 20.8,
+      "min": 20.0,
+      "max": 32.1,
+      "std": 2.1
+    },
+    "western_focus": {
+      "name": "Western/Tech Hub Focus",
+      "description": "How focused on US/Europe/Silicon Valley?",
+      "category": "geographic",
+      "mean": 80.8,
+      "min": 49.8,
+      "max": 100.0,
+      "std": 13.6
+    },
+    "journalism_focus": {
+      "name": "Journalism Focus",
+      "description": "How focused on journalism/newsrooms?",
+      "category": "industry",
+      "mean": 62.5,
+      "min": 29.1,
+      "max": 100.0,
+      "std": 18.9
+    },
+    "regulation_focus": {
+      "name": "Regulation Focus",
+      "description": "How focused on law/regulation/policy?",
+      "category": "industry",
+      "mean": 27.6,
+      "min": 20.0,
+      "max": 90.9,
+      "std": 12.3
+    },
+    "cta_strength": {
+      "name": "CTA Strength",
+      "description": "How strong are calls to action?",
+      "category": "engagement",
+      "mean": 36.9,
+      "min": 22.4,
+      "max": 77.0,
+      "std": 9.5
+    },
+    "question_engagement": {
+      "name": "Question Engagement",
+      "description": "How many rhetorical questions are asked?",
+      "category": "engagement",
+      "mean": 13.6,
+      "min": 0.0,
+      "max": 27.9,
+      "std": 6.8
+    },
+    "list_usage": {
+      "name": "List Usage",
+      "description": "How much are lists/bullets used?",
+      "category": "structure",
+      "mean": 54.8,
+      "min": 0,
+      "max": 100,
+      "std": 28.0
+    },
+    "subhead_density": {
+      "name": "Subhead Density",
+      "description": "How many section breaks/subheadings?",
+      "category": "structure",
+      "mean": 4.1,
+      "min": 0,
+      "max": 80,
+      "std": 15.9
+    },
+    "skepticism_level": {
+      "name": "Skepticism Level",
+      "description": "How skeptical/questioning of claims and hype?",
+      "category": "tone",
+      "mean": 37.8,
+      "min": 20.0,
+      "max": 64.8,
+      "std": 7.6
+    },
+    "directness": {
+      "name": "Directness",
+      "description": "How direct and blunt vs hedging and diplomatic?",
+      "category": "style",
+      "mean": 100.0,
+      "min": 100,
+      "max": 100,
+      "std": 0.0
+    },
+    "specificity": {
+      "name": "Specificity",
+      "description": "How specific with names, numbers, and details?",
+      "category": "depth",
+      "mean": 8.3,
+      "min": 4.6,
+      "max": 16.2,
+      "std": 2.1
+    },
+    "forward_looking": {
+      "name": "Forward Looking",
+      "description": "How focused on future vs present/past?",
+      "category": "tone",
+      "mean": 32.2,
+      "min": 3.6,
+      "max": 100.0,
+      "std": 16.9
+    },
+    "anecdote_usage": {
+      "name": "Anecdote Usage",
+      "description": "How many personal stories and examples?",
+      "category": "style",
+      "mean": 21.7,
+      "min": 20.0,
+      "max": 26.6,
+      "std": 1.8
+    },
+    "link_density": {
+      "name": "Link Density",
+      "description": "How many external links and references?",
+      "category": "depth",
+      "mean": 96.1,
+      "min": 59.5,
+      "max": 100.0,
+      "std": 8.4
+    },
+    "emoji_usage": {
+      "name": "Emoji Usage",
+      "description": "How much emoji/visual elements are used?",
+      "category": "style",
+      "mean": 20.0,
+      "min": 20.0,
+      "max": 20.0,
+      "std": 0.0
+    },
+    "critique_intensity": {
+      "name": "Critique Intensity",
+      "description": "How critical of tech companies and industry?",
+      "category": "tone",
+      "mean": 21.5,
+      "min": 20.0,
+      "max": 26.8,
+      "std": 2.0
+    },
+    "solution_orientation": {
+      "name": "Solution Orientation",
+      "description": "How focused on solutions vs just problems?",
+      "category": "practical",
+      "mean": 31.7,
+      "min": 20.0,
+      "max": 53.6,
+      "std": 6.8
+    },
+    "audience_acknowledgment": {
+      "name": "Audience Acknowledgment",
+      "description": "How directly addressed is the reader?",
+      "category": "engagement",
+      "mean": 69.4,
+      "min": 35.5,
+      "max": 100.0,
+      "std": 18.7
+    }
+  },
+  "correlations": {
+    "doom_level": {
+      "name": "Doom Level",
+      "correlation": -0.349,
+      "high_avg_open_rate": 0.541,
+      "low_avg_open_rate": 0.619,
+      "difference": -0.079
+    },
+    "optimism_level": {
+      "name": "Optimism Level",
+      "correlation": 0.313,
+      "high_avg_open_rate": 0.607,
+      "low_avg_open_rate": 0.557,
+      "difference": 0.05
+    },
+    "urgency_level": {
+      "name": "Urgency Level",
+      "correlation": -0.379,
+      "high_avg_open_rate": 0.557,
+      "low_avg_open_rate": 0.606,
+      "difference": -0.049
+    },
+    "controversy_level": {
+      "name": "Controversy Level",
+      "correlation": -0.269,
+      "high_avg_open_rate": 0.562,
+      "low_avg_open_rate": 0.602,
+      "difference": -0.04
+    },
+    "humor_usage": {
+      "name": "Humor Usage",
+      "correlation": 0.132,
+      "high_avg_open_rate": 0.586,
+      "low_avg_open_rate": 0.58,
+      "difference": 0.006
+    },
+    "personal_voice": {
+      "name": "Personal Voice",
+      "correlation": -0.152,
+      "high_avg_open_rate": 0.567,
+      "low_avg_open_rate": 0.597,
+      "difference": -0.03
+    },
+    "storytelling": {
+      "name": "Storytelling",
+      "correlation": 0.239,
+      "high_avg_open_rate": 0.617,
+      "low_avg_open_rate": 0.547,
+      "difference": 0.07
+    },
+    "conversational_tone": {
+      "name": "Conversational Tone",
+      "correlation": 0.09,
+      "high_avg_open_rate": 0.594,
+      "low_avg_open_rate": 0.57,
+      "difference": 0.024
+    },
+    "research_depth": {
+      "name": "Research Depth",
+      "correlation": 0.052,
+      "high_avg_open_rate": 0.586,
+      "low_avg_open_rate": 0.578,
+      "difference": 0.008
+    },
+    "expert_citations": {
+      "name": "Expert Citations",
+      "correlation": 0.606,
+      "high_avg_open_rate": 0.629,
+      "low_avg_open_rate": 0.535,
+      "difference": 0.094
+    },
+    "technical_depth": {
+      "name": "Technical Depth",
+      "correlation": 0.249,
+      "high_avg_open_rate": 0.597,
+      "low_avg_open_rate": 0.567,
+      "difference": 0.03
+    },
+    "actionability": {
+      "name": "Actionability",
+      "correlation": 0.149,
+      "high_avg_open_rate": 0.596,
+      "low_avg_open_rate": 0.568,
+      "difference": 0.028
+    },
+    "tool_focus": {
+      "name": "Tool Focus",
+      "correlation": 0.324,
+      "high_avg_open_rate": 0.581,
+      "low_avg_open_rate": 0.583,
+      "difference": -0.002
+    },
+    "africa_focus": {
+      "name": "Africa Focus",
+      "correlation": 0.559,
+      "high_avg_open_rate": 0.628,
+      "low_avg_open_rate": 0.535,
+      "difference": 0.093
+    },
+    "global_south_focus": {
+      "name": "Global South Focus",
+      "correlation": -0.072,
+      "high_avg_open_rate": 0.572,
+      "low_avg_open_rate": 0.585,
+      "difference": -0.013
+    },
+    "western_focus": {
+      "name": "Western/Tech Hub Focus",
+      "correlation": -0.303,
+      "high_avg_open_rate": 0.553,
+      "low_avg_open_rate": 0.61,
+      "difference": -0.057
+    },
+    "journalism_focus": {
+      "name": "Journalism Focus",
+      "correlation": 0.229,
+      "high_avg_open_rate": 0.592,
+      "low_avg_open_rate": 0.572,
+      "difference": 0.019
+    },
+    "regulation_focus": {
+      "name": "Regulation Focus",
+      "correlation": -0.215,
+      "high_avg_open_rate": 0.575,
+      "low_avg_open_rate": 0.589,
+      "difference": -0.014
+    },
+    "cta_strength": {
+      "name": "CTA Strength",
+      "correlation": 0.399,
+      "high_avg_open_rate": 0.604,
+      "low_avg_open_rate": 0.559,
+      "difference": 0.045
+    },
+    "question_engagement": {
+      "name": "Question Engagement",
+      "correlation": -0.27,
+      "high_avg_open_rate": 0.551,
+      "low_avg_open_rate": 0.613,
+      "difference": -0.062
+    },
+    "list_usage": {
+      "name": "List Usage",
+      "correlation": 0.019,
+      "high_avg_open_rate": 0.557,
+      "low_avg_open_rate": 0.599,
+      "difference": -0.042
+    },
+    "subhead_density": {
+      "name": "Subhead Density",
+      "correlation": -0.178,
+      "high_avg_open_rate": 0.506,
+      "low_avg_open_rate": 0.587,
+      "difference": -0.081
+    },
+    "skepticism_level": {
+      "name": "Skepticism Level",
+      "correlation": -0.134,
+      "high_avg_open_rate": 0.556,
+      "low_avg_open_rate": 0.608,
+      "difference": -0.051
+    },
+    "directness": {
+      "name": "Directness",
+      "correlation": 0
+    },
+    "specificity": {
+      "name": "Specificity",
+      "correlation": -0.259,
+      "high_avg_open_rate": 0.561,
+      "low_avg_open_rate": 0.599,
+      "difference": -0.039
+    },
+    "forward_looking": {
+      "name": "Forward Looking",
+      "correlation": 0.076,
+      "high_avg_open_rate": 0.592,
+      "low_avg_open_rate": 0.572,
+      "difference": 0.02
+    },
+    "anecdote_usage": {
+      "name": "Anecdote Usage",
+      "correlation": -0.066,
+      "high_avg_open_rate": 0.562,
+      "low_avg_open_rate": 0.601,
+      "difference": -0.039
+    },
+    "link_density": {
+      "name": "Link Density",
+      "correlation": -0.538
+    },
+    "emoji_usage": {
+      "name": "Emoji Usage",
+      "correlation": 0
+    },
+    "critique_intensity": {
+      "name": "Critique Intensity",
+      "correlation": -0.158,
+      "high_avg_open_rate": 0.558,
+      "low_avg_open_rate": 0.602,
+      "difference": -0.044
+    },
+    "solution_orientation": {
+      "name": "Solution Orientation",
+      "correlation": 0.19,
+      "high_avg_open_rate": 0.605,
+      "low_avg_open_rate": 0.561,
+      "difference": 0.044
+    },
+    "audience_acknowledgment": {
+      "name": "Audience Acknowledgment",
+      "correlation": 0.146,
+      "high_avg_open_rate": 0.599,
+      "low_avg_open_rate": 0.564,
+      "difference": 0.035
+    }
+  },
+  "recommendations": [
+    {
+      "metric": "expert_citations",
+      "name": "Expert Citations",
+      "impact": "+9.4%",
+      "recommendation": "USE MORE",
+      "direction": "positive"
+    },
+    {
+      "metric": "africa_focus",
+      "name": "Africa Focus",
+      "impact": "+9.3%",
+      "recommendation": "USE MORE",
+      "direction": "positive"
+    },
+    {
+      "metric": "subhead_density",
+      "name": "Subhead Density",
+      "impact": "-8.1%",
+      "recommendation": "USE LESS",
+      "direction": "negative"
+    },
+    {
+      "metric": "doom_level",
+      "name": "Doom Level",
+      "impact": "-7.9%",
+      "recommendation": "USE LESS",
+      "direction": "negative"
+    },
+    {
+      "metric": "storytelling",
+      "name": "Storytelling",
+      "impact": "+7.0%",
+      "recommendation": "USE MORE",
+      "direction": "positive"
+    },
+    {
+      "metric": "question_engagement",
+      "name": "Question Engagement",
+      "impact": "-6.2%",
+      "recommendation": "USE LESS",
+      "direction": "negative"
+    },
+    {
+      "metric": "western_focus",
+      "name": "Western/Tech Hub Focus",
+      "impact": "-5.7%",
+      "recommendation": "USE LESS",
+      "direction": "negative"
+    },
+    {
+      "metric": "skepticism_level",
+      "name": "Skepticism Level",
+      "impact": "-5.1%",
+      "recommendation": "USE LESS",
+      "direction": "negative"
+    },
+    {
+      "metric": "optimism_level",
+      "name": "Optimism Level",
+      "impact": "+5.0%",
+      "recommendation": "USE MORE",
+      "direction": "positive"
+    },
+    {
+      "metric": "urgency_level",
+      "name": "Urgency Level",
+      "impact": "-4.9%",
+      "recommendation": "USE LESS",
+      "direction": "negative"
+    }
+  ],
+  "top_performers": [
+    {
+      "title": "It is time to Develop AI for African media",
+      "open_rate": 1.016,
+      "top_metrics": [
+        {
+          "metric": "tool_focus",
+          "name": "Tool Focus",
+          "score": 100.0
+        },
+        {
+          "metric": "journalism_focus",
+          "name": "Journalism Focus",
+          "score": 100.0
+        },
+        {
+          "metric": "directness",
+          "name": "Directness",
+          "score": 100
+        },
+        {
+          "metric": "africa_focus",
+          "name": "Africa Focus",
+          "score": 89.4
+        },
+        {
+          "metric": "audience_acknowledgment",
+          "name": "Audience Acknowledgment",
+          "score": 89.4
+        }
+      ]
+    },
+    {
+      "title": "How to plug WhatsApp directly into ChatGPT",
+      "open_rate": 0.853,
+      "top_metrics": [
+        {
+          "metric": "conversational_tone",
+          "name": "Conversational Tone",
+          "score": 100.0
+        },
+        {
+          "metric": "directness",
+          "name": "Directness",
+          "score": 100
+        },
+        {
+          "metric": "audience_acknowledgment",
+          "name": "Audience Acknowledgment",
+          "score": 100.0
+        },
+        {
+          "metric": "tool_focus",
+          "name": "Tool Focus",
+          "score": 92.4
+        },
+        {
+          "metric": "link_density",
+          "name": "Link Density",
+          "score": 92.1
+        }
+      ]
+    },
+    {
+      "title": "Develop AI tools, coding tips and the Time magazine AI 100",
+      "open_rate": 0.806,
+      "top_metrics": [
+        {
+          "metric": "africa_focus",
+          "name": "Africa Focus",
+          "score": 100.0
+        },
+        {
+          "metric": "list_usage",
+          "name": "List Usage",
+          "score": 100
+        },
+        {
+          "metric": "directness",
+          "name": "Directness",
+          "score": 100
+        },
+        {
+          "metric": "western_focus",
+          "name": "Western/Tech Hub Focus",
+          "score": 78.1
+        },
+        {
+          "metric": "link_density",
+          "name": "Link Density",
+          "score": 72.6
+        }
+      ]
+    },
+    {
+      "title": "Use AI to build a complete podcast episode - no mics required",
+      "open_rate": 0.803,
+      "top_metrics": [
+        {
+          "metric": "directness",
+          "name": "Directness",
+          "score": 100
+        },
+        {
+          "metric": "link_density",
+          "name": "Link Density",
+          "score": 100.0
+        },
+        {
+          "metric": "audience_acknowledgment",
+          "name": "Audience Acknowledgment",
+          "score": 81.9
+        },
+        {
+          "metric": "western_focus",
+          "name": "Western/Tech Hub Focus",
+          "score": 68.4
+        },
+        {
+          "metric": "conversational_tone",
+          "name": "Conversational Tone",
+          "score": 66.4
+        }
+      ]
+    },
+    {
+      "title": "Those insane AI videos... we need to talk",
+      "open_rate": 0.742,
+      "top_metrics": [
+        {
+          "metric": "directness",
+          "name": "Directness",
+          "score": 100
+        },
+        {
+          "metric": "link_density",
+          "name": "Link Density",
+          "score": 100.0
+        },
+        {
+          "metric": "western_focus",
+          "name": "Western/Tech Hub Focus",
+          "score": 78.0
+        },
+        {
+          "metric": "tool_focus",
+          "name": "Tool Focus",
+          "score": 59.5
+        },
+        {
+          "metric": "journalism_focus",
+          "name": "Journalism Focus",
+          "score": 59.5
+        }
+      ]
+    }
+  ]
+}
