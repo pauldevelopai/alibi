@@ -458,13 +458,49 @@
       "output_tokens": 640,
       "is_image": false,
       "cost": 0.02248
+    },
+    {
+      "timestamp": "2026-01-07T06:20:02.748029",
+      "model": "gpt-4o",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 9697,
+      "output_tokens": 1943,
+      "is_image": false,
+      "cost": 0.07763
+    },
+    {
+      "timestamp": "2026-01-07T06:20:35.329382",
+      "model": "gpt-4o",
+      "feature": "newsletter_execution",
+      "input_tokens": 2484,
+      "output_tokens": 573,
+      "is_image": false,
+      "cost": 0.021015
+    },
+    {
+      "timestamp": "2026-01-07T06:31:17.421833",
+      "model": "gpt-4o",
+      "feature": "meticulous_prompt_generation",
+      "input_tokens": 9697,
+      "output_tokens": 1968,
+      "is_image": false,
+      "cost": 0.078005
+    },
+    {
+      "timestamp": "2026-01-07T06:31:51.683394",
+      "model": "gpt-4o",
+      "feature": "newsletter_execution",
+      "input_tokens": 2277,
+      "output_tokens": 598,
+      "is_image": false,
+      "cost": 0.020355
     }
   ],
   "totals": {
-    "input_tokens": 271862,
-    "output_tokens": 53884,
+    "input_tokens": 296017,
+    "output_tokens": 58966,
     "images": 3,
-    "estimated_cost": 0.8426976999999998
+    "estimated_cost": 1.0397026999999996
   },
   "by_model": {
     "test-model": {
@@ -493,9 +529,9 @@
       "cost": 0.0444003
     },
     "gpt-4o": {
-      "calls": 8,
-      "tokens": 60445,
-      "cost": 0.414275
+      "calls": 12,
+      "tokens": 89682,
+      "cost": 0.61128
     }
   },
   "by_feature": {
@@ -540,14 +576,14 @@
       "cost": 0.0017958
     },
     "meticulous_prompt_generation": {
-      "calls": 12,
-      "tokens": 97043,
-      "cost": 0.4075534
+      "calls": 14,
+      "tokens": 120348,
+      "cost": 0.5631884
     },
     "newsletter_execution": {
-      "calls": 4,
-      "tokens": 15620,
-      "cost": 0.086165
+      "calls": 6,
+      "tokens": 21552,
+      "cost": 0.127535
     }
   },
   "session_start": "2026-01-01T12:31:09.167564"

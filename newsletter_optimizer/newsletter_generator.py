@@ -1650,6 +1650,271 @@ Write in Markdown format. Be punchy, personal, and engaging. Follow the blueprin
         }
 
 
+def generate_newsletter_direct(
+    idea: str,
+    outline_data: dict,
+    additional_instructions: str = "",
+    temperature: float = 0.7
+) -> dict:
+    """
+    DIRECT GENERATION using fine-tuned GPT-4o.
+    
+    Pulls ALL details from the user-edited outline and passes them to the model.
+    Also loads the Newsletter Bible for style reference.
+    
+    Returns dict with content and metadata.
+    """
+    
+    # Check for fine-tuned model
+    fine_tuned_model = get_active_fine_tuned_model() if FINE_TUNING_AVAILABLE else None
+    
+    if not fine_tuned_model:
+        # Fall back to gpt-4o if no fine-tuned model
+        fine_tuned_model = "gpt-4o"
+    
+    # =========================================================================
+    # LOAD THE NEWSLETTER BIBLE (style reference)
+    # =========================================================================
+    
+    bible = load_bible()
+    bible_context = ""
+    if bible:
+        # Extract key style elements
+        writing_voice = bible.get('writing_voice', {})
+        rules = bible.get('rules_for_success', [])
+        cliches = bible.get('cliches_to_avoid', [])
+        
+        bible_context = "\n## YOUR WRITING STYLE (from Newsletter Bible)\n\n"
+        
+        # Signature phrases
+        signature_phrases = writing_voice.get('signature_phrases', [])
+        if signature_phrases:
+            bible_context += "**Your signature phrases:**\n"
+            for phrase in signature_phrases[:5]:
+                bible_context += f"- \"{phrase}\"\n"
+            bible_context += "\n"
+        
+        # Tone markers
+        tone_markers = writing_voice.get('tone_markers', [])
+        if tone_markers:
+            bible_context += f"**Your tone:** {', '.join(tone_markers[:5])}\n\n"
+        
+        # Rules
+        if rules:
+            bible_context += "**Rules for your writing:**\n"
+            for rule in rules[:5]:
+                bible_context += f"- {rule}\n"
+            bible_context += "\n"
+        
+        # Cliches to avoid
+        if cliches:
+            bible_context += "**NEVER use these cliches:**\n"
+            bible_context += f"{', '.join(cliches[:10])}\n\n"
+    
+    # =========================================================================
+    # EXTRACT ALL OUTLINE DATA (user edited this in Step 2)
+    # =========================================================================
+    
+    headline = outline_data.get('headline', '')
+    preview = outline_data.get('preview', '')
+    opening_hook = outline_data.get('opening_hook', '')
+    main_story = outline_data.get('main_story', {})
+    additional_sections = outline_data.get('additional_sections', [])
+    sources = outline_data.get('sources', [])
+    closing_approach = outline_data.get('closing_approach', '')
+    tone_notes = outline_data.get('tone_notes', '')
+    
+    # =========================================================================
+    # FORMAT SOURCES (with URLs for inline citation) - MANDATORY
+    # =========================================================================
+    
+    sources_text = ""
+    source_urls = []
+    if sources:
+        sources_text = "\n## 🔗 MANDATORY SOURCES - YOU MUST USE ALL OF THESE\n\n"
+        sources_text += "⚠️ **CRITICAL:** Every URL below MUST appear in your newsletter as a clickable link.\n"
+        sources_text += "Format: [descriptive text](url) woven into sentences, not listed separately.\n\n"
+        for i, s in enumerate(sources, 1):
+            url = s.get('url', '')
+            title = s.get('title', 'Source')
+            note = s.get('note', '')
+            if url:
+                source_urls.append(url)
+                sources_text += f"**Source {i}: {title}**\n"
+                sources_text += f"URL: {url}\n"
+                if note:
+                    sources_text += f"Context: {note}\n"
+                sources_text += f"Example usage: \"According to [{title}]({url}), ...\"\n\n"
+        
+        sources_text += f"**CHECKLIST:** You must include {len(source_urls)} clickable links in your newsletter.\n"
+    
+    # =========================================================================
+    # FORMAT MAIN STORY (all user-edited content)
+    # =========================================================================
+    
+    main_story_text = f"## MAIN STORY\n\n"
+    main_story_text += f"**Topic:** {main_story.get('heading', idea)}\n"
+    main_story_text += f"**Target Word Count:** {main_story.get('target_word_count', 500)} words\n\n"
+    
+    # Structure (how to organize the story)
+    if main_story.get('structure'):
+        main_story_text += "**Structure:**\n"
+        for s in main_story.get('structure', []):
+            main_story_text += f"- {s}\n"
+        main_story_text += "\n"
+    
+    # Key points (USER EDITED - must include all of these)
+    if main_story.get('key_points'):
+        main_story_text += "**Key Points (MUST include all of these):**\n"
+        for p in main_story.get('key_points', []):
+            main_story_text += f"- {p}\n"
+        main_story_text += "\n"
+    
+    # User notes (additional guidance from the user)
+    if main_story.get('user_notes'):
+        main_story_text += f"**User Notes:** {main_story.get('user_notes')}\n\n"
+    
+    # =========================================================================
+    # FORMAT ADDITIONAL SECTIONS (all user-edited content)
+    # =========================================================================
+    
+    sections_text = ""
+    if additional_sections:
+        sections_text = "\n## ADDITIONAL SECTIONS\n\n"
+        for section in additional_sections:
+            section_heading = section.get('heading', 'Section')
+            section_type = section.get('type', '')
+            target_words = section.get('target_word_count', 150)
+            
+            sections_text += f"### {section_heading}\n"
+            sections_text += f"Type: {section_type} | Target: ~{target_words} words\n\n"
+            
+            # Bullets (USER EDITED - must include)
+            if section.get('bullets'):
+                sections_text += "**Include these points:**\n"
+                for b in section.get('bullets', []):
+                    sections_text += f"- {b}\n"
+                sections_text += "\n"
+            
+            # User notes for this section
+            if section.get('user_notes'):
+                sections_text += f"**Notes:** {section.get('user_notes')}\n\n"
+    
+    # =========================================================================
+    # FORMAT OPENING AND CLOSING - MANDATORY
+    # =========================================================================
+    
+    opening_text = ""
+    if opening_hook:
+        opening_text = f"\n## 🎯 OPENING - USE THIS EXACT HOOK\n\n"
+        opening_text += f"⚠️ **START YOUR NEWSLETTER WITH THIS:**\n\n"
+        opening_text += f"\"{opening_hook}\"\n\n"
+        opening_text += f"Use this hook as your opening. You can adjust wording slightly but keep the core idea and any personal elements.\n"
+    
+    closing_text = ""
+    if closing_approach:
+        closing_text = f"\n## CLOSING\n\n**End with this approach:** {closing_approach}\n"
+    
+    tone_text = ""
+    if tone_notes:
+        tone_text = f"\n## TONE\n\n{tone_notes}\n"
+    
+    # =========================================================================
+    # BUILD THE PROMPT
+    # =========================================================================
+    
+    # System prompt - simple, let the fine-tuning handle style
+    system_prompt = """You are Paul McNally, writing your newsletter "Develop AI" for journalists and media professionals.
+
+Write naturally in your voice:
+- Punchy, personal, skeptical-but-curious about AI
+- Short sentences mixed with longer analytical ones
+- Personal observations where they fit naturally
+- Africa/Global South perspective where relevant
+
+When citing sources, use inline markdown links: [descriptive text](url)
+
+Don't use cliches or corporate speak. Be specific and direct.
+Don't invent personal memories or statistics - only use what's provided."""
+
+    # User prompt - includes ALL the outline content and Bible
+    user_prompt = f"""Write a newsletter based on this outline:
+
+# {headline}
+
+*{preview}*
+
+---
+
+{opening_text}
+
+{main_story_text}
+
+{sections_text}
+
+{closing_text}
+
+{tone_text}
+
+{sources_text}
+
+{bible_context}
+
+{f"## ADDITIONAL INSTRUCTIONS{chr(10)}{additional_instructions}" if additional_instructions else ""}
+
+---
+
+## FINAL CHECKLIST - DO ALL OF THESE:
+
+1. ✅ **START** with the opening hook provided above (if any)
+2. ✅ **INCLUDE** all {len(source_urls) if source_urls else 0} source URLs as clickable [text](url) links
+3. ✅ **COVER** all the key points from the main story
+4. ✅ **INCLUDE** all bullets from additional sections
+5. ✅ **FOLLOW** your writing style from the Newsletter Bible above
+6. ✅ **AVOID** cliches listed above
+
+Write the complete newsletter now. Natural and conversational, not formulaic."""
+
+    try:
+        response = client.chat.completions.create(
+            model=fine_tuned_model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=temperature,
+            max_tokens=4000,
+        )
+        
+        content = response.choices[0].message.content
+        
+        # Log usage
+        usage = response.usage
+        if usage and USAGE_LOGGING_AVAILABLE:
+            log_api_call(
+                model=fine_tuned_model,
+                feature="direct_newsletter_generation",
+                input_tokens=usage.prompt_tokens,
+                output_tokens=usage.completion_tokens
+            )
+        
+        return {
+            'content': content,
+            'headline': headline,
+            'preview': preview,
+            'generation_mode': 'direct',
+            'model_used': fine_tuned_model,
+            'two_stage': False,
+            'format_type': 'from_outline'
+        }
+        
+    except Exception as e:
+        return {
+            'error': str(e),
+            'content': None
+        }
+
+
 def generate_newsletter_with_blueprint(
     idea: str,
     outline_data: dict,
@@ -1657,119 +1922,19 @@ def generate_newsletter_with_blueprint(
     temperature: float = 0.7
 ) -> dict:
     """
-    NEW: Two-stage generation using GPT-4o fine-tuned for BOTH stages.
+    Two-stage generation - but now defaults to DIRECT generation for better quality.
     
-    Stage 1: Generate comprehensive blueprint (planning)
-    Stage 2: Execute blueprint (writing)
-    
-    Both stages use YOUR fine-tuned model, so the voice is consistent.
-    
-    Returns dict with all stages visible for the UI:
-    - blueprint_instructions: What we asked the model to plan
-    - blueprint: The detailed plan it created
-    - execution_prompt: What we asked it to write
-    - content: The final newsletter
-    - models_used: Which models were used
+    The meticulous prompt approach was over-engineered and produced worse results.
+    Now we use direct generation with the fine-tuned model.
     """
     
-    # Load the Bible
-    bible = load_bible()
-    if not bible:
-        return {
-            'error': "Newsletter Bible not found.",
-            'content': None
-        }
-    
-    # Check for fine-tuned model
-    model_tier = get_fine_tuned_model_tier()
-    fine_tuned_model = get_active_fine_tuned_model() if FINE_TUNING_AVAILABLE else None
-    
-    if not fine_tuned_model:
-        return {
-            'error': "No fine-tuned model available. Train a model first.",
-            'content': None
-        }
-    
-    # =========================================================================
-    # STAGE 1: Generate Blueprint
-    # =========================================================================
-    
-    blueprint_result = generate_comprehensive_blueprint(
-        outline_data=outline_data,
-        bible=bible,
+    # USE DIRECT GENERATION - simpler and produces better results
+    return generate_newsletter_direct(
         idea=idea,
-        additional_instructions=additional_instructions
-    )
-    
-    if blueprint_result.get('error') or not blueprint_result.get('blueprint'):
-        return {
-            'error': blueprint_result.get('error', 'Blueprint generation failed'),
-            'content': None,
-            'stage1_complete': False
-        }
-    
-    # =========================================================================
-    # STAGE 2: Execute Blueprint
-    # =========================================================================
-    
-    execution_result = execute_blueprint(
-        blueprint=blueprint_result['blueprint'],
         outline_data=outline_data,
-        bible=bible
+        additional_instructions=additional_instructions,
+        temperature=temperature
     )
-    
-    if execution_result.get('error') or not execution_result.get('content'):
-        return {
-            'error': execution_result.get('error', 'Blueprint execution failed'),
-            'content': None,
-            'stage1_complete': True,
-            'blueprint': blueprint_result['blueprint'],
-            'blueprint_instructions': blueprint_result['instructions']
-        }
-    
-    # =========================================================================
-    # SUCCESS: Return everything for UI display
-    # =========================================================================
-    
-    return {
-        'content': execution_result['content'],
-        'headline': outline_data.get('headline', ''),
-        'preview': outline_data.get('preview', ''),
-        
-        # Stage 1 details (for UI)
-        'blueprint_instructions': blueprint_result['instructions'],
-        'blueprint_system_prompt': blueprint_result['system_prompt'],
-        'blueprint': blueprint_result['blueprint'],
-        'blueprint_model': blueprint_result['model_used'],
-        'blueprint_tokens': {
-            'input': blueprint_result.get('input_tokens', 0),
-            'output': blueprint_result.get('output_tokens', 0)
-        },
-        
-        # Stage 2 details (for UI)
-        'execution_prompt': execution_result['execution_prompt'],
-        'execution_system_prompt': execution_result['system_prompt'],
-        'execution_model': execution_result['model_used'],
-        'execution_tokens': {
-            'input': execution_result.get('input_tokens', 0),
-            'output': execution_result.get('output_tokens', 0)
-        },
-        
-        # Context that was used
-        'kb_context': blueprint_result.get('kb_context', ''),
-        'rag_context': blueprint_result.get('rag_context', ''),
-        'performance_learnings': blueprint_result.get('performance_learnings', ''),
-        
-        # Metadata
-        'generation_mode': 'blueprint_two_stage',
-        'model_tier': model_tier,
-        'models_used': {
-            'blueprint': blueprint_result['model_used'],
-            'execution': execution_result['model_used']
-        },
-        'two_stage': True,
-        'format_type': 'from_outline'
-    }
 
 
 # ============================================================================
@@ -3009,48 +3174,19 @@ Fill in ALL the details above with specific content from the context provided.""
                 output_tokens=usage.completion_tokens
             )
         
-        # Build the system prompt that will be sent to GPT-4.1
-        system_prompt_for_gpt4 = f"""You are a professional newsletter writer executing a detailed brief from Paul McNally.
+        # Build a SIMPLE system prompt - let the fine-tuned model's training do the work
+        system_prompt_for_gpt4 = f"""You are Paul McNally, writing your newsletter "Develop AI".
 
-Paul has written an extremely detailed prompt describing exactly how he wants his newsletter written. Your job is to execute his vision PERFECTLY.
+Write naturally in your voice - punchy, personal, skeptical-but-curious about AI.
 
-🚨 CRITICAL ANTI-FABRICATION RULES (MOST IMPORTANT):
-- **NEVER invent personal childhood memories** - "I remember when I was 14..." is FORBIDDEN unless that exact memory is in the prompt
-- **NEVER invent personal anecdotes** - "I had saved all my pocket money..." is FORBIDDEN
-- **NEVER invent specific personal experiences** - "I remember being told..." is FORBIDDEN
-- **NEVER invent dates from personal life** - "In 1996, I bought..." is FORBIDDEN
-- **NEVER invent places visited** - "I visited [place] last week" is FORBIDDEN
-- **NEVER invent conversations** - "I was told..." is FORBIDDEN
-- **NEVER invent personal purchases or decisions** - "I bought X because..." is FORBIDDEN
-- **ONLY use personal information if it's EXPLICITLY in the prompt/outline** - if the prompt says "I remember when..." use that EXACTLY, don't invent variations
-- **If no personal memory is provided, start with the topic directly** - don't invent a personal hook
-- **DO NOT invent statistics, quotes, or claims** - ONLY use what's in sources
-- **ONLY cite sources that are explicitly provided in the prompt**
+Key requirements:
+- Word counts: Main story ~{main_word_count} words, Total ~{total_word_count} words
+- Use ALL source URLs as inline links: [text](url)
+- Don't fabricate personal memories or statistics
+- Avoid cliches like "game changer", "paradigm shift", "this is your moment"
+- Markdown format, no horizontal rules (---)
 
-OTHER CRITICAL RULES:
-- Follow the word counts EXACTLY: Main story {main_word_count} words, Total {total_word_count} words
-- Use the EXACT headline and preview provided
-- Write in Markdown format with ## headers for sections
-- Follow Paul's voice notes precisely - punchy, personal, skeptical-but-curious
-- **NEVER use cliches or generic corporate phrases** - be specific, direct, and authentic
-- Avoid phrases like "change is coming fast", "land on your feet", "this is your moment", "double down", "what makes you human", "game changer", "paradigm shift", "leverage", "synergy"
-- Replace cliches with concrete examples and real observations - write as if talking to a colleague
-
-🚨 **MANDATORY SOURCE USAGE:**
-- The prompt below lists ALL sources that MUST be used
-- **EVERY source URL listed in the prompt MUST appear in your newsletter** - no exceptions
-- Integrate sources naturally using [link text](url) format inline
-- If the prompt says "Use Source X in paragraph Y", you MUST do that
-- Do NOT write the newsletter without using ALL the sources provided
-
-FORMATTING RULES:
-- DO NOT use horizontal rules (dashes like "---" or "***") to separate sections
-- Integrate links naturally into the text using markdown format: [link text](url)
-- Links should appear inline where they're relevant, not listed separately
-- Make links part of the narrative flow, not standalone citations
-- Example: "According to [TechCrunch](url), AI is..." not "AI is... [1] See: url"
-
-The prompt below contains everything you need. Execute it meticulously."""
+The detailed prompt below has everything you need. Write a natural, conversational newsletter."""
         
         return {
             'prompt': meticulous_prompt,
@@ -3100,60 +3236,44 @@ def execute_approved_prompt(
     headline = outline_data.get('headline', '')
     preview = outline_data.get('preview', '')
     
-    # Enhance the system prompt with critical rules if not already present
-    if "NEVER invent personal childhood memories" not in system_prompt:
-        system_prompt += "\n\n🚨 CRITICAL ANTI-FABRICATION RULES:\n"
-        system_prompt += "- **NEVER invent personal childhood memories** - \"I remember when I was 14...\" is FORBIDDEN\n"
-        system_prompt += "- **NEVER invent personal anecdotes** - \"I had saved all my pocket money...\" is FORBIDDEN\n"
-        system_prompt += "- **NEVER invent specific personal experiences** - \"I remember being told...\" is FORBIDDEN\n"
-        system_prompt += "- **NEVER invent dates from personal life** - \"In 1996, I bought...\" is FORBIDDEN\n"
-        system_prompt += "- **ONLY use personal information if it's EXPLICITLY in the prompt** - if the prompt says \"I remember when...\" use that EXACTLY\n"
-        system_prompt += "- **If no personal memory is provided, start with the topic directly** - don't invent a personal hook\n"
-        system_prompt += "- **DO NOT invent statistics, quotes, or claims** - ONLY use what's in sources\n"
+    # Extract sources from the approved prompt to list them explicitly
+    # Look for URLs in the prompt
+    import re
+    urls_in_prompt = re.findall(r'https?://[^\s\)\]\"\'<>]+', approved_prompt)
     
-    if "DO NOT use horizontal rules" not in system_prompt:
-        system_prompt += "\n\nFORMATTING RULES:\n"
-        system_prompt += "- DO NOT use horizontal rules (dashes like \"---\" or \"***\") to separate sections\n"
-        system_prompt += "- Integrate links naturally into the text using [link text](url) format inline\n"
-        system_prompt += "- Links should be part of the narrative flow, not listed separately\n"
-        system_prompt += "- Example: \"According to [TechCrunch](url), AI is...\" not \"AI is... [1] See: url\"\n"
+    # Build explicit source reminder
+    source_reminder = ""
+    if urls_in_prompt:
+        source_reminder = f"\n\n🚨 **YOU MUST USE THESE {len(urls_in_prompt)} URLs IN YOUR NEWSLETTER:**\n"
+        for i, url in enumerate(urls_in_prompt[:10], 1):  # Show up to 10
+            source_reminder += f"{i}. {url[:80]}...\n" if len(url) > 80 else f"{i}. {url}\n"
+        source_reminder += "\nEach URL above must appear as a clickable [link text](url) in your newsletter.\n"
     
-    # Add anti-cliche rules if not already present
-    if "NEVER use cliches" not in system_prompt:
-        system_prompt += "\n\nANTI-CLICHE RULES (CRITICAL):\n"
-        system_prompt += "- NEVER use generic corporate phrases or cliches\n"
-        system_prompt += "- Avoid: \"change is coming fast\", \"land on your feet\", \"this is your moment\", \"double down\", \"what makes you human\"\n"
-        system_prompt += "- Avoid: \"game changer\", \"paradigm shift\", \"think outside the box\", \"leverage\", \"synergy\", \"move the needle\"\n"
-        system_prompt += "- Be specific and direct - use authentic, personal language, not generic advice\n"
-        system_prompt += "- Write as if talking to a colleague, not giving a corporate presentation\n"
-    
-    # Enhance the prompt with explicit headline/preview instructions
-    final_prompt = f"""# NEWSLETTER TO WRITE
+    # Build the final prompt - simpler and more focused
+    final_prompt = f"""# {headline}
 
-**USE THIS EXACT HEADLINE:** {headline}
-
-**USE THIS EXACT PREVIEW:** {preview}
+*{preview}*
 
 ---
 
-# YOUR DETAILED INSTRUCTIONS (from Paul McNally):
+## YOUR INSTRUCTIONS:
 
 {approved_prompt}
+{source_reminder}
 
 ---
 
-# FINAL REMINDERS:
-- Start the newsletter with: # {headline}
-- Include the preview as: *{preview}*
-- Follow ALL the instructions above meticulously
-- Write in Markdown format
-- DO NOT fabricate any personal experiences or statistics
-- **DO NOT use horizontal rules (---) to separate sections**
-- **Integrate links naturally into the text** - use [link text](url) inline, not separate lists
-- **NEVER use cliches or generic corporate phrases** - be specific, direct, and authentic
-- Avoid phrases like "change is coming fast", "land on your feet", "this is your moment", "double down", "what makes you human"
+## CHECKLIST BEFORE YOU WRITE:
+✅ Headline: "{headline}"
+✅ Preview: "{preview}"  
+✅ Word count: Follow the word counts in the instructions above
+✅ Sources: Use ALL URLs listed above as [link text](url) inline
+✅ Voice: Write as Paul McNally - punchy, personal, skeptical-but-curious
+✅ No cliches: Avoid generic corporate phrases
+✅ No fabrication: Don't invent personal memories or statistics
+✅ Format: Markdown, no horizontal rules (---), links inline
 
-BEGIN THE NEWSLETTER NOW:"""
+BEGIN:"""
 
     try:
         response = client.chat.completions.create(
