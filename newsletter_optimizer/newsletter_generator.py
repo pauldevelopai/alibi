@@ -15,6 +15,17 @@ from openai import OpenAI
 
 from style_analyzer import load_bible, load_all_newsletters, html_to_text
 
+# Deep style analyzer for enhanced writing style context
+try:
+    from deep_style_analyzer import get_deep_style_context, load_deep_bible
+    DEEP_STYLE_AVAILABLE = True
+except ImportError:
+    DEEP_STYLE_AVAILABLE = False
+    def get_deep_style_context(topic: str = "") -> str:
+        return ""
+    def load_deep_bible():
+        return {}
+
 # Try to import learning system
 try:
     from learning_system import get_learning_context
@@ -1749,6 +1760,19 @@ def generate_newsletter_direct(
             bible_context += "\n"
     
     # =========================================================================
+    # DEEP STYLE ANALYSIS (advanced linguistic fingerprint)
+    # =========================================================================
+    
+    deep_style_context = ""
+    if DEEP_STYLE_AVAILABLE:
+        try:
+            deep_style_context = get_deep_style_context(idea)
+            if deep_style_context:
+                bible_context += deep_style_context
+        except Exception as e:
+            print(f"Deep style context error: {e}")
+    
+    # =========================================================================
     # LOAD KNOWLEDGE BASE (AI facts, research, insights)
     # =========================================================================
     
@@ -2730,6 +2754,19 @@ def generate_meticulous_prompt(
             pass
     
     # =========================================================================
+    # GET DEEP STYLE ANALYSIS (from advanced NLP)
+    # =========================================================================
+    
+    deep_style_text = ""
+    if DEEP_STYLE_AVAILABLE:
+        try:
+            deep_style_text = get_deep_style_context(headline or idea)
+            if deep_style_text:
+                deep_style_text = "\n## DEEP LINGUISTIC ANALYSIS (from NLP tools)\n" + deep_style_text
+        except Exception as e:
+            print(f"Deep style context error: {e}")
+    
+    # =========================================================================
     # GET PERFORMANCE LEARNINGS
     # =========================================================================
     
@@ -2840,6 +2877,8 @@ You are writing a detailed brief for GPT-4.1 to write your newsletter. This brie
 {kb_context}
 
 {rag_context}
+
+{deep_style_text}
 
 {performance_context}
 

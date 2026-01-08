@@ -40,6 +40,20 @@ except ImportError:
     OPENAI_AVAILABLE = False
     openai_client = None
 
+# Local embeddings for semantic search (sentence-transformers)
+try:
+    from embeddings import (
+        get_embedding,
+        get_embeddings_batch,
+        compute_similarity,
+        semantic_search,
+        SENTENCE_TRANSFORMERS_AVAILABLE,
+    )
+    EMBEDDINGS_AVAILABLE = True
+except ImportError:
+    EMBEDDINGS_AVAILABLE = False
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+
 DATA_DIR = Path(__file__).parent / "data"
 KNOWLEDGE_BASE_FILE = DATA_DIR / "knowledge_base.json"
 FACTS_FILE = DATA_DIR / "extracted_facts.json"  # Separate file for structured facts
@@ -1134,6 +1148,138 @@ def search_articles(query: str, limit: int = 10) -> List[dict]:
             results.append(article)
     
     return results[:limit]
+
+
+def semantic_search_articles(
+    query: str,
+    limit: int = 10,
+    min_similarity: float = 0.3
+) -> List[dict]:
+    """
+    Search articles using semantic similarity (sentence-transformers).
+    
+    This finds articles that are conceptually related to your query,
+    even if they don't share exact keywords.
+    
+    Args:
+        query: Natural language search query
+        limit: Maximum number of results
+        min_similarity: Minimum similarity threshold (0-1)
+    
+    Returns:
+        List of articles with similarity scores, sorted by relevance
+    """
+    if not EMBEDDINGS_AVAILABLE:
+        # Fallback to keyword search
+        return search_articles(query, limit)
+    
+    articles = get_articles()
+    if not articles:
+        return []
+    
+    # Create search text for each article
+    article_texts = []
+    for article in articles:
+        text = f"{article.get('title', '')} {article.get('summary', '')} {article.get('key_points', '')}"
+        article_texts.append(text.strip())
+    
+    # Get query embedding
+    query_embedding = get_embedding(query)
+    if not query_embedding:
+        return search_articles(query, limit)
+    
+    # Get article embeddings (will use cache)
+    article_embeddings = get_embeddings_batch(article_texts)
+    
+    # Calculate similarities
+    results = []
+    for i, (article, embedding) in enumerate(zip(articles, article_embeddings)):
+        if embedding:
+            similarity = compute_similarity(query_embedding, embedding)
+            if similarity >= min_similarity:
+                article_with_score = article.copy()
+                article_with_score['similarity'] = round(similarity, 4)
+                results.append(article_with_score)
+    
+    # Sort by similarity
+    results.sort(key=lambda x: x.get('similarity', 0), reverse=True)
+    
+    return results[:limit]
+
+
+def semantic_search_facts(
+    query: str,
+    limit: int = 15,
+    min_similarity: float = 0.3,
+    fact_types: List[str] = None
+) -> List[dict]:
+    """
+    Search facts using semantic similarity (sentence-transformers).
+    
+    This finds facts conceptually related to your query.
+    
+    Args:
+        query: Natural language search query
+        limit: Maximum number of results
+        min_similarity: Minimum similarity threshold
+        fact_types: Optional filter for fact types
+    
+    Returns:
+        List of facts with similarity scores
+    """
+    if not EMBEDDINGS_AVAILABLE:
+        # Fallback to get_relevant_facts
+        return get_relevant_facts(query, limit, min_relevance=3.0, fact_types=fact_types)
+    
+    all_facts = get_all_facts()
+    if not all_facts:
+        return []
+    
+    # Filter by type if specified
+    if fact_types:
+        all_facts = [f for f in all_facts if f.get('fact_type') in fact_types]
+    
+    # Create search text for each fact
+    fact_texts = []
+    for fact in all_facts:
+        text = f"{fact.get('fact_text', '')} {' '.join(fact.get('keywords', []))}"
+        fact_texts.append(text.strip())
+    
+    # Get query embedding
+    query_embedding = get_embedding(query)
+    if not query_embedding:
+        return get_relevant_facts(query, limit, min_relevance=3.0, fact_types=fact_types)
+    
+    # Get fact embeddings
+    fact_embeddings = get_embeddings_batch(fact_texts)
+    
+    # Calculate similarities
+    results = []
+    for fact, embedding in zip(all_facts, fact_embeddings):
+        if embedding:
+            similarity = compute_similarity(query_embedding, embedding)
+            if similarity >= min_similarity:
+                fact_with_score = fact.copy()
+                fact_with_score['similarity'] = round(similarity, 4)
+                results.append(fact_with_score)
+    
+    # Sort by similarity
+    results.sort(key=lambda x: x.get('similarity', 0), reverse=True)
+    
+    return results[:limit]
+
+
+def get_knowledge_base_status() -> dict:
+    """Get status of the knowledge base including embedding capabilities."""
+    kb = load_knowledge_base()
+    
+    return {
+        'total_articles': len(kb.get('articles', [])),
+        'total_facts': len(get_all_facts()),
+        'embeddings_available': EMBEDDINGS_AVAILABLE,
+        'sentence_transformers': SENTENCE_TRANSFORMERS_AVAILABLE if EMBEDDINGS_AVAILABLE else False,
+        'semantic_search_enabled': EMBEDDINGS_AVAILABLE and SENTENCE_TRANSFORMERS_AVAILABLE,
+    }
 
 
 # ============================================================================

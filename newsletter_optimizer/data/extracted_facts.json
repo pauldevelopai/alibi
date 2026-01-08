@@ -841,11 +841,158 @@
       "extracted_at": "2026-01-01T15:09:58.785097",
       "used_count": 9,
       "last_used": "2026-01-06T12:15:30.420816"
+    },
+    {
+      "id": "ce67b484adde",
+      "fact_type": "announcement",
+      "text": "OpenAI announced 'up to $2 million' in funding for research studies on AI safety and well-being.",
+      "speaker": null,
+      "context": "This funding announcement is part of OpenAI's efforts to address concerns about AI's impact on mental health.",
+      "keywords": [
+        "OpenAI",
+        "funding",
+        "AI safety"
+      ],
+      "confidence": "high",
+      "source_title": "Beware of OpenAI's 'Grantwashing' on AI Harms",
+      "source_url": "https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/",
+      "source_name": "Tech Policy Press",
+      "source_date": "2025-12-18",
+      "citation": "[Tech Policy Press](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "citation_full": "According to [Beware of OpenAI's 'Grantwashing' on AI Harms](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "extracted_at": "2026-01-07T07:14:35.947881",
+      "used_count": 0
+    },
+    {
+      "id": "15027377a3e8",
+      "fact_type": "statistic",
+      "text": "The median research project grant from the National Institutes of Mental Health in 2024 was $642,918.",
+      "speaker": null,
+      "context": "This statistic highlights the disparity between typical mental health research funding and what OpenAI is offering.",
+      "keywords": [
+        "NIMH",
+        "grant",
+        "funding"
+      ],
+      "confidence": "high",
+      "source_title": "Beware of OpenAI's 'Grantwashing' on AI Harms",
+      "source_url": "https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/",
+      "source_name": "Tech Policy Press",
+      "source_date": "2025-12-18",
+      "citation": "[Tech Policy Press](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "citation_full": "According to [Beware of OpenAI's 'Grantwashing' on AI Harms](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "extracted_at": "2026-01-07T07:14:35.947908",
+      "used_count": 0
+    },
+    {
+      "id": "fa852055953d",
+      "fact_type": "statistic",
+      "text": "OpenAI is offering a measly $5,000 to $100,000 to researchers studying AI and mental health.",
+      "speaker": null,
+      "context": "This funding range is significantly lower than the median NIMH grant.",
+      "keywords": [
+        "OpenAI",
+        "funding",
+        "AI mental health"
+      ],
+      "confidence": "high",
+      "source_title": "Beware of OpenAI's 'Grantwashing' on AI Harms",
+      "source_url": "https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/",
+      "source_name": "Tech Policy Press",
+      "source_date": "2025-12-18",
+      "citation": "[Tech Policy Press](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "citation_full": "According to [Beware of OpenAI's 'Grantwashing' on AI Harms](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "extracted_at": "2026-01-07T07:14:35.947917",
+      "used_count": 0
+    },
+    {
+      "id": "5d1283a525a8",
+      "fact_type": "claim",
+      "text": "OpenAI's funding announcement reveals how small a fig leaf they think will persuade a credulous public.",
+      "speaker": null,
+      "context": "This claim suggests skepticism about the adequacy of OpenAI's funding in addressing serious issues.",
+      "keywords": [
+        "OpenAI",
+        "grantwashing",
+        "public perception"
+      ],
+      "confidence": "medium",
+      "source_title": "Beware of OpenAI's 'Grantwashing' on AI Harms",
+      "source_url": "https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/",
+      "source_name": "Tech Policy Press",
+      "source_date": "2025-12-18",
+      "citation": "[Tech Policy Press](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "citation_full": "According to [Beware of OpenAI's 'Grantwashing' on AI Harms](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "extracted_at": "2026-01-07T07:14:35.947930",
+      "used_count": 0
+    },
+    {
+      "id": "b50b882bbc36",
+      "fact_type": "claim",
+      "text": "Grantwashing hinders technology safety as one of us recently argued in Science.",
+      "speaker": null,
+      "context": "This claim indicates that grantwashing is detrimental to the pursuit of technology safety.",
+      "keywords": [
+        "grantwashing",
+        "technology safety",
+        "Science"
+      ],
+      "confidence": "medium",
+      "source_title": "Beware of OpenAI's 'Grantwashing' on AI Harms",
+      "source_url": "https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/",
+      "source_name": "Tech Policy Press",
+      "source_date": "2025-12-18",
+      "citation": "[Tech Policy Press](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "citation_full": "According to [Beware of OpenAI's 'Grantwashing' on AI Harms](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "extracted_at": "2026-01-07T07:14:35.947969",
+      "used_count": 0
+    },
+    {
+      "id": "4157534fad18",
+      "fact_type": "date",
+      "text": "This month, OpenAI announced 'up to $2 million' in funding.",
+      "speaker": null,
+      "context": "The announcement occurred in December 2025.",
+      "keywords": [
+        "OpenAI",
+        "announcement",
+        "December 2025"
+      ],
+      "confidence": "high",
+      "source_title": "Beware of OpenAI's 'Grantwashing' on AI Harms",
+      "source_url": "https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/",
+      "source_name": "Tech Policy Press",
+      "source_date": "2025-12-18",
+      "citation": "[Tech Policy Press](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "citation_full": "According to [Beware of OpenAI's 'Grantwashing' on AI Harms](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "extracted_at": "2026-01-07T07:14:35.947979",
+      "used_count": 0
+    },
+    {
+      "id": "da810286ac1e",
+      "fact_type": "date",
+      "text": "In 2019, Meta announced a series of fifty thousand dollar grants to six scientists studying Instagram, safety, and well being.",
+      "speaker": null,
+      "context": "This historical reference illustrates a similar funding strategy used by another tech company.",
+      "keywords": [
+        "Meta",
+        "grants",
+        "2019"
+      ],
+      "confidence": "high",
+      "source_title": "Beware of OpenAI's 'Grantwashing' on AI Harms",
+      "source_url": "https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/",
+      "source_name": "Tech Policy Press",
+      "source_date": "2025-12-18",
+      "citation": "[Tech Policy Press](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "citation_full": "According to [Beware of OpenAI's 'Grantwashing' on AI Harms](https://www.techpolicy.press/beware-of-openais-grantwashing-on-ai-harms/)",
+      "extracted_at": "2026-01-07T07:14:35.947987",
+      "used_count": 0
     }
   ],
   "metadata": {
     "created": "2026-01-01T15:08:15.777755",
-    "last_updated": "2026-01-06T12:15:30.421046",
-    "total_facts": 39
+    "last_updated": "2026-01-07T07:14:35.949095",
+    "total_facts": 46
   }
 }

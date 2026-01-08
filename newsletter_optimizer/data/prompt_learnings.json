@@ -1,0 +1,71 @@
+{
+  "avoid_patterns": [
+    {
+      "pattern": "Avoid generic statements without personal engagement.",
+      "added": "2026-01-08T13:35:43.526250",
+      "frequency": 1
+    },
+    {
+      "pattern": "Avoid corporate or overly formal language that lacks relatability.",
+      "added": "2026-01-08T13:35:43.526253",
+      "frequency": 1
+    }
+  ],
+  "include_patterns": [
+    {
+      "instruction": "Include personal anecdotes or experiences to make the content relatable.",
+      "added": "2026-01-08T13:35:43.526255"
+    },
+    {
+      "instruction": "Use concrete examples to illustrate points effectively.",
+      "added": "2026-01-08T13:35:43.526257"
+    },
+    {
+      "instruction": "Highlight the cultural significance and practical benefits of the topic.",
+      "added": "2026-01-08T13:35:43.526259"
+    },
+    {
+      "instruction": "Emphasize the origin and authenticity of the tools or products discussed.",
+      "added": "2026-01-08T13:35:43.526260"
+    }
+  ],
+  "section_weights": {},
+  "fact_type_weights": {},
+  "edit_history": [
+    {
+      "generation_id": "0abc6f229ef3",
+      "timestamp": "2026-01-08T13:35:43.526236",
+      "edit_distance": 0.8891089108910891,
+      "similarity": 0.11089108910891089,
+      "additions_count": 5,
+      "removals_count": 1,
+      "notes": "Made it more personal, added concrete example, cut corporate speak",
+      "learnings": {
+        "avoid_instructions": [
+          "Avoid generic statements without personal engagement.",
+          "Avoid corporate or overly formal language that lacks relatability."
+        ],
+        "include_instructions": [
+          "Include personal anecdotes or experiences to make the content relatable.",
+          "Use concrete examples to illustrate points effectively.",
+          "Highlight the cultural significance and practical benefits of the topic.",
+          "Emphasize the origin and authenticity of the tools or products discussed."
+        ],
+        "style_observations": [
+          "The edited version uses a conversational tone, making it more engaging.",
+          "Personal excitement and direct comparisons are used to draw the reader in."
+        ],
+        "content_gaps": [
+          "Lack of specific examples to demonstrate the effectiveness of the tools.",
+          "Missing information on the accessibility and affordability of the tools."
+        ],
+        "quality_issues": [
+          "The original content was too generic and lacked a personal touch.",
+          "There was an absence of specific, relatable examples to support claims."
+        ]
+      }
+    }
+  ],
+  "total_generations": 0,
+  "total_edits_tracked": 1
+}

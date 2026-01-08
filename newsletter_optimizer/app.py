@@ -130,8 +130,38 @@ from openai_utils import (
     check_api_connection,
 )
 from scrape_substack import run_scraper
-from style_analyzer import load_bible, run_analysis as regenerate_bible
+from style_analyzer import load_bible, run_analysis as regenerate_bible, load_all_newsletters
+
+# Deep style analyzer for enhanced writing style extraction
+try:
+    from deep_style_analyzer import (
+        run_deep_analysis, 
+        load_deep_bible, 
+        get_deep_style_context,
+        save_custom_writing_sample,
+        load_custom_writing_samples,
+        clear_custom_writing_samples,
+        merge_deep_into_bible,
+        TEXTSTAT_AVAILABLE,
+        SPACY_AVAILABLE,
+        TEXTBLOB_AVAILABLE,
+        SENTENCE_TRANSFORMERS_AVAILABLE
+    )
+    DEEP_ANALYZER_AVAILABLE = True
+except ImportError:
+    DEEP_ANALYZER_AVAILABLE = False
+    TEXTSTAT_AVAILABLE = False
+    SPACY_AVAILABLE = False
+    TEXTBLOB_AVAILABLE = False
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
 from newsletter_generator import generate_newsletter, quick_headlines
+
+# Newsletter Engine - Self-improving generation system
+try:
+    from newsletter_engine import NewsletterEngine
+    NEWSLETTER_ENGINE_AVAILABLE = True
+except ImportError:
+    NEWSLETTER_ENGINE_AVAILABLE = False
 from advanced_metrics import load_analysis, get_metric_definitions, run_analysis as run_metrics_analysis
 from section_analyzer import load_analysis as load_section_analysis, get_section_templates, run_analysis as run_section_analysis
 from story_types import get_story_types, get_story_type_list
@@ -1934,6 +1964,212 @@ def render_settings_tab():
     
     st.markdown("Edit this file to customize topic detection and keyword lists.")
     
+    # ===========================================================================
+    # NEWSLETTER ENGINE SECTION - Self-improving AI
+    # ===========================================================================
+    st.divider()
+    st.subheader("🚀 Newsletter Engine (Self-Improving AI)")
+    
+    if NEWSLETTER_ENGINE_AVAILABLE:
+        engine = NewsletterEngine()
+        status = engine.get_status()
+        
+        # Component Status
+        st.markdown("**System Components:**")
+        col_e1, col_e2, col_e3, col_e4 = st.columns(4)
+        
+        with col_e1:
+            if status['embeddings']['sentence_transformers']:
+                st.success("✅ Local Embeddings")
+                st.caption("FREE semantic search")
+            else:
+                st.warning("⚠️ Embeddings")
+                st.caption("Using OpenAI API")
+        
+        with col_e2:
+            if status['rag']['available']:
+                st.success("✅ RAG System")
+                st.caption("Past examples")
+            else:
+                st.error("❌ RAG")
+        
+        with col_e3:
+            if status['knowledge_base']['available']:
+                st.success("✅ Knowledge Base")
+                st.caption("Facts & articles")
+            else:
+                st.warning("⚠️ KB")
+        
+        with col_e4:
+            if status['fine_tuning']['model']:
+                st.success("✅ Fine-tuned")
+                st.caption(status['fine_tuning']['model'][:20] + "...")
+            else:
+                st.info("ℹ️ Base GPT-4o")
+        
+        # Learning Progress
+        st.markdown("---")
+        st.markdown("**📈 Learning Progress:**")
+        
+        learning = status['learning']
+        if 'message' in learning:
+            st.info(f"🎓 {learning['message']} - The system learns from your edits to improve over time.")
+            st.caption("After generating a newsletter, edit it, then use 'Track Edit' to teach the system.")
+        else:
+            col_l1, col_l2, col_l3, col_l4 = st.columns(4)
+            
+            with col_l1:
+                st.metric("Edits Tracked", learning.get('total_edits_tracked', 0))
+            
+            with col_l2:
+                st.metric("Avoid Patterns", learning.get('avoid_patterns_learned', 0))
+            
+            with col_l3:
+                st.metric("Include Patterns", learning.get('include_patterns_learned', 0))
+            
+            with col_l4:
+                improvement = learning.get('improvement_percentage', 0)
+                if improvement > 0:
+                    st.metric("Improvement", f"{improvement:.1f}%", delta=f"+{improvement:.1f}%")
+                else:
+                    st.metric("Improvement", "Measuring...")
+            
+            # Show learned patterns
+            with st.expander("View Learned Patterns", expanded=False):
+                learnings_data = engine.learning_loop.learnings
+                
+                avoid = learnings_data.get('avoid_patterns', [])
+                if avoid:
+                    st.markdown("**❌ Things to AVOID (from your edits):**")
+                    for pattern in avoid[:5]:
+                        st.markdown(f"- {pattern.get('pattern', '')}")
+                
+                include = learnings_data.get('include_patterns', [])
+                if include:
+                    st.markdown("**✅ Things to INCLUDE (from your edits):**")
+                    for pattern in include[:5]:
+                        st.markdown(f"- {pattern.get('instruction', '')}")
+        
+        # Track Edit Tool
+        st.markdown("---")
+        st.markdown("**🎓 Track an Edit (Teach the AI):**")
+        st.caption("Paste the original generated content and your edited version. The AI will learn from the differences.")
+        
+        with st.expander("Track Edit Form", expanded=False):
+            track_original = st.text_area(
+                "Original (AI-generated) content:",
+                height=150,
+                key="track_original",
+                placeholder="Paste the original AI-generated content here..."
+            )
+            
+            track_edited = st.text_area(
+                "Your edited version:",
+                height=150,
+                key="track_edited",
+                placeholder="Paste your edited/improved version here..."
+            )
+            
+            track_notes = st.text_input(
+                "Notes (why did you make changes?):",
+                key="track_notes",
+                placeholder="e.g., Made it more personal, added concrete examples..."
+            )
+            
+            if st.button("Track This Edit & Learn", type="primary"):
+                if track_original and track_edited:
+                    with st.spinner("Analyzing your edit and extracting learnings..."):
+                        result = engine.track_edit(
+                            generation_id="manual_" + datetime.now().strftime("%Y%m%d%H%M%S"),
+                            original=track_original,
+                            edited=track_edited,
+                            notes=track_notes
+                        )
+                    
+                    st.success(f"✅ Edit tracked! Similarity: {result['similarity']:.1%}")
+                    
+                    if result.get('learnings_extracted'):
+                        learnings = result['learnings_extracted']
+                        if learnings.get('avoid_instructions'):
+                            st.markdown("**Learned to AVOID:**")
+                            for item in learnings['avoid_instructions'][:3]:
+                                st.markdown(f"- {item}")
+                        if learnings.get('include_instructions'):
+                            st.markdown("**Learned to INCLUDE:**")
+                            for item in learnings['include_instructions'][:3]:
+                                st.markdown(f"- {item}")
+                    
+                    st.info("These learnings will be applied to future generations!")
+                else:
+                    st.warning("Please paste both the original and edited content.")
+        
+        # Quick Generate with Engine
+        st.markdown("---")
+        st.markdown("**⚡ Quick Generate with Engine:**")
+        
+        with st.expander("Quick Generation", expanded=False):
+            quick_outline = st.text_area(
+                "Enter your outline:",
+                height=200,
+                key="engine_quick_outline",
+                placeholder="""# Newsletter Title
+
+## Opening
+- Hook about...
+- What this means...
+
+## Main Section
+- Key point 1
+- Key point 2
+
+## Closing
+- Call to action
+"""
+            )
+            
+            col_gen1, col_gen2 = st.columns(2)
+            with col_gen1:
+                target_words = st.slider("Target words:", 400, 1500, 800, 50, key="engine_target_words")
+            with col_gen2:
+                use_ft = st.checkbox("Use fine-tuned model", value=False, key="engine_use_ft")
+            
+            if st.button("Generate with Engine", type="primary", key="engine_generate_btn"):
+                if quick_outline:
+                    with st.spinner("Generating with intelligent prompt construction..."):
+                        result = engine.generate(
+                            outline=quick_outline,
+                            target_length=target_words,
+                            use_fine_tuned=use_ft
+                        )
+                    
+                    st.success(f"✅ Generated {result.metadata['output_words']} words")
+                    
+                    # Show metadata
+                    with st.expander("Generation Details", expanded=False):
+                        st.json({
+                            'model': result.model,
+                            'facts_used': result.prompt_components.get('facts_count', 0),
+                            'rag_examples': result.prompt_components.get('rag_examples_count', 0),
+                            'learnings_applied': result.prompt_components.get('learnings_applied', 0),
+                            'tokens': result.metadata.get('total_tokens', 0),
+                        })
+                    
+                    # Show content
+                    st.markdown("### Generated Content:")
+                    st.markdown(result.content)
+                    
+                    # Store for potential edit tracking
+                    st.session_state.engine_last_generation = result
+                    st.session_state.engine_last_content = result.content
+                    
+                    st.info(f"💡 Generation ID: `{result.id}` - Edit this content, then use 'Track Edit' above to teach the AI!")
+                else:
+                    st.warning("Please enter an outline first.")
+    
+    else:
+        st.warning("Newsletter Engine not available. Check that `newsletter_engine.py` exists.")
+        st.code("pip install sentence-transformers", language="bash")
+    
     # Quick links to other tabs
     st.divider()
     st.info("**Training & Fine-Tuning** has moved to its own tab! Go to the **Training** tab for AI learning, fine-tuning, and model management.")
@@ -2230,6 +2466,377 @@ def render_newsletter_bible_tab():
             st.warning("This would clear manually added rules, phrases, and cliches. Not implemented yet.")
 
 
+def render_deep_style_analysis_tab():
+    """Render the Deep Style Analysis tab - advanced linguistic analysis of your writing."""
+    st.subheader("Deep Style Analysis")
+    st.markdown("*Advanced linguistic fingerprinting using NLP libraries for more accurate style imitation*")
+    
+    if not DEEP_ANALYZER_AVAILABLE:
+        st.warning("Deep Style Analyzer module not available. Please check imports.")
+        return
+    
+    # Show library status
+    st.markdown("#### Required Libraries")
+    
+    lib_col1, lib_col2, lib_col3, lib_col4 = st.columns(4)
+    
+    with lib_col1:
+        if TEXTSTAT_AVAILABLE:
+            st.success("✅ textstat")
+        else:
+            st.error("❌ textstat")
+            st.caption("`pip install textstat`")
+    
+    with lib_col2:
+        if SPACY_AVAILABLE:
+            st.success("✅ spaCy")
+        else:
+            st.error("❌ spaCy")
+            st.caption("`pip install spacy`")
+            st.caption("`python -m spacy download en_core_web_sm`")
+    
+    with lib_col3:
+        if TEXTBLOB_AVAILABLE:
+            st.success("✅ TextBlob")
+        else:
+            st.error("❌ TextBlob")
+            st.caption("`pip install textblob`")
+    
+    with lib_col4:
+        if SENTENCE_TRANSFORMERS_AVAILABLE:
+            st.success("✅ sentence-transformers")
+        else:
+            st.info("⚪ sentence-transformers")
+            st.caption("Optional for embeddings")
+    
+    st.divider()
+    
+    # Run analysis button
+    col1, col2 = st.columns([1, 2])
+    
+    with col1:
+        if st.button("🔬 Run Deep Analysis", type="primary", use_container_width=True):
+            newsletters = load_all_newsletters()
+            if newsletters:
+                with st.spinner("Running deep linguistic analysis... This may take 30-60 seconds."):
+                    try:
+                        result = run_deep_analysis(newsletters)
+                        st.session_state['deep_analysis_result'] = result
+                        st.success(f"✅ Analysis complete! Analyzed {len(newsletters)} newsletters.")
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Analysis failed: {e}")
+            else:
+                st.error("No newsletters found. Scrape your Substack first in Settings.")
+    
+    with col2:
+        st.markdown("""
+        **What this analyzes:**
+        - Vocabulary patterns (richness, signature words)
+        - Sentence structure (length, variety, questions)
+        - Paragraph flow and transitions
+        - Punctuation habits (dashes, contractions)
+        - Personal voice (I statements, reader address)
+        - Readability metrics (Flesch-Kincaid, etc.)
+        - Sentiment and subjectivity patterns
+        """)
+    
+    st.divider()
+    
+    # Display existing analysis
+    deep_bible = load_deep_bible()
+    
+    if not deep_bible:
+        st.info("No deep analysis found. Click 'Run Deep Analysis' above to generate one.")
+        return
+    
+    # Meta info
+    meta = deep_bible.get('meta', {})
+    newsletters_count = meta.get('newsletters_analyzed', meta.get('total_texts_analyzed', 0))
+    custom_count = meta.get('custom_samples_analyzed', 0)
+    total_texts = meta.get('total_texts_analyzed', newsletters_count)
+    
+    st.markdown(f"""
+    **Last analyzed:** {meta.get('analysis_date', 'Unknown')[:10] if meta.get('analysis_date') else 'Unknown'}  
+    **Total texts analyzed:** {total_texts} ({newsletters_count} newsletters{f' + {custom_count} custom samples' if custom_count > 0 else ''})  
+    **Total characters:** {meta.get('total_characters', 0):,}
+    """)
+    
+    # Display each analysis section
+    
+    # 1. Vocabulary Analysis
+    with st.expander("📚 Vocabulary Analysis", expanded=True):
+        vocab = deep_bible.get('vocabulary', {})
+        if vocab:
+            v_col1, v_col2, v_col3 = st.columns(3)
+            with v_col1:
+                st.metric("Vocabulary Richness", f"{vocab.get('type_token_ratio', 0):.2%}")
+                st.caption("Higher = more varied word choice")
+            with v_col2:
+                st.metric("Avg Word Length", f"{vocab.get('average_word_length', 0)} chars")
+            with v_col3:
+                st.metric("Unique Words", f"{vocab.get('unique_words', 0):,}")
+            
+            st.markdown("**Your Signature Words:**")
+            sig_words = vocab.get('signature_words', [])
+            if sig_words:
+                st.markdown(" | ".join([f"`{w}`" for w in sig_words[:15]]))
+            
+            st.markdown("**Most Frequent Content Words:**")
+            freq_words = vocab.get('most_frequent_content_words', {})
+            if freq_words:
+                word_items = list(freq_words.items())[:20]
+                st.markdown(" | ".join([f"`{w}` ({c})" for w, c in word_items]))
+    
+    # 2. Sentence Analysis
+    with st.expander("📝 Sentence Structure", expanded=True):
+        sent = deep_bible.get('sentences', {})
+        if sent:
+            s_col1, s_col2, s_col3, s_col4 = st.columns(4)
+            with s_col1:
+                st.metric("Avg Sentence Length", f"{sent.get('average_sentence_length', 0):.0f} words")
+            with s_col2:
+                st.metric("Length Variation", f"±{sent.get('sentence_length_std_dev', 0):.0f}")
+            with s_col3:
+                st.metric("Questions", f"{sent.get('question_frequency', 0):.1f}%")
+            with s_col4:
+                st.metric("Short Sentences", f"{sent.get('short_sentence_frequency', 0):.1f}%")
+            
+            st.markdown("**Sample Questions You Ask:**")
+            questions = sent.get('sample_questions', [])
+            for q in questions[:5]:
+                st.markdown(f"- *\"{q[:100]}...\"*" if len(q) > 100 else f"- *\"{q}\"*")
+            
+            st.markdown("**Sample Short Punchy Sentences:**")
+            short = sent.get('sample_short_sentences', [])
+            for s in short[:5]:
+                st.markdown(f"- *\"{s}\"*")
+    
+    # 3. Paragraph Analysis
+    with st.expander("📄 Paragraph Patterns"):
+        para = deep_bible.get('paragraphs', {})
+        if para:
+            p_col1, p_col2 = st.columns(2)
+            with p_col1:
+                st.metric("Avg Paragraph Length", f"{para.get('average_paragraph_length', 0):.0f} words")
+            with p_col2:
+                rng = para.get('paragraph_length_range', {})
+                st.metric("Paragraph Range", f"{rng.get('min', 0)}-{rng.get('max', 0)} words")
+            
+            st.markdown("**Common Paragraph Starters:**")
+            starters = para.get('common_paragraph_starters', {})
+            if starters:
+                starter_items = list(starters.items())[:10]
+                st.markdown(" | ".join([f"`{s}` ({c})" for s, c in starter_items]))
+            
+            st.markdown("**Sample First Sentences:**")
+            firsts = para.get('sample_first_sentences', [])
+            for f in firsts[:5]:
+                st.markdown(f"- *\"{f[:80]}...\"*" if len(f) > 80 else f"- *\"{f}\"*")
+    
+    # 4. Punctuation Analysis
+    with st.expander("✏️ Punctuation Habits"):
+        punct = deep_bible.get('punctuation', {})
+        if punct:
+            pu_col1, pu_col2, pu_col3, pu_col4 = st.columns(4)
+            with pu_col1:
+                st.metric("Dashes", f"{punct.get('dash_frequency', 0):.1f}/1000 words")
+            with pu_col2:
+                st.metric("Colons", f"{punct.get('colon_frequency', 0):.1f}/1000 words")
+            with pu_col3:
+                st.metric("Parentheses", f"{punct.get('parentheses_frequency', 0):.1f}/1000 words")
+            with pu_col4:
+                st.metric("Contractions", f"{punct.get('contraction_frequency', 0):.1f}%")
+            
+            st.markdown("**Common Contractions:**")
+            contr = punct.get('common_contractions', {})
+            if contr:
+                contr_items = list(contr.items())[:10]
+                st.markdown(" | ".join([f"`{c}` ({n})" for c, n in contr_items]))
+    
+    # 5. Personal Voice
+    with st.expander("🎤 Personal Voice", expanded=True):
+        voice = deep_bible.get('personal_voice', {})
+        if voice:
+            vo_col1, vo_col2, vo_col3 = st.columns(3)
+            with vo_col1:
+                st.metric("First Person (I/me/my)", f"{voice.get('first_person_singular_frequency', 0):.2f}%")
+            with vo_col2:
+                st.metric("First Person (we/us/our)", f"{voice.get('first_person_plural_frequency', 0):.2f}%")
+            with vo_col3:
+                st.metric("Second Person (you/your)", f"{voice.get('second_person_frequency', 0):.2f}%")
+            
+            st.markdown("**Common 'I' Statement Patterns:**")
+            i_statements = voice.get('common_i_statements', {})
+            if i_statements:
+                i_items = list(i_statements.items())[:10]
+                st.markdown(" | ".join([f"`{s}` ({c})" for s, c in i_items]))
+            
+            st.markdown("**Questions Directed at Reader:**")
+            reader_q = voice.get('sample_reader_questions', [])
+            for q in reader_q[:5]:
+                st.markdown(f"- *\"{q[:100]}...\"*" if len(q) > 100 else f"- *\"{q}\"*")
+    
+    # 6. Readability
+    with st.expander("📊 Readability Metrics"):
+        read = deep_bible.get('readability', {})
+        if read and 'error' not in read:
+            r_col1, r_col2, r_col3 = st.columns(3)
+            with r_col1:
+                st.metric("Flesch Reading Ease", f"{read.get('flesch_reading_ease', 0):.1f}")
+                st.caption("Higher = easier to read")
+            with r_col2:
+                st.metric("Flesch-Kincaid Grade", f"{read.get('flesch_kincaid_grade', 0):.1f}")
+                st.caption("US school grade level")
+            with r_col3:
+                st.metric("Text Standard", read.get('text_standard', 'N/A'))
+            
+            r_col4, r_col5, r_col6 = st.columns(3)
+            with r_col4:
+                st.metric("Gunning Fog", f"{read.get('gunning_fog_index', 0):.1f}")
+            with r_col5:
+                st.metric("Coleman-Liau", f"{read.get('coleman_liau_index', 0):.1f}")
+            with r_col6:
+                st.metric("Reading Time", f"{read.get('reading_time_minutes', 0):.1f} min avg")
+        else:
+            st.info("Install textstat for readability metrics: `pip install textstat`")
+    
+    # 7. Sentiment
+    with st.expander("💭 Sentiment & Tone"):
+        sentiment = deep_bible.get('sentiment', {})
+        if sentiment and 'error' not in sentiment:
+            se_col1, se_col2 = st.columns(2)
+            with se_col1:
+                st.metric("Overall Tone", sentiment.get('sentiment_interpretation', 'unknown').title())
+                st.caption(f"Polarity: {sentiment.get('average_polarity', 0):.2f} (-1 to +1)")
+            with se_col2:
+                st.metric("Style", sentiment.get('subjectivity_interpretation', 'unknown').title())
+                st.caption(f"Subjectivity: {sentiment.get('average_subjectivity', 0):.2f} (0-1)")
+        else:
+            st.info("Install textblob for sentiment analysis: `pip install textblob`")
+    
+    # 8. Signature Patterns
+    with st.expander("🔑 Signature Phrases & Patterns", expanded=True):
+        patterns = deep_bible.get('signature_patterns', {})
+        if patterns:
+            st.markdown("**Your Signature Two-Word Phrases:**")
+            bigrams = patterns.get('signature_bigrams', {})
+            if bigrams:
+                bigram_items = list(bigrams.items())[:15]
+                st.markdown(" | ".join([f"`{b}` ({c})" for b, c in bigram_items]))
+            
+            st.markdown("**Your Signature Three-Word Phrases:**")
+            trigrams = patterns.get('signature_trigrams', {})
+            if trigrams:
+                trigram_items = list(trigrams.items())[:10]
+                st.markdown(" | ".join([f"`{t}` ({c})" for t, c in trigram_items]))
+    
+    # 9. Linguistic Features (if spaCy available)
+    with st.expander("🔤 Linguistic Features (spaCy)"):
+        ling = deep_bible.get('linguistics', {})
+        if ling and 'error' not in ling:
+            li_col1, li_col2, li_col3, li_col4 = st.columns(4)
+            with li_col1:
+                st.metric("Noun %", f"{ling.get('noun_frequency', 0):.1f}%")
+            with li_col2:
+                st.metric("Verb %", f"{ling.get('verb_frequency', 0):.1f}%")
+            with li_col3:
+                st.metric("Adjective %", f"{ling.get('adjective_frequency', 0):.1f}%")
+            with li_col4:
+                st.metric("Adverb %", f"{ling.get('adverb_frequency', 0):.1f}%")
+            
+            st.markdown("**Named Entity Types Found:**")
+            entities = ling.get('named_entity_types', {})
+            if entities:
+                ent_items = list(entities.items())[:10]
+                st.markdown(" | ".join([f"`{e}` ({c})" for e, c in ent_items]))
+        else:
+            st.info("Install spaCy for linguistic analysis: `pip install spacy && python -m spacy download en_core_web_sm`")
+    
+    st.divider()
+    
+    # =========================================================================
+    # ADD CUSTOM WRITING SAMPLES
+    # =========================================================================
+    
+    st.markdown("### ➕ Add More Writing Samples")
+    st.markdown("*Add articles, blog posts, or other writing you've done to improve the style analysis*")
+    
+    # Show existing custom samples
+    custom_samples = load_custom_writing_samples() if DEEP_ANALYZER_AVAILABLE else []
+    if custom_samples:
+        st.success(f"**{len(custom_samples)} custom writing samples** already added")
+        with st.expander("View Custom Samples"):
+            for i, sample in enumerate(custom_samples):
+                text = sample.get('text', '') if isinstance(sample, dict) else sample
+                source = sample.get('source', 'manual') if isinstance(sample, dict) else 'manual'
+                added = sample.get('added_at', 'Unknown')[:10] if isinstance(sample, dict) else 'Unknown'
+                st.markdown(f"**Sample {i+1}** ({source}) - Added {added}")
+                st.text_area(f"sample_{i}", text[:500] + "..." if len(text) > 500 else text, 
+                           height=100, disabled=True, key=f"view_sample_{i}")
+            
+            if st.button("🗑️ Clear All Custom Samples", type="secondary"):
+                clear_custom_writing_samples()
+                st.success("Custom samples cleared!")
+                st.rerun()
+    
+    # Add new sample
+    new_sample = st.text_area(
+        "Paste your writing sample here:",
+        height=200,
+        placeholder="Paste an article, blog post, or any writing you've done that represents your style. Minimum 100 characters.",
+        key="new_custom_sample"
+    )
+    
+    sample_source = st.text_input("Source (optional):", placeholder="e.g., 'Blog post about AI', 'LinkedIn article'", key="sample_source")
+    
+    if st.button("➕ Add Writing Sample", type="primary"):
+        if new_sample and len(new_sample.strip()) >= 100:
+            if save_custom_writing_sample(new_sample, sample_source or "manual"):
+                st.success("✅ Writing sample added! Click 'Run Deep Analysis' to include it.")
+                st.rerun()
+            else:
+                st.error("Failed to save sample")
+        else:
+            st.warning("Please enter at least 100 characters of text")
+    
+    st.divider()
+    
+    # =========================================================================
+    # MERGE INTO NEWSLETTER BIBLE
+    # =========================================================================
+    
+    st.markdown("### 🔗 Merge into Newsletter Bible")
+    st.markdown("*Copy the deep style insights into your main Newsletter Bible for use in generation*")
+    
+    merge_col1, merge_col2 = st.columns([1, 2])
+    
+    with merge_col1:
+        if st.button("🔗 Merge Deep Analysis → Bible", type="primary", use_container_width=True):
+            if DEEP_ANALYZER_AVAILABLE:
+                result = merge_deep_into_bible()
+                if result.get('success'):
+                    st.success(f"✅ Merged! Added sections: {', '.join(result.get('sections_added', []))}")
+                else:
+                    st.error(f"Merge failed: {result.get('error', 'Unknown error')}")
+            else:
+                st.error("Deep analyzer not available")
+    
+    with merge_col2:
+        st.markdown("""
+        **What this does:**
+        - Adds all deep analysis data to your Newsletter Bible
+        - Updates `writing_voice` with signature words, sentence style, etc.
+        - Makes insights available in the Training → Newsletter Bible tab
+        """)
+    
+    st.divider()
+    
+    # Raw JSON view
+    with st.expander("🔧 Raw Analysis Data"):
+        st.json(deep_bible)
+
+
 def add_to_bible(path: str, value: str):
     """Add a value to the Newsletter Bible at the specified path."""
     from pathlib import Path
@@ -2373,8 +2980,9 @@ def render_training_tab():
     st.markdown("*See exactly what's being fed into your AI model and manage training*")
     
     # Sub-tabs for different training areas
-    train_tab1, train_tab2, train_tab3, train_tab4, train_tab5, train_tab6 = st.tabs([
+    train_tab1, train_tab2, train_tab3, train_tab4, train_tab5, train_tab6, train_tab7 = st.tabs([
         "Newsletter Bible",
+        "Deep Style Analysis",
         "What's Fed to the Model",
         "Fine-Tuning",
         "AI Learning",
@@ -2386,18 +2994,21 @@ def render_training_tab():
         render_newsletter_bible_tab()
     
     with train_tab2:
-        render_model_inputs_section()
+        render_deep_style_analysis_tab()
     
     with train_tab3:
-        render_fine_tuning_section()
+        render_model_inputs_section()
     
     with train_tab4:
-        render_ai_learning_section()
+        render_fine_tuning_section()
     
     with train_tab5:
-        render_published_newsletters_section()
+        render_ai_learning_section()
     
     with train_tab6:
+        render_published_newsletters_section()
+    
+    with train_tab7:
         render_performance_learnings_section()
 
 
@@ -2469,14 +3080,32 @@ def render_model_inputs_section():
         if HAS_KNOWLEDGE_BASE:
             try:
                 facts_stats = get_facts_stats()
-                st.success(f"Knowledge Base active: {kb_stats.get('total_articles', 0)} articles, {facts_stats.get('total_facts', 0)} extracted facts")
+                total_facts = facts_stats.get('total_facts', 0)
+                st.success(f"Knowledge Base active: {kb_stats.get('total_articles', 0)} articles, {total_facts} extracted facts")
                 
-                st.markdown("**Fact Types Available:**")
-                by_type = facts_stats.get('by_type', {})
-                for fact_type, count in by_type.items():
-                    st.caption(f"- {fact_type.replace('_', ' ').title()}: {count}")
-            except:
-                st.info("Knowledge Base available but no facts extracted yet")
+                if total_facts > 0:
+                    st.markdown("**Fact Types Available:**")
+                    by_type = facts_stats.get('by_type', {})
+                    for fact_type, count in by_type.items():
+                        st.caption(f"- {fact_type.replace('_', ' ').title()}: {count}")
+                else:
+                    st.warning("⚠️ **No facts extracted yet!** Facts are pulled from articles to provide citable data to the AI.")
+                    st.markdown("Click below to extract facts from your existing articles:")
+                    
+                    if st.button("🔬 Extract Facts from All Articles", type="primary"):
+                        try:
+                            from knowledge_base import process_all_articles_for_facts
+                            with st.spinner("Extracting facts from articles... This may take a minute."):
+                                result = process_all_articles_for_facts()
+                                if result.get('articles_processed', 0) > 0:
+                                    st.success(f"✅ Extracted {result.get('facts_extracted', 0)} facts from {result.get('articles_processed', 0)} articles!")
+                                    st.rerun()
+                                else:
+                                    st.info("No articles to process. Add articles to the Knowledge Base first.")
+                        except Exception as e:
+                            st.error(f"Error extracting facts: {e}")
+            except Exception as e:
+                st.info(f"Knowledge Base available but no facts extracted yet. Error: {e}")
         else:
             st.warning("Knowledge Base not available")
     
@@ -2524,6 +3153,106 @@ def render_model_inputs_section():
             st.text(learnings[:1500] + "..." if len(learnings) > 1500 else learnings)
         else:
             st.info("No performance learnings yet. Add stats and notes in Library > Progress & Stats")
+    
+    st.divider()
+    
+    # LIVE PREVIEW - Show exactly what would be sent
+    st.markdown("### 🔍 Live Preview: Test What Gets Sent to the Model")
+    st.markdown("*Enter a topic to see exactly what context would be included in the prompt*")
+    
+    test_topic = st.text_input("Test topic:", placeholder="e.g., 'AI replacing journalists'", key="model_test_topic")
+    
+    if st.button("Generate Preview", key="generate_model_preview") and test_topic:
+        with st.spinner("Gathering context..."):
+            preview_sections = {}
+            
+            # 1. Bible context
+            if bible:
+                bible_preview = "## YOUR WRITING STYLE\n\n"
+                writing_voice = bible.get('writing_voice', {})
+                sig_phrases = writing_voice.get('signature_phrases', [])
+                if sig_phrases:
+                    bible_preview += f"**Signature phrases:** {', '.join(sig_phrases[:5])}\n"
+                
+                rules = bible.get('rules_for_success', [])
+                if rules:
+                    bible_preview += f"\n**Rules:** {len(rules)} rules loaded\n"
+                    bible_preview += f"First rule: {rules[0][:100]}...\n" if rules else ""
+                
+                cliches = bible.get('cliches_to_avoid', [])
+                if cliches:
+                    bible_preview += f"\n**Cliches to avoid:** {len(cliches)} cliches loaded\n"
+                    bible_preview += f"Examples: {', '.join(cliches[:3])}\n"
+                
+                # Deep analysis
+                deep = bible.get('deep_analysis', {})
+                if deep:
+                    bible_preview += f"\n**Deep analysis:** Integrated ✅\n"
+                    vocab = deep.get('vocabulary', {})
+                    if vocab:
+                        bible_preview += f"- Signature words: {', '.join(vocab.get('signature_words', [])[:5])}\n"
+                
+                preview_sections['Newsletter Bible'] = bible_preview
+            else:
+                preview_sections['Newsletter Bible'] = "❌ NOT LOADED - Please generate Bible in Settings"
+            
+            # 2. Knowledge Base facts
+            if HAS_KNOWLEDGE_BASE:
+                try:
+                    from knowledge_base import get_relevant_facts_context, get_relevant_facts
+                    facts = get_relevant_facts(test_topic, max_facts=5)
+                    if facts:
+                        kb_preview = f"## KNOWLEDGE BASE FACTS ({len(facts)} relevant to '{test_topic}')\n\n"
+                        for fact in facts[:3]:
+                            kb_preview += f"- **{fact.get('fact_type', 'fact').upper()}:** {fact.get('text', '')[:100]}...\n"
+                            kb_preview += f"  Source: {fact.get('source_url', 'No URL')}\n\n"
+                        preview_sections['Knowledge Base'] = kb_preview
+                    else:
+                        preview_sections['Knowledge Base'] = f"⚠️ No facts found for topic '{test_topic}' - KB has {get_facts_stats().get('total_facts', 0)} total facts"
+                except Exception as e:
+                    preview_sections['Knowledge Base'] = f"❌ Error loading KB: {e}"
+            else:
+                preview_sections['Knowledge Base'] = "❌ Knowledge Base not available"
+            
+            # 3. RAG context
+            if RAG_AVAILABLE:
+                try:
+                    from rag_system import get_writing_examples
+                    examples = get_writing_examples(test_topic, n_results=3)
+                    if examples:
+                        rag_preview = f"## SIMILAR PAST NEWSLETTERS ({len(examples)} found)\n\n"
+                        for i, ex in enumerate(examples[:2], 1):
+                            rag_preview += f"**Example {i}:**\n{ex.get('text', '')[:200]}...\n\n"
+                        preview_sections['RAG (Past Newsletters)'] = rag_preview
+                    else:
+                        preview_sections['RAG (Past Newsletters)'] = f"No similar passages found for '{test_topic}'"
+                except Exception as e:
+                    preview_sections['RAG (Past Newsletters)'] = f"⚠️ RAG error: {e}"
+            else:
+                preview_sections['RAG (Past Newsletters)'] = "RAG system not active (optional)"
+            
+            # 4. Deep style context
+            if DEEP_ANALYZER_AVAILABLE:
+                try:
+                    deep_context = get_deep_style_context(test_topic)
+                    if deep_context:
+                        preview_sections['Deep Style Analysis'] = deep_context[:500] + "..."
+                    else:
+                        preview_sections['Deep Style Analysis'] = "No deep analysis available - Run Deep Analysis first"
+                except:
+                    preview_sections['Deep Style Analysis'] = "Deep analysis not available"
+            
+            # Display preview
+            for section_name, section_content in preview_sections.items():
+                with st.expander(f"📄 {section_name}", expanded=True):
+                    st.text(section_content)
+            
+            # Summary
+            st.markdown("### Summary")
+            total_chars = sum(len(str(v)) for v in preview_sections.values())
+            st.info(f"Total context size: ~{total_chars:,} characters ({total_chars//4:,} tokens approx)")
+    
+    st.divider()
     
     # 6. Fine-Tuned Model
     with st.expander("6. Fine-Tuned Model (Deep Style Learning)", expanded=True):
@@ -6280,7 +7009,31 @@ def render_generator_tab():
         with edit_controls_col3:
             if st.session_state.newsletter_edit_mode:
                 if st.button("Save Edits", use_container_width=True, type="primary", key="save_edits_btn"):
-                    st.session_state.generator_final = st.session_state.get('newsletter_editor_content', final_content)
+                    edited_content = st.session_state.get('newsletter_editor_content', final_content)
+                    original_content = st.session_state.get('generator_original_content', final_content)
+                    
+                    # AUTOMATIC LEARNING: Track the edit if content changed
+                    if NEWSLETTER_ENGINE_AVAILABLE and edited_content != original_content:
+                        try:
+                            engine = NewsletterEngine()
+                            # Calculate how much changed
+                            from difflib import SequenceMatcher
+                            similarity = SequenceMatcher(None, original_content, edited_content).ratio()
+                            
+                            # Only track if meaningful edits (more than 5% change)
+                            if similarity < 0.95:
+                                result = engine.track_edit(
+                                    generation_id=st.session_state.get('current_newsletter_id', 'unknown'),
+                                    original=original_content,
+                                    edited=edited_content,
+                                    notes=f"Auto-tracked from Write tab. Similarity: {similarity:.1%}"
+                                )
+                                st.toast(f"🎓 AI learned from your edits! ({(1-similarity)*100:.0f}% changed)")
+                        except Exception as e:
+                            # Don't block the save if learning fails
+                            pass
+                    
+                    st.session_state.generator_final = edited_content
                     sync_from_streamlit(st)
                     st.success("Edits saved!")
                     st.rerun()

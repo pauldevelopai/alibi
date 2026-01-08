@@ -9,28 +9,62 @@ This creates a proper Retrieval-Augmented Generation system:
 
 This ensures the AI writes in YOUR voice by seeing actual examples
 from your past newsletters that are relevant to the current topic.
+
+NOW USING LOCAL EMBEDDINGS (sentence-transformers):
+- FREE (no API costs for embeddings)
+- FAST (runs locally, no network latency)
+- OFFLINE (works without internet)
+- Falls back to OpenAI if sentence-transformers not installed
 """
 
-import os
 import json
-import hashlib
 from pathlib import Path
-from typing import List, Tuple
-import re
+from typing import List, Tuple, Optional
 
-from dotenv import load_dotenv
-from openai import OpenAI
+# Use our new local embeddings module
+try:
+    from embeddings import (
+        get_embedding,
+        get_embeddings_batch,
+        compute_similarity,
+        find_most_similar,
+        get_status as get_embeddings_status,
+        SENTENCE_TRANSFORMERS_AVAILABLE,
+        OPENAI_AVAILABLE,
+    )
+    EMBEDDINGS_AVAILABLE = True
+except ImportError:
+    EMBEDDINGS_AVAILABLE = False
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+    OPENAI_AVAILABLE = False
 
-load_dotenv()
+# Fallback to old OpenAI-only method if embeddings module not available
+if not EMBEDDINGS_AVAILABLE:
+    import os
+    from dotenv import load_dotenv
+    from openai import OpenAI
+    load_dotenv()
+    _client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    
+    def get_embedding(text: str) -> List[float]:
+        """Fallback: Get embedding using OpenAI API."""
+        response = _client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text[:8000]
+        )
+        return response.data[0].embedding
+    
+    def compute_similarity(embedding1: List[float], embedding2: List[float]) -> float:
+        """Fallback: Compute cosine similarity."""
+        dot_product = sum(a * b for a, b in zip(embedding1, embedding2))
+        norm1 = sum(a * a for a in embedding1) ** 0.5
+        norm2 = sum(b * b for b in embedding2) ** 0.5
+        return dot_product / (norm1 * norm2) if norm1 and norm2 else 0
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 DATA_DIR = Path(__file__).parent / "data"
 EMBEDDINGS_FILE = DATA_DIR / "newsletter_embeddings.json"
 RAW_DATA_FILE = DATA_DIR / "newsletters_raw.jsonl"
-
-# Embedding model
-EMBEDDING_MODEL = "text-embedding-3-small"
 
 
 # ============================================================================
@@ -105,30 +139,13 @@ def chunk_newsletter(title: str, content: str, chunk_size: int = 500) -> List[di
 
 
 # ============================================================================
-# Embeddings
+# Embeddings Storage
 # ============================================================================
-
-def get_embedding(text: str) -> List[float]:
-    """Get embedding for a piece of text."""
-    response = client.embeddings.create(
-        model=EMBEDDING_MODEL,
-        input=text[:8000]  # Limit input size
-    )
-    return response.data[0].embedding
-
-
-def compute_similarity(embedding1: List[float], embedding2: List[float]) -> float:
-    """Compute cosine similarity between two embeddings."""
-    dot_product = sum(a * b for a, b in zip(embedding1, embedding2))
-    norm1 = sum(a * a for a in embedding1) ** 0.5
-    norm2 = sum(b * b for b in embedding2) ** 0.5
-    return dot_product / (norm1 * norm2) if norm1 and norm2 else 0
-
 
 def load_embeddings() -> dict:
     """Load cached embeddings."""
     if not EMBEDDINGS_FILE.exists():
-        return {'chunks': [], 'version': 1}
+        return {'chunks': [], 'version': 2, 'embedding_source': 'none'}
     with open(EMBEDDINGS_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
 
@@ -144,27 +161,56 @@ def save_embeddings(data: dict):
 # Build Embeddings Database
 # ============================================================================
 
-def build_embeddings_database(force_rebuild: bool = False) -> dict:
+def build_embeddings_database(
+    force_rebuild: bool = False,
+    prefer_local: bool = True,
+    show_progress: bool = True
+) -> dict:
     """
     Build embeddings for all newsletters.
     
     This:
     1. Loads all past newsletters
     2. Chunks them into ~500 word passages
-    3. Creates embeddings for each chunk
+    3. Creates embeddings for each chunk (LOCAL by default!)
     4. Saves to disk for fast retrieval
+    
+    Args:
+        force_rebuild: Rebuild even if database exists
+        prefer_local: Use sentence-transformers (free) over OpenAI
+        show_progress: Show progress bar during embedding
     """
-    print("Building newsletter embeddings database...")
+    print("=" * 60)
+    print("BUILDING NEWSLETTER EMBEDDINGS DATABASE")
+    print("=" * 60)
+    
+    # Show which embedding service we're using
+    if EMBEDDINGS_AVAILABLE:
+        status = get_embeddings_status()
+        if prefer_local and status['sentence_transformers_available']:
+            print(f"✅ Using LOCAL embeddings (sentence-transformers)")
+            print(f"   Model: {status.get('default_model', 'all-MiniLM-L6-v2')}")
+            print(f"   Cost: FREE")
+        elif status['openai_available']:
+            print(f"⚠️  Using OpenAI embeddings (API costs apply)")
+        else:
+            print("❌ No embedding service available!")
+            return {'chunks': [], 'version': 2, 'error': 'No embedding service'}
+    else:
+        print("⚠️  Using OpenAI embeddings (fallback mode)")
+    
+    print()
     
     # Check if we need to rebuild
     existing = load_embeddings()
     if existing.get('chunks') and not force_rebuild:
-        print(f"Using existing database with {len(existing['chunks'])} chunks")
+        print(f"📦 Using existing database with {len(existing['chunks'])} chunks")
+        print(f"   (use force_rebuild=True to regenerate)")
         return existing
     
     if not RAW_DATA_FILE.exists():
-        print(f"No newsletters found at {RAW_DATA_FILE}")
-        return {'chunks': [], 'version': 1}
+        print(f"❌ No newsletters found at {RAW_DATA_FILE}")
+        return {'chunks': [], 'version': 2}
     
     # Load all newsletters
     newsletters = []
@@ -173,9 +219,11 @@ def build_embeddings_database(force_rebuild: bool = False) -> dict:
             if line.strip():
                 newsletters.append(json.loads(line))
     
-    print(f"Processing {len(newsletters)} newsletters...")
+    print(f"📰 Processing {len(newsletters)} newsletters...")
+    print()
     
-    all_chunks = []
+    # Collect all chunks first
+    all_chunk_data = []
     
     for i, nl in enumerate(newsletters):
         title = nl.get('title', 'Untitled')
@@ -187,34 +235,87 @@ def build_embeddings_database(force_rebuild: bool = False) -> dict:
         # Chunk the newsletter
         chunks = chunk_newsletter(title, content)
         
-        print(f"  [{i+1}/{len(newsletters)}] {title[:50]}... ({len(chunks)} chunks)")
-        
         for j, chunk in enumerate(chunks):
-            # Create embedding
-            try:
-                embedding = get_embedding(f"Newsletter: {title}\n\n{chunk['text']}")
-                
+            all_chunk_data.append({
+                'id': f"{i}_{j}",
+                'newsletter_idx': i,
+                'newsletter_title': title,
+                'text': chunk['text'],
+                'word_count': chunk['word_count'],
+                'embed_text': f"Newsletter: {title}\n\n{chunk['text']}"
+            })
+    
+    print(f"📝 Created {len(all_chunk_data)} chunks from {len(newsletters)} newsletters")
+    print()
+    
+    # Batch embed all chunks (much faster with local model!)
+    if EMBEDDINGS_AVAILABLE:
+        print("🔄 Embedding chunks...")
+        texts_to_embed = [c['embed_text'] for c in all_chunk_data]
+        embeddings = get_embeddings_batch(
+            texts_to_embed,
+            use_cache=True,
+            prefer_local=prefer_local
+        )
+        
+        # Add embeddings to chunks
+        all_chunks = []
+        success_count = 0
+        for chunk_data, embedding in zip(all_chunk_data, embeddings):
+            if embedding is not None:
                 all_chunks.append({
-                    'id': f"{i}_{j}",
-                    'newsletter_title': title,
-                    'text': chunk['text'],
-                    'word_count': chunk['word_count'],
+                    'id': chunk_data['id'],
+                    'newsletter_title': chunk_data['newsletter_title'],
+                    'text': chunk_data['text'],
+                    'word_count': chunk_data['word_count'],
+                    'embedding': embedding,
+                })
+                success_count += 1
+        
+        print(f"✅ Successfully embedded {success_count}/{len(all_chunk_data)} chunks")
+    else:
+        # Fallback: embed one at a time with OpenAI
+        all_chunks = []
+        for i, chunk_data in enumerate(all_chunk_data):
+            if i % 10 == 0:
+                print(f"   Embedding chunk {i+1}/{len(all_chunk_data)}...")
+            try:
+                embedding = get_embedding(chunk_data['embed_text'])
+                all_chunks.append({
+                    'id': chunk_data['id'],
+                    'newsletter_title': chunk_data['newsletter_title'],
+                    'text': chunk_data['text'],
+                    'word_count': chunk_data['word_count'],
                     'embedding': embedding,
                 })
             except Exception as e:
-                print(f"    Error embedding chunk {j}: {e}")
+                print(f"   Error embedding chunk {i}: {e}")
     
-    print(f"\nCreated {len(all_chunks)} total chunks")
+    print()
+    
+    # Determine embedding source
+    embedding_source = 'unknown'
+    if EMBEDDINGS_AVAILABLE:
+        status = get_embeddings_status()
+        if prefer_local and status['sentence_transformers_available']:
+            embedding_source = 'sentence-transformers'
+        elif status['openai_available']:
+            embedding_source = 'openai'
+    else:
+        embedding_source = 'openai-fallback'
     
     # Save
     data = {
         'chunks': all_chunks,
-        'version': 1,
+        'version': 2,
         'total_newsletters': len(newsletters),
+        'total_chunks': len(all_chunks),
+        'embedding_source': embedding_source,
     }
     save_embeddings(data)
     
-    print(f"Saved to {EMBEDDINGS_FILE}")
+    print(f"💾 Saved {len(all_chunks)} chunks to {EMBEDDINGS_FILE}")
+    print("=" * 60)
     
     return data
 
@@ -247,17 +348,22 @@ def retrieve_relevant_passages(
     
     # Get query embedding
     query_embedding = get_embedding(query)
+    if query_embedding is None:
+        print("Failed to get query embedding")
+        return []
     
     # Calculate similarities
     results = []
     for chunk in data['chunks']:
-        similarity = compute_similarity(query_embedding, chunk['embedding'])
-        if similarity >= min_similarity:
-            results.append({
-                'title': chunk['newsletter_title'],
-                'text': chunk['text'],
-                'similarity': similarity,
-            })
+        chunk_embedding = chunk.get('embedding')
+        if chunk_embedding:
+            similarity = compute_similarity(query_embedding, chunk_embedding)
+            if similarity >= min_similarity:
+                results.append({
+                    'title': chunk['newsletter_title'],
+                    'text': chunk['text'],
+                    'similarity': similarity,
+                })
     
     # Sort by similarity
     results.sort(key=lambda x: x['similarity'], reverse=True)
@@ -292,6 +398,28 @@ def get_writing_examples(topic: str, num_examples: int = 5) -> str:
     return examples
 
 
+def get_rag_status() -> dict:
+    """Get status of the RAG system."""
+    data = load_embeddings()
+    
+    status = {
+        'embeddings_available': EMBEDDINGS_AVAILABLE,
+        'sentence_transformers': SENTENCE_TRANSFORMERS_AVAILABLE if EMBEDDINGS_AVAILABLE else False,
+        'openai_available': OPENAI_AVAILABLE if EMBEDDINGS_AVAILABLE else True,
+        'total_chunks': len(data.get('chunks', [])),
+        'total_newsletters': data.get('total_newsletters', 0),
+        'embedding_source': data.get('embedding_source', 'unknown'),
+        'version': data.get('version', 1),
+    }
+    
+    if EMBEDDINGS_AVAILABLE:
+        emb_status = get_embeddings_status()
+        status['model_loaded'] = emb_status.get('model_loaded', False)
+        status['model_name'] = emb_status.get('model_name')
+    
+    return status
+
+
 # ============================================================================
 # Test
 # ============================================================================
@@ -301,14 +429,23 @@ if __name__ == "__main__":
     print("RAG SYSTEM FOR NEWSLETTERS")
     print("=" * 60)
     
+    # Show status
+    status = get_rag_status()
+    print("\n📊 Status:")
+    print(f"   Sentence Transformers: {'✅' if status.get('sentence_transformers') else '❌'}")
+    print(f"   OpenAI Fallback: {'✅' if status.get('openai_available') else '❌'}")
+    print(f"   Current DB: {status['total_chunks']} chunks from {status['total_newsletters']} newsletters")
+    print(f"   Embedding Source: {status['embedding_source']}")
+    
     # Build database
+    print("\n")
     data = build_embeddings_database()
     
-    print(f"\nDatabase has {len(data.get('chunks', []))} chunks")
+    print(f"\n📦 Database has {len(data.get('chunks', []))} chunks")
     
     # Test retrieval
     test_query = "AI tools for African journalists"
-    print(f"\nTest query: '{test_query}'")
+    print(f"\n🔍 Test query: '{test_query}'")
     print("-" * 40)
     
     passages = retrieve_relevant_passages(test_query, top_k=3)
@@ -319,12 +456,3 @@ if __name__ == "__main__":
         print(f"   Preview: {p['text'][:200]}...")
     
     print("\n" + "=" * 60)
-
-
-
-
-
-
-
-
-

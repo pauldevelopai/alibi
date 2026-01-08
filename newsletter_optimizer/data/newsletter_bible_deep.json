@@ -1,0 +1,372 @@
+{
+  "meta": {
+    "total_texts_analyzed": 44,
+    "newsletters_analyzed": 44,
+    "custom_samples_analyzed": 0,
+    "total_characters": 293567,
+    "analysis_date": "2026-01-08T11:50:07.978134",
+    "libraries_available": {
+      "textstat": true,
+      "spacy": true,
+      "textblob": true,
+      "sentence_transformers": true
+    }
+  },
+  "vocabulary": {
+    "total_words_analyzed": 51634,
+    "unique_words": 5815,
+    "type_token_ratio": 0.1126,
+    "hapax_legomena_count": 2939,
+    "hapax_ratio": 0.0569,
+    "average_word_length": 4.53,
+    "signature_words": [
+      "media",
+      "people",
+      "develop",
+      "newsletter",
+      "use",
+      "like",
+      "week",
+      "chatgpt",
+      "going",
+      "out",
+      "content",
+      "new",
+      "training",
+      "news",
+      "see",
+      "africa",
+      "used",
+      "also",
+      "using",
+      "podcast"
+    ],
+    "most_frequent_content_words": {
+      "media": 200,
+      "people": 165,
+      "develop": 160,
+      "newsletter": 158,
+      "use": 157,
+      "like": 147,
+      "week": 147,
+      "chatgpt": 139,
+      "going": 132,
+      "out": 131,
+      "content": 125,
+      "new": 115,
+      "training": 111,
+      "news": 105,
+      "see": 103,
+      "africa": 102,
+      "used": 101,
+      "also": 98,
+      "using": 96,
+      "podcast": 95,
+      "one": 88,
+      "work": 87,
+      "journalists": 86,
+      "whatsapp": 83,
+      "code": 82,
+      "next": 81,
+      "created": 80,
+      "best": 79,
+      "get": 79,
+      "community": 79
+    }
+  },
+  "sentences": {
+    "total_sentences_analyzed": 2666,
+    "average_sentence_length": 19.3,
+    "sentence_length_std_dev": 11.2,
+    "shortest_sentence_length": 1,
+    "longest_sentence_length": 90,
+    "question_frequency": 0.0,
+    "exclamation_frequency": 0.0,
+    "short_sentence_frequency": 25.3,
+    "long_sentence_frequency": 24.8,
+    "sample_questions": [],
+    "sample_short_sentences": [
+      "Thank you to\nDW Akademie\nfor making this happen",
+      "Contact me for more details on how to build this",
+      "This is being caused by the end of Google search",
+      "What do you have that others don’t",
+      "Expertise, data and understanding of the context",
+      "Don’t rely on the LLMs to send you clicks",
+      "Watch a video about that project\nhere",
+      "Watch the launch\nhere",
+      "That means reading the small print",
+      "The results can be astounding"
+    ],
+    "sample_long_sentences": [
+      "The media has always been at the centre of the AI explosion and while last year it looked like it was taking serious hits, in 2025 it showed that ther...",
+      "Moldova & what AI is doing to podcasting\nI was in Moldova earlier this year speaking on AI and podcasting at their annual Podcast Fest and giving a wo...",
+      "AI lesson:\nYou can use\nCursor\nand\nElevenLabs\nto build your own AI daily podcast on all the newsletters and news you find interesting (in a language of...",
+      "Judging an award at Podcast Fest in Moldova\nTanzania & dealing with how AI is killing the web\nAs part of an African retreat for International Media Su...",
+      "Arusha, Tanzania\nSouth Africa & The M20\nI spoke on a panel as part of the\nM20 Summit\nin Johannesburg on AI and came out guns blazing against big tech ..."
+    ]
+  },
+  "paragraphs": {
+    "total_paragraphs_analyzed": 44,
+    "average_paragraph_length": 1173.6,
+    "paragraph_length_range": {
+      "min": 75,
+      "max": 1608
+    },
+    "common_paragraph_starters": {
+      "these stories": 2,
+      "last week": 2,
+      "remember when": 2,
+      "produced with": 2,
+      "the media": 1,
+      "i was": 1,
+      "it is": 1,
+      "versions of": 1,
+      "please welcome": 1,
+      "a version": 1,
+      "for the": 1,
+      "i remember": 1,
+      "created with": 1,
+      "in today’s": 1,
+      "i always": 1
+    },
+    "sample_first_sentences": [
+      "The media has always been at the centre of the AI explosion and while last year it looked like it was taking serious hits, in 2025 it showed that there was a willingness to embrace AI and double down on quality journalism that holds the powerful to account",
+      "I was in Copenhagen last week, which is a lovely theme park type of city",
+      "It is always good to let the relentless wave of AI text-to-video hype wash over you and then check in every few months on what the actual quality is looking like",
+      "Versions of these stories first appeared on my LinkedIn newsletter,\nDevelop AI Daily",
+      "These stories first appeared on my daily LinkedIn newsletter,\nDevelop AI Daily",
+      "These stories first appeared on my daily LinkedIn newsletter,\nDevelop AI Daily",
+      "Please welcome the return of our podcast \"Burn It Down\" which will, going forward, focus exclusively on AI and education",
+      "A version of this article was originally published by\nPublic Media Alliance",
+      "For the longest time I have told people, “I’m not a coder",
+      "I remember when my PC began to search the actual words inside my Word documents rather than just the titles of my files… it was a complete game changer",
+      "Created with Meta AI\nStraight out of the gate\nApple “Intelligence”\nwas all promise and no delivery",
+      "In today’s news that you can file under “too little, too late”, a New York federal judge on the 21st of November allowed\nThe Intercept’s\nclaim against OpenAI to proceed, where they are alleging that OpenAI were in breach of the Digital Millennium Copyright Act (DMCA), as reported by\nNieman Reports",
+      "I always think of the people who invented the torch apps for Android 15 years ago",
+      "Last week I was at\nRadiodays Asia\nin Malaysia giving a workshop on “Leveraging AI for Podcasting” (thanks again to\nPublic Media Alliance\nand Nessa McGann for making that happen)",
+      "I admired and hated the devious nature of Open AI’s counter argument to The New York Times two weeks ago"
+    ],
+    "sample_last_sentences": [
+      "za, find me on\nLinkedIn\nor chat to me on our\nWhatsApp Community",
+      "za, find me on\nLinkedIn\nor chat to me on our\nWhatsApp Community",
+      "We have also recently started chatting on\nDiscord\nand uploading to\nHugging Face",
+      "We have also recently started chatting on\nDiscord\nand uploading to\nHugging Face",
+      "Pay $5 to support this newsletter",
+      "Pay $5 to support this newsletter",
+      "WATCH on\nYouTube\n:\nOr LISTEN on\nSpotify",
+      "For $5 a month you can\nhelp support\nthis newsletter (and keep it free for everyone)",
+      "For $5 a month you can\nhelp support\nthis newsletter (and keep it free for everyone)",
+      "For $5 a month you can\nhelp support\nthis newsletter (and keep it free for everyone)"
+    ]
+  },
+  "punctuation": {
+    "dash_frequency": 0.58,
+    "ellipsis_frequency": 0.15,
+    "colon_frequency": 2.87,
+    "semicolon_frequency": 0.02,
+    "parentheses_frequency": 7.88,
+    "quote_frequency": 0.52,
+    "contraction_frequency": 0.11,
+    "common_contractions": {
+      "don't": 7,
+      "google's": 6,
+      "isn't": 5,
+      "africa's": 5,
+      "world's": 4,
+      "here's": 2,
+      "didn't": 2,
+      "can't": 2,
+      "anthropic's": 2,
+      "p'arop": 2
+    }
+  },
+  "personal_voice": {
+    "first_person_singular_frequency": 1.47,
+    "first_person_plural_frequency": 1.25,
+    "second_person_frequency": 1.49,
+    "common_i_statements": {
+      "I have been": 22,
+      "I wrote about": 8,
+      "I was in": 6,
+      "I will be": 6,
+      "I went to": 5,
+      "I would like": 5,
+      "I use AI": 5,
+      "I had to": 5,
+      "I have to": 5,
+      "I was on": 4,
+      "I am busy": 4,
+      "I think the": 4,
+      "I asked ChatGPT": 4,
+      "I was at": 3,
+      "I would say": 3
+    },
+    "sample_reader_questions": [
+      "What do you have that others don’t?",
+      "But when you duplicate that private use millions of times where does that leave the creators of the \"source material\"?",
+      "And if the source of your insights is a black-box model with unclear logic, how do you defend your reporting?",
+      "We talk about this issue a great deal while I’m training newsrooms in AI: if you declare that a piece of content was created with AI can you be sure that your audience will fully appreciate what that means in a world where “AI” has become synonymous with “fake”?",
+      "If you wilfully document and sell your voice for scraps then surely you are giving up a major part of your IP?",
+      "If you are admitting to your audience (and the algorithm) that you are using generative AI and suffering those consequences in perception then why not push it as far as you can?",
+      "In the news…\nThe brilliant technologist and human rights advocate Sam Gregory gives a terrifying (and ultimately uplifting)\nTed Talk\ntitled “When AI can fake reality, who can you trust?"
+    ]
+  },
+  "signature_patterns": {
+    "signature_bigrams": {
+      "this newsletter": 132,
+      "you can": 112,
+      "develop ai": 106,
+      "going to": 106,
+      "if you": 104,
+      "we are": 101,
+      "of ai": 80,
+      "how to": 78,
+      "ai and": 74,
+      "to use": 74,
+      "they are": 73,
+      "in a": 67,
+      "this is": 67,
+      "need to": 67,
+      "i have": 64,
+      "the ai": 63,
+      "from the": 63,
+      "all the": 62,
+      "whatsapp community": 62,
+      "this week": 62
+    },
+    "signature_trigrams": {
+      "our whatsapp community": 54,
+      "is going to": 46,
+      "see you next": 41,
+      "support this newsletter": 41,
+      "ai was used": 41,
+      "you next week": 40,
+      "all the best": 40,
+      "at develop ai": 38,
+      "next week all": 38,
+      "week all the": 38,
+      "was used in": 38,
+      "used in creating": 37,
+      "on paul developai": 36,
+      "paul developai co": 36,
+      "developai co za": 36
+    }
+  },
+  "readability": {
+    "flesch_reading_ease": 57.11415915071407,
+    "flesch_kincaid_grade": 10.057837842553397,
+    "gunning_fog_index": 12.946519959564426,
+    "smog_index": 12.607636954908497,
+    "coleman_liau_index": 9.372030824133805,
+    "automated_readability_index": 10.23033521388031,
+    "dale_chall_readability": 10.023398308904302,
+    "difficult_words_count": 4144,
+    "linsear_write_formula": 21.333333333333332,
+    "text_standard": "9th and 10th grade",
+    "reading_time_minutes": 59.242076833333336
+  },
+  "sentiment": {
+    "average_polarity": 0.113,
+    "average_subjectivity": 0.343,
+    "polarity_range": {
+      "min": -1.0,
+      "max": 1.0
+    },
+    "subjectivity_range": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "sentiment_interpretation": "mostly positive",
+    "subjectivity_interpretation": "balanced"
+  },
+  "linguistics": {
+    "pos_distribution": {
+      "NOUN": 16.81,
+      "VERB": 12.1,
+      "PUNCT": 9.5,
+      "ADP": 9.27,
+      "PRON": 8.49,
+      "DET": 7.69,
+      "AUX": 6.44,
+      "PROPN": 6.43,
+      "ADJ": 5.47,
+      "ADV": 4.22,
+      "SPACE": 3.68,
+      "CCONJ": 3.3,
+      "PART": 3.02,
+      "SCONJ": 2.6,
+      "NUM": 0.74
+    },
+    "noun_frequency": 16.81,
+    "verb_frequency": 12.1,
+    "adjective_frequency": 5.47,
+    "adverb_frequency": 4.22,
+    "named_entity_types": {
+      "ORG": 318,
+      "GPE": 259,
+      "DATE": 135,
+      "PERSON": 114,
+      "CARDINAL": 61,
+      "ORDINAL": 26,
+      "LOC": 26,
+      "MONEY": 21,
+      "NORP": 18,
+      "PRODUCT": 17
+    },
+    "common_dependencies": {
+      "punct": 1872,
+      "prep": 1694,
+      "nsubj": 1564,
+      "pobj": 1519,
+      "det": 1493,
+      "dobj": 1108,
+      "aux": 1093,
+      "advmod": 984,
+      "amod": 852,
+      "compound": 825
+    }
+  },
+  "semantic": {
+    "total_sentences_analyzed": 218,
+    "semantic_consistency": 0.4344,
+    "consistency_interpretation": "Varied voice",
+    "semantic_diversity": 0.8161,
+    "diversity_interpretation": "Highly diverse topics",
+    "most_representative_sentences": [
+      "This is a platform for newsrooms and content creators in Africa and Asia so they can seriously up-skill themselves, code their own applications, create revenue out of AI and share their AI knowledge in a way that they haven’t been able to until now",
+      "Here’s a prediction: some newsrooms are going to take the race to the bottom with the adoption of AI and they are going to suffer for that",
+      "The media has always been at the centre of the AI explosion and while last year it looked like it was taking serious hits, in 2025 it showed that there was a willingness to embrace AI and double down on quality journalism that holds the powerful to account",
+      "It isn’t just AI language models like ChatGPT being able to write coherent stories (and even make pithy jokes) that should be making journalists reassess their place in the world, but that it can also help you build your own apps so you can improve your own journalism",
+      "This week’s AI tool for journalists to use…\nProduced with www"
+    ],
+    "outlier_sentences": [
+      "I was in Copenhagen last week, which is a lovely theme park type of city",
+      "The range varies depending on where its servers are located and the season",
+      "It was my first time in Windhoek and I found it charming and peaceful (and even managed to go to a garish\nOktoberfest in Namibia\ncelebration where a bunch of Americans were gleefully, drunkenly and competitively hitting nails into wood)"
+    ],
+    "topic_clusters": [
+      [
+        "The media has always been at the centre of the AI explosion and while last year it looked like it was taking serious hits, in 2025 it showed that there was a willingness to embrace AI and double down on quality journalism that holds the powerful to account",
+        "Here’s a prediction: some newsrooms are going to take the race to the bottom with the adoption of AI and they are going to suffer for that"
+      ],
+      [
+        "Moldova & what AI is doing to podcasting\nI was in Moldova earlier this year speaking on AI and podcasting at their annual Podcast Fest and giving a workshop to a range of newsrooms from around the country on AI implementation",
+        "Last week I was at\nRadiodays Asia\nin Malaysia giving a workshop on “Leveraging AI for Podcasting” (thanks again to\nPublic Media Alliance\nand Nessa McGann for making that happen)"
+      ],
+      [
+        "Versions of these stories first appeared on my LinkedIn newsletter,\nDevelop AI Daily",
+        "These stories first appeared on my daily LinkedIn newsletter,\nDevelop AI Daily",
+        "These stories first appeared on my daily LinkedIn newsletter,\nDevelop AI Daily"
+      ],
+      [
+        "and central to its ambition is to have us think about the RISK of different types of AI",
+        "It categorises AI systems as being either “unacceptable”, “high”, “limited” or “minimal” risk"
+      ],
+      [
+        "There was no way they could disclose that they were using AI to their audience, because they were convinced that their audience would consider them too “lazy” if they discovered AI was being used",
+        "And regardless of the accuracy or their enjoyment of the content, he was convinced members of the audience would definitely turn away from the outlet if AI was involved"
+      ]
+    ],
+    "embedding_dimension": 384
+  }
+}
