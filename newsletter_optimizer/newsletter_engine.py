@@ -228,7 +228,8 @@ Return ONLY valid JSON, no markdown formatting."""
                 facts = get_relevant_facts(query, max_facts=5)
             
             for fact in facts:
-                fact_id = fact.get('id', hash(fact.get('fact_text', '')))
+                # Facts use 'text' key, not 'fact_text'
+                fact_id = fact.get('id', hash(fact.get('text', '')))
                 if fact_id not in seen:
                     seen.add(fact_id)
                     # Boost score if fact type matches what's needed
@@ -387,6 +388,7 @@ Return ONLY valid JSON, no markdown formatting."""
             'bible_sections': list(bible_sections.keys()),
             'learnings_applied': len(learnings),
             'timestamp': datetime.now().isoformat(),
+            'embedding_source': 'sentence-transformers (local)' if SENTENCE_TRANSFORMERS_AVAILABLE else 'none',
         }
         
         return system_prompt, user_prompt, metadata
@@ -459,9 +461,12 @@ Return ONLY valid JSON, no markdown formatting."""
             prompt += "# EXAMPLES FROM YOUR PAST NEWSLETTERS\n"
             prompt += "Match this voice and style EXACTLY:\n\n"
             for i, ex in enumerate(rag_examples[:3], 1):
+                # Chunks use 'newsletter_title' not 'title'
+                title = ex.get('newsletter_title', ex.get('title', 'Past Newsletter'))
+                text = ex.get('text', '')[:500]
                 prompt += f"---\n"
-                prompt += f"From: \"{ex['title']}\"\n"
-                prompt += f"{ex['text'][:500]}...\n\n"
+                prompt += f"From: \"{title}\"\n"
+                prompt += f"{text}...\n\n"
             prompt += "---\n\n"
         
         # SECTION 2: Intro examples from Bible (if available)
@@ -475,9 +480,10 @@ Return ONLY valid JSON, no markdown formatting."""
         if facts:
             prompt += "# FACTS AND DATA TO USE (cite sources!)\n\n"
             for i, fact in enumerate(facts[:8], 1):
-                fact_text = fact.get('fact_text', '')
-                source = fact.get('source_title', 'Unknown')
-                url = fact.get('source_url', '')
+                # Facts use 'text' key, not 'fact_text'
+                fact_text = fact.get('text', fact.get('fact_text', ''))
+                source = fact.get('source_title', fact.get('source_name', 'Unknown'))
+                url = fact.get('source_url', fact.get('citation', ''))
                 
                 prompt += f"{i}. {fact_text}\n"
                 prompt += f"   Source: {source}"
@@ -518,6 +524,114 @@ class NewsletterGenerator:
     def __init__(self):
         self.prompt_constructor = PromptConstructor()
         self.fine_tuned_model = self._get_fine_tuned_model()
+    
+    def build_prompt_from_outline_data(
+        self,
+        outline_data: Dict,
+        idea: str = "",
+        style_metrics: Dict = None,
+        story_type_data: Dict = None
+    ) -> Tuple[str, str, Dict]:
+        """
+        Build an intelligent prompt from the Write tab's structured outline_data.
+        
+        This converts the outline_data format to a text outline, then uses
+        the intelligent prompt construction with:
+        - Semantic fact search
+        - RAG examples from past newsletters
+        - Targeted Bible sections
+        - Learnings from past edits
+        
+        Args:
+            outline_data: Structured outline from Write tab
+            idea: The original idea/topic
+            style_metrics: The 22 style dial values
+            story_type_data: Story type characteristics
+        
+        Returns:
+            Tuple of (system_prompt, user_prompt, metadata)
+        """
+        # Convert structured outline_data to text format
+        outline_text = self._outline_data_to_text(outline_data, idea, style_metrics, story_type_data)
+        
+        # Calculate target word count from outline_data
+        main_words = outline_data.get('main_story', {}).get('target_word_count', 500)
+        section_words = sum(s.get('target_word_count', 150) for s in outline_data.get('additional_sections', []))
+        target_length = main_words + section_words + 100  # Buffer for intro/outro
+        
+        # Use the intelligent prompt builder
+        system_prompt, user_prompt, metadata = self.prompt_constructor.build_prompt(
+            outline=outline_text,
+            target_length=target_length
+        )
+        
+        # Add outline_data specific info to metadata
+        metadata['headline'] = outline_data.get('headline', '')
+        metadata['preview'] = outline_data.get('preview', '')
+        metadata['target_word_count'] = target_length
+        metadata['sources_provided'] = len(outline_data.get('sources', []))
+        
+        return system_prompt, user_prompt, metadata
+    
+    def _outline_data_to_text(
+        self,
+        outline_data: Dict,
+        idea: str,
+        style_metrics: Dict = None,
+        story_type_data: Dict = None
+    ) -> str:
+        """Convert structured outline_data to text format for analysis."""
+        
+        text = f"# {outline_data.get('headline', idea)}\n\n"
+        text += f"*{outline_data.get('preview', '')}*\n\n"
+        
+        # Opening hook
+        if outline_data.get('opening_hook'):
+            text += f"## Opening Hook\n{outline_data['opening_hook']}\n\n"
+        
+        # Main story
+        main = outline_data.get('main_story', {})
+        if main:
+            text += f"## Main Story: {main.get('heading', 'Main Section')}\n"
+            text += f"Target: {main.get('target_word_count', 500)} words\n\n"
+            text += "Key Points:\n"
+            for point in main.get('key_points', []):
+                text += f"- {point}\n"
+            if main.get('user_notes'):
+                text += f"\nNotes: {main['user_notes']}\n"
+            text += "\n"
+        
+        # Additional sections
+        for section in outline_data.get('additional_sections', []):
+            text += f"## {section.get('heading', 'Section')}\n"
+            text += f"Target: {section.get('target_word_count', 150)} words\n\n"
+            for bp in section.get('bullet_points', []):
+                if bp.strip():
+                    text += f"- {bp}\n"
+            if section.get('user_notes'):
+                text += f"\nNotes: {section['user_notes']}\n"
+            text += "\n"
+        
+        # Sources
+        sources = outline_data.get('sources', [])
+        if sources:
+            text += "## Sources\n"
+            for s in sources:
+                text += f"- {s.get('title', 'Source')}: {s.get('url', '')}\n"
+            text += "\n"
+        
+        # Style metrics summary
+        if style_metrics:
+            high_metrics = [k for k, v in style_metrics.items() if v > 70]
+            if high_metrics:
+                text += f"## Style Focus\nEmphasize: {', '.join(high_metrics[:5])}\n\n"
+        
+        # Story type
+        if story_type_data:
+            text += f"## Story Type: {story_type_data.get('name', 'Standard')}\n"
+            text += f"{story_type_data.get('description', '')}\n\n"
+        
+        return text
     
     def _get_fine_tuned_model(self) -> Optional[str]:
         """Get the active fine-tuned model if available."""

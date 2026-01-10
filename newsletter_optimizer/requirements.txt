@@ -16,8 +16,6 @@ numpy>=1.24.0
 # These enable local semantic search - FREE, FAST, OFFLINE
 sentence-transformers>=2.2.0  # Hugging Face embeddings
 textstat>=0.7.0               # Readability metrics
-textblob>=0.17.0              # Sentiment analysis
-
-# spaCy for deep linguistic analysis (optional)
+textblob>=0.17.0              # Sentiment analysis# spaCy for deep linguistic analysis (optional)
 # After installing, run: python -m spacy download en_core_web_sm
 spacy>=3.5.0
