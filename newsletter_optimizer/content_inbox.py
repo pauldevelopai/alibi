@@ -58,7 +58,7 @@ except ImportError:
 
 # Try to import knowledge base for curated content
 try:
-    from knowledge_base import get_knowledge_context, get_articles
+    from knowledge_base import get_knowledge_context, get_articles, add_article as kb_add_article
     KNOWLEDGE_BASE_AVAILABLE = True
 except ImportError:
     KNOWLEDGE_BASE_AVAILABLE = False
@@ -66,6 +66,8 @@ except ImportError:
         return ""
     def get_articles(*args, **kwargs):
         return []
+    def kb_add_article(*args, **kwargs):
+        return None
 
 def get_model_for_ideas() -> str:
     """Get the best model for idea generation - prefers fine-tuned if available."""
@@ -78,6 +80,94 @@ def get_model_for_ideas() -> str:
 # Data storage
 DATA_DIR = Path(__file__).parent / "data"
 INBOX_FILE = DATA_DIR / "content_inbox.json"
+SAVED_IDEAS_FILE = DATA_DIR / "saved_ideas.json"
+
+
+# ============================================================================
+# Auto-save Ideas and Sources
+# ============================================================================
+
+def load_saved_ideas() -> list:
+    """Load all saved ideas from disk."""
+    if not SAVED_IDEAS_FILE.exists():
+        return []
+    try:
+        with open(SAVED_IDEAS_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except:
+        return []
+
+
+def save_ideas_to_disk(ideas: list):
+    """Save ideas list to disk."""
+    DATA_DIR.mkdir(exist_ok=True)
+    with open(SAVED_IDEAS_FILE, 'w', encoding='utf-8') as f:
+        json.dump(ideas, f, indent=2, ensure_ascii=False, default=str)
+
+
+def auto_save_generated_ideas(new_ideas: list) -> dict:
+    """
+    Automatically save generated ideas and add their sources to knowledge base.
+    
+    Returns stats about what was saved.
+    """
+    if not new_ideas:
+        return {'ideas_saved': 0, 'sources_added': 0}
+    
+    existing_ideas = load_saved_ideas()
+    existing_titles = {i.get('title', '').lower() for i in existing_ideas}
+    
+    ideas_saved = 0
+    sources_added = 0
+    sources_seen = set()  # Track URLs to avoid duplicates
+    
+    for idea in new_ideas:
+        # Skip if we already have this idea (by title)
+        title = idea.get('title', '')
+        if title.lower() in existing_titles:
+            continue
+        
+        # Add metadata
+        idea['id'] = f"idea_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{ideas_saved}"
+        idea['saved_at'] = datetime.now().isoformat()
+        idea['used'] = False
+        idea['auto_saved'] = True  # Mark as auto-saved
+        
+        existing_ideas.append(idea)
+        existing_titles.add(title.lower())
+        ideas_saved += 1
+        
+        # Add sources to knowledge base
+        sources = idea.get('sources', [])
+        for source in sources:
+            if isinstance(source, dict):
+                url = source.get('url', '')
+                if url and url not in sources_seen and url.startswith('http'):
+                    sources_seen.add(url)
+                    
+                    # Add to knowledge base
+                    if KNOWLEDGE_BASE_AVAILABLE:
+                        try:
+                            kb_add_article(
+                                title=source.get('title', 'Untitled'),
+                                url=url,
+                                source=source.get('publication', 'Unknown'),
+                                summary='',
+                                published=source.get('date', ''),
+                                category='idea_source'
+                            )
+                            sources_added += 1
+                        except Exception as e:
+                            pass  # Skip if already exists or error
+    
+    # Save updated ideas
+    save_ideas_to_disk(existing_ideas)
+    
+    return {
+        'ideas_saved': ideas_saved,
+        'sources_added': sources_added,
+        'total_ideas': len(existing_ideas)
+    }
 
 
 # ============================================================================
@@ -346,52 +436,58 @@ def generate_ideas_from_inbox(
     if not os.getenv("OPENAI_API_KEY"):
         return {'error': 'OpenAI API key not configured', 'ideas': []}
     
-    # Build context from KNOWLEDGE BASE first (curated articles)
+    # Build context from multiple sources
     inbox_context = ""
+    sources_used = []
     
+    # 1. ALWAYS fetch recent news first (this is the primary source for fresh ideas)
+    if NEWS_FETCHER_AVAILABLE:
+        try:
+            recent_news = get_recent_ai_news(days=7)  # Last 7 days for more variety
+            if recent_news:
+                inbox_context = "## RECENT AI NEWS (from RSS feeds - last 7 days)\n\n"
+                inbox_context += "*Use these URLs as sources in your ideas - they are verified working links.*\n\n"
+                for article in recent_news[:15]:  # More articles for variety
+                    inbox_context += f"### {article.get('title', 'Untitled')}\n"
+                    inbox_context += f"**Source:** {article.get('source', 'Unknown')}\n"
+                    url = article.get('url', article.get('link', ''))
+                    if url:
+                        inbox_context += f"**URL:** {url}\n"
+                    if article.get('summary'):
+                        inbox_context += f"**Summary:** {article['summary'][:300]}\n"
+                    pub_date = article.get('published', article.get('date', ''))
+                    if pub_date:
+                        inbox_context += f"**Date:** {pub_date}\n"
+                    inbox_context += "\n---\n\n"
+                has_inbox = True
+                sources_used.append(f"RSS News ({len(recent_news[:15])} articles)")
+        except Exception as e:
+            pass
+    
+    # 2. Add Knowledge Base articles (curated content)
     if KNOWLEDGE_BASE_AVAILABLE:
-        kb_context = get_knowledge_context(max_articles=15, max_chars=6000)
+        kb_context = get_knowledge_context(max_articles=10, max_chars=4000)
         if kb_context:
-            inbox_context = kb_context
+            inbox_context += "\n" + kb_context
             has_inbox = True
+            sources_used.append("Knowledge Base")
     
-    # Also include inbox items if available
+    # 3. Add inbox items if available
     if len(to_use) > 0:
         inbox_context += "\n## ADDITIONAL CONTENT FROM INBOX\n\n"
         for item in to_use:
             inbox_context += f"### {item.get('title', 'Untitled')}\n"
-            inbox_context += f"Source: {item.get('sender', item.get('source', 'Unknown'))}\n"
+            inbox_context += f"**Source:** {item.get('sender', item.get('source', 'Unknown'))}\n"
             url = item.get('url', item.get('link', ''))
             if url:
-                inbox_context += f"URL: {url}\n"
+                inbox_context += f"**URL:** {url}\n"
             if item.get('summary'):
-                inbox_context += f"Summary: {item['summary']}\n"
+                inbox_context += f"**Summary:** {item['summary']}\n"
             else:
-                inbox_context += f"Content: {item.get('content', '')[:500]}...\n"
+                inbox_context += f"**Content:** {item.get('content', '')[:500]}...\n"
             inbox_context += "\n---\n\n"
         has_inbox = True
-    
-    # If still no content, try to fetch recent news automatically
-    if not has_inbox and NEWS_FETCHER_AVAILABLE:
-        try:
-            recent_news = get_recent_ai_news(days=2)  # Last 2 days only
-            if recent_news:
-                inbox_context = "## RECENT AI NEWS (from RSS feeds - last 2 days)\n\n"
-                for article in recent_news[:12]:
-                    inbox_context += f"### {article.get('title', 'Untitled')}\n"
-                    inbox_context += f"Source: {article.get('source', 'Unknown')}\n"
-                    url = article.get('url', article.get('link', ''))
-                    if url:
-                        inbox_context += f"URL: {url}\n"
-                    if article.get('summary'):
-                        inbox_context += f"Summary: {article['summary'][:300]}...\n"
-                    pub_date = article.get('published', article.get('date', ''))
-                    if pub_date:
-                        inbox_context += f"Date: {pub_date}\n"
-                    inbox_context += "\n---\n\n"
-                has_inbox = True
-        except Exception as e:
-            pass
+        sources_used.append(f"Inbox ({len(to_use)} items)")
     
     # Build context from Newsletter Bible
     bible_context = ""
@@ -543,13 +639,18 @@ Generate newsletter ideas based on the current news AND your proven patterns:"""
         # Check if knowledge base was used
         used_kb = KNOWLEDGE_BASE_AVAILABLE and len(get_articles(limit=1)) > 0
         
+        # AUTO-SAVE: Store ideas and add sources to knowledge base
+        save_stats = auto_save_generated_ideas(ideas)
+        
         return {
             'ideas': ideas,
             'source_count': len(to_use),
+            'sources_used': sources_used,
             'used_bible': bool(bible_context),
             'used_inbox': bool(inbox_context),
             'used_knowledge_base': used_kb,
             'model_used': model,
+            'auto_saved': save_stats,  # Stats about what was auto-saved
         }
         
     except Exception as e:

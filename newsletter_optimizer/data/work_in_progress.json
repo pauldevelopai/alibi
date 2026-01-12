@@ -1,18 +1,61 @@
 {
-  "idea": "",
+  "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only being allowed, but promoted. This week’s burning question asks if AI is going to create a world of conspiracy theories and we have a tragic lesson about what happens when you use an AI tool that your platform is trying to sell (and it gets the facts of your story wrong).\n\nAngle: A focus on what Musk is allowed to do (and get away with) despite the grotesque nature of the content being used as a marketing tool for his product.",
   "idea_angle": "",
   "story_type": "news_analysis",
   "selected_sections": [],
-  "metrics": {},
+  "metrics": {
+    "expert_citations": 32,
+    "africa_focus": 38,
+    "subhead_density": 4,
+    "doom_level": 20,
+    "storytelling": 27,
+    "question_engagement": 13
+  },
   "images": [],
-  "outline": null,
+  "outline": {
+    "headline_options": [
+      "X’s Grok is being used to create non-consensual sexual deepfakes and no one cares",
+      "This is the future of AI regulation",
+      "The world is on fire, but we have to talk about Grok and deepfakes",
+      "How we are regulating AI, but it isn’t working",
+      "A platform is using its own AI tool to create deepfakes of women in religious clothing"
+    ],
+    "preview_options": [
+      "Elon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only being allowed, but promoted. This week’s burning question asks if AI is going to create a world of conspiracy theories and we have a tragic lesson about what happens when you use an AI tool that your platform is trying to sell (and it gets the facts of your story wrong)."
+    ],
+    "opening_hook": "The defense I have heard for the proliferation of Elon Musk and his X empire is that he is pushing freedom of expression to its limits and we need people like that to test what is possible, but at this point that attitude is warped and naïve. Musk has been transparent about the intent of his “everything app” and it is not to improve or maintain our democracies. This is an app that is actively spreading disinformation and encouraging its users to be as cruel as possible to each other. I have seen the benefits in the world to allowing people to speak their minds, but the power of speech has now been amplified to such an extent that we are not only going to have to accept regulation, but demand it.",
+    "main_story": {
+      "heading": "Main Story Heading (based on the idea)",
+      "structure": [
+        "Opening: Hook with a specific example or anecdote",
+        "Context: Why this matters now",
+        "Analysis: The deeper issue or trend",
+        "Examples: 2-3 specific cases or data points",
+        "Global South angle: How this affects Africa/developing world",
+        "Takeaway: What readers should do or think about"
+      ],
+      "key_points": [
+        "Key insight 1 to develop",
+        "Key insight 2 to develop",
+        "Key insight 3 to develop"
+      ],
+      "target_word_count": 800,
+      "notes": "This should be 600-800 words since there are no extra sections. The main intellectual substance of the newsletter."
+    },
+    "additional_sections": [],
+    "closing_approach": "Description of how to end - thought-provoking, call to action, or forward-looking",
+    "suggested_links": [
+      "https://www.wired.com/story/grok-is-being-used-to-mock-and-strip-women-in-hijabs-and-sarees/",
+      "https://www.theguardian.com/commentisfree/2024/aug/11/twitter-x-elon-musk-social-media-refuge"
+    ],
+    "image_prompts": [
+      "Grok X deepfakes religious clothing"
+    ],
+    "tone_notes": "We need to keep the tone factual and not get too carried away with the moral implications. The facts are bad enough."
+  },
   "edited_outline": null,
-  "outline_text": "",
-  "generated_headline": "",
-  "generated_preview": "",
   "generated_content": "",
-  "current_step": 1,
+  "current_step": 2,
   "newsletter_id": null,
-  "started_at": "2026-01-08T14:09:03.190143",
-  "last_saved": "2026-01-08T14:09:03.190241"
+  "last_saved": "2026-01-11T08:55:30.218079"
 }

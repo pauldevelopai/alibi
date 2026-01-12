@@ -494,13 +494,67 @@
       "output_tokens": 598,
       "is_image": false,
       "cost": 0.020355
+    },
+    {
+      "timestamp": "2026-01-11T08:35:52.489376",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 1282,
+      "output_tokens": 857,
+      "is_image": false,
+      "cost": 0.001413
+    },
+    {
+      "timestamp": "2026-01-11T08:38:16.613670",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 1282,
+      "output_tokens": 835,
+      "is_image": false,
+      "cost": 0.001387
+    },
+    {
+      "timestamp": "2026-01-11T08:39:30.892455",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 3204,
+      "output_tokens": 1509,
+      "is_image": false,
+      "cost": 0.002772
+    },
+    {
+      "timestamp": "2026-01-11T08:41:11.842011",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 3204,
+      "output_tokens": 1083,
+      "is_image": false,
+      "cost": 0.002261
+    },
+    {
+      "timestamp": "2026-01-11T08:45:08.741048",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 3204,
+      "output_tokens": 1254,
+      "is_image": false,
+      "cost": 0.002466
+    },
+    {
+      "timestamp": "2026-01-11T08:55:30.203543",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8988,
+      "output_tokens": 589,
+      "is_image": false,
+      "cost": 0.003403
     }
   ],
   "totals": {
-    "input_tokens": 296017,
-    "output_tokens": 58966,
+    "input_tokens": 317181,
+    "output_tokens": 65093,
     "images": 3,
-    "estimated_cost": 1.0397026999999996
+    "estimated_cost": 1.0534042999999997
   },
   "by_model": {
     "test-model": {
@@ -524,9 +578,9 @@
       "cost": 0.12
     },
     "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR": {
-      "calls": 16,
-      "tokens": 107867,
-      "cost": 0.0444003
+      "calls": 22,
+      "tokens": 135158,
+      "cost": 0.0581019
     },
     "gpt-4o": {
       "calls": 12,
@@ -541,14 +595,14 @@
       "cost": 4.4999999999999996e-05
     },
     "idea_generation": {
-      "calls": 5,
-      "tokens": 15000,
-      "cost": 0.010495799999999998
+      "calls": 10,
+      "tokens": 32714,
+      "cost": 0.020794199999999995
     },
     "newsletter_outline": {
-      "calls": 12,
-      "tokens": 113522,
-      "cost": 0.043504799999999996
+      "calls": 13,
+      "tokens": 123099,
+      "cost": 0.046908
     },
     "newsletter_generation": {
       "calls": 6,

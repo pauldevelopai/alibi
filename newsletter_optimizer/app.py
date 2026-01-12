@@ -614,10 +614,17 @@ def render_idea_generator_tab():
                             if saved.get('angle'):
                                 st.markdown(f"**Angle:** {saved.get('angle')}")
                             
-                            # Show sources count
+                            # Show clickable source links
                             sources = saved.get('sources', [])
                             if sources:
-                                st.caption(f"{len(sources)} sources attached")
+                                st.markdown("**Sources:**")
+                                for src in sources:
+                                    if isinstance(src, dict) and src.get('url'):
+                                        src_title = src.get('title', 'Link')[:60]
+                                        src_pub = src.get('publication', '')
+                                        src_date = src.get('date', '')[:10] if src.get('date') else ''
+                                        pub_info = f" ({src_pub}" + (f", {src_date}" if src_date else "") + ")" if src_pub else ""
+                                        st.markdown(f"- [{src_title}]({src.get('url')}){pub_info}")
                         
                         with col_actions:
                             if st.button("Use This", key=f"ideas_tab_use_saved_{saved.get('id', idx)}", use_container_width=True, type="primary"):
@@ -685,10 +692,17 @@ def render_idea_generator_tab():
                             if used.get('angle'):
                                 st.markdown(f"**Angle:** {used.get('angle')}")
                             
-                            # Show sources count
+                            # Show clickable source links
                             sources = used.get('sources', [])
                             if sources:
-                                st.caption(f"{len(sources)} sources attached")
+                                st.markdown("**Sources:**")
+                                for src in sources:
+                                    if isinstance(src, dict) and src.get('url'):
+                                        src_title = src.get('title', 'Link')[:60]
+                                        src_pub = src.get('publication', '')
+                                        src_date = src.get('date', '')[:10] if src.get('date') else ''
+                                        pub_info = f" ({src_pub}" + (f", {src_date}" if src_date else "") + ")" if src_pub else ""
+                                        st.markdown(f"- [{src_title}]({src.get('url')}){pub_info}")
                         
                         with col_actions:
                             if st.button("Use This", key=f"ideas_tab_use_used_{used.get('id', idx)}", use_container_width=True, type="secondary"):
@@ -790,11 +804,14 @@ def render_idea_generator_tab():
             st.warning("No ideas generated. Try adding more content to your inbox.")
             return
         
-        sources_used = []
-        if result.get('used_knowledge_base'):
-            sources_used.append("Knowledge Base")
-        if result.get('used_inbox'):
-            sources_used.append(f"{result.get('source_count', 0)} inbox items")
+        # Use sources_used from the result (now includes RSS news count)
+        sources_used = result.get('sources_used', [])
+        if not sources_used:
+            # Fallback for backwards compatibility
+            if result.get('used_knowledge_base'):
+                sources_used.append("Knowledge Base")
+            if result.get('used_inbox'):
+                sources_used.append(f"{result.get('source_count', 0)} inbox items")
         if result.get('used_bible'):
             sources_used.append("Newsletter Bible")
         
@@ -802,6 +819,11 @@ def render_idea_generator_tab():
         model_used = result.get('model_used', 'gpt-4o-mini')
         st.success(f"Generated {len(ideas)} ideas | Model: `{model_used}`")
         st.caption(f"Sources: {', '.join(sources_used) if sources_used else 'Auto-fetched news'}")
+        
+        # Show auto-save stats
+        auto_saved = result.get('auto_saved', {})
+        if auto_saved.get('ideas_saved', 0) > 0 or auto_saved.get('sources_added', 0) > 0:
+            st.info(f"💾 Auto-saved: {auto_saved.get('ideas_saved', 0)} new ideas to Ideas Bank, {auto_saved.get('sources_added', 0)} sources to Knowledge Base")
         
         # Store ideas in session state
         st.session_state.generated_ideas = ideas
@@ -5202,10 +5224,17 @@ def render_generator_tab():
                                 if saved.get('angle'):
                                     st.markdown(f"**Angle:** {saved.get('angle')}")
                                 
-                                # Show sources count
+                                # Show clickable source links
                                 sources = saved.get('sources', [])
                                 if sources:
-                                    st.caption(f"{len(sources)} sources attached")
+                                    st.markdown("**Sources:**")
+                                    for src in sources:
+                                        if isinstance(src, dict) and src.get('url'):
+                                            src_title = src.get('title', 'Link')[:60]
+                                            src_pub = src.get('publication', '')
+                                            src_date = src.get('date', '')[:10] if src.get('date') else ''
+                                            pub_info = f" ({src_pub}" + (f", {src_date}" if src_date else "") + ")" if src_pub else ""
+                                            st.markdown(f"- [{src_title}]({src.get('url')}){pub_info}")
                             
                             with col_actions:
                                 if st.button("Use This", key=f"use_saved_{saved.get('id', idx)}", use_container_width=True, type="primary"):
@@ -5275,10 +5304,17 @@ def render_generator_tab():
                                 if used.get('angle'):
                                     st.markdown(f"**Angle:** {used.get('angle')}")
                                 
-                                # Show sources count
+                                # Show clickable source links
                                 sources = used.get('sources', [])
                                 if sources:
-                                    st.caption(f"{len(sources)} sources attached")
+                                    st.markdown("**Sources:**")
+                                    for src in sources:
+                                        if isinstance(src, dict) and src.get('url'):
+                                            src_title = src.get('title', 'Link')[:60]
+                                            src_pub = src.get('publication', '')
+                                            src_date = src.get('date', '')[:10] if src.get('date') else ''
+                                            pub_info = f" ({src_pub}" + (f", {src_date}" if src_date else "") + ")" if src_pub else ""
+                                            st.markdown(f"- [{src_title}]({src.get('url')}){pub_info}")
                             
                             with col_actions:
                                 if st.button("Use This", key=f"use_used_{used.get('id', idx)}", use_container_width=True, type="secondary"):

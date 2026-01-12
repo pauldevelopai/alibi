@@ -59,13 +59,93 @@
       "url_validation_error": null,
       "full_content": "\n\nSam Altman, cofounder and CEO of OpenAI, is pictured on September 25, 2025 in Berlin, Germany. (Photo by Florian Gaertner/Photothek via Getty Images)\n\nThis month, OpenAIannounced\"up to $2 million\" in funding for research studies on AI safety and well-being. At its surface, this may seem generous, but following in the footsteps of other tech giants facing scrutiny over their products’ mental health impacts, it's nothing more than grantwashing.\n\nThis industry practice commits a pittance to research that is doomed to be ineffective due to information and resources that companies hold back. When grantwashing works, it compromises the search for answers. And that's an insult to anyone whose loved one’s death involved chatbots.\n\nOpenAI's pledge came a week after the company's lawyers argued thatthe company isn't to blamein the death of a California teenager who ChatGPT encouraged to commit suicide. In the company's attempt to disclaim responsibility in court, they evenrequested a list of invitees to the teen's memorialand video footage of the service and the people there. In the last year, OpenAI and other generative AI companies have been accused of causing numerous deaths and psychotic breaks by encouraging people into suicide, feeding delusions, and giving them risky instructions.\n\nAs scientists who study developmental psychology and AI, we agree that society urgently needs better science on AI and mental health. The company hasrecruited a group of genuinely credible scientiststo give them closed-door advice on the issue, like so many other companies accused of causing harm. But OpenAI's funding announcement reveals how small a fig leaf they think will persuade a credulous public.\n\nLook at the size of the grants. High quality public health research on mental health harms requires a sequence of studies, large sample sizes, access to clinical patients, and an ethics safety net that supports people at risk. The median research project grant from the National Institutes of Mental Health in 2024 was $642,918. In contrast, OpenAI is offering a measly$5,000 to $100,000to researchers studying AI and mental health, one sixth of a typical NIMH grant at best.\n\nDespite thegood ideas Open AI suggests, the company is holding back the resource that would contribute most to science on those questions: records about their systems and how people use their products. OpenAI's researchers have purportedly developed ways toidentify users who potentially face mental health distress. A well-designed data access program would accelerate the search for answers while preserving privacy and protecting vulnerable users. European regulators are still decidingif OpenAI will face data access requirementsunder the Digital Services Act, but OpenAI doesn't have to wait for Europe.\n\nYou have successfully joined our subscriber list.\n\nWe have seen this playbook before from other companies. In 2019, Meta announced a series offifty thousand dollar grantsto six scientists studying Instagram, safety, and well being. Even as the company touted its commitment to science on user well-being, Meta's leaders were pressuring internal researchers to \"amend their research to limit Meta's potential liability,\" according to a recent ruling in the D.C. Superior Court.\n\nWhether or not OpenAI leaders intend to muddy the waters of science, grantwashing hinders technology safety as one of usrecently argued inScience. It adds uncertainty and debate in areas where companies want to avoid liability and that uncertainty gives the appearance of science. These underfunded studies inevitably produce inconclusive results,forcing other researchers to do more workto clean up the resulting misconceptions.\n\nGrantwashing also benefits companies by undermining the credibility of scientists over the long term. Inour own research projects, we found that grieving families who blame tech firms for their loved one's deaths understandably refuse to talk to any scientist who takes money from the same companies. If those scientists are ever called on by policymakers or courts to offer expert testimony, their integrity will inevitably be questioned if their work on mental health was funded by industry. For as little as $5,000 a scientist, that's a pretty good deal for tech firms.\n\nTwo decades of Big Tech funding for safety science has taught us that the grantwashing playbook works every time. Internally, corporate leaders pacify passionate employees with token actions that seem consequential. External scientists take the money, get inconclusive results, and lose public trust. Policymakers see what looks like responsible self regulation from a powerful industry and backpedal calls for change. And journalists quote the corporate lobbyist and move on until the next round of deaths creates another news cycle.\n\nThe problem is that we do desperately need better, faster science on technology safety. Companies are pushing out AI products to hundreds of millions of people with limited safety guar",
       "type": "url"
+    },
+    {
+      "id": "c2b232316560",
+      "title": "Grok Is Being Used to Mock and Strip Women in Hijabs and Saris",
+      "url": "https://www.wired.com/story/grok-is-being-used-to-mock-and-strip-women-in-hijabs-and-sarees/",
+      "source": "Wired",
+      "summary": "",
+      "published": "2026-01-10T00:23:08+00:00",
+      "category": "idea_source",
+      "key_points": [],
+      "added_at": "2026-01-11T08:45:09.923437",
+      "used_count": 1,
+      "usage_history": [
+        {
+          "date": "2026-01-11T08:56:26.671783",
+          "newsletter_headline": "X’s Grok is being used to create non-consensual sexual deepfakes and no one cares",
+          "newsletter_id": "",
+          "usage_type": "generation"
+        }
+      ],
+      "url_validated": true,
+      "url_validation_date": "2026-01-11T08:45:09.923445",
+      "url_validation_error": null,
+      "last_used": "2026-01-11T08:56:26.671787"
+    },
+    {
+      "id": "cfde5c341033",
+      "title": "X Didn’t Fix Grok's ‘Undressing’ Problem. It Just Makes People Pay for It",
+      "url": "https://www.wired.com/story/x-didnt-fix-groks-undressing-problem-it-just-makes-people-pay-for-it/",
+      "source": "Wired",
+      "summary": "",
+      "published": "2026-01-09T15:19:18+00:00",
+      "category": "idea_source",
+      "key_points": [],
+      "added_at": "2026-01-11T08:45:11.020628",
+      "used_count": 1,
+      "usage_history": [
+        {
+          "date": "2026-01-11T08:56:26.672313",
+          "newsletter_headline": "X’s Grok is being used to create non-consensual sexual deepfakes and no one cares",
+          "newsletter_id": "",
+          "usage_type": "generation"
+        }
+      ],
+      "url_validated": true,
+      "url_validation_date": "2026-01-11T08:45:11.020642",
+      "url_validation_error": null,
+      "last_used": "2026-01-11T08:56:26.672316"
+    },
+    {
+      "id": "b380d6eb9fd7",
+      "title": "OpenAI Is Asking Contractors to Upload Work From Past Jobs to Evaluate the Performance of AI Agents",
+      "url": "https://www.wired.com/story/openai-contractor-upload-real-work-documents-ai-agents/",
+      "source": "Wired",
+      "summary": "",
+      "published": "2026-01-10T01:11:25+00:00",
+      "category": "idea_source",
+      "key_points": [],
+      "added_at": "2026-01-11T08:45:11.540672",
+      "used_count": 0,
+      "usage_history": [],
+      "url_validated": true,
+      "url_validation_date": "2026-01-11T08:45:11.540681",
+      "url_validation_error": null
+    },
+    {
+      "id": "af581abff509",
+      "title": "OpenAI is reportedly asking contractors to upload real work from past jobs",
+      "url": "https://techcrunch.com/2026/01/10/openai-is-reportedly-asking-contractors-to-upload-real-work-from-past-jobs/",
+      "source": "TechCrunch AI",
+      "summary": "",
+      "published": "2026-01-10T21:18:29+00:00",
+      "category": "idea_source",
+      "key_points": [],
+      "added_at": "2026-01-11T08:45:11.659275",
+      "used_count": 0,
+      "usage_history": [],
+      "url_validated": true,
+      "url_validation_date": "2026-01-11T08:45:11.659285",
+      "url_validation_error": null
     }
   ],
   "facts": [],
   "topics": {},
   "metadata": {
     "created": "2026-01-06T11:28:58.995219",
-    "last_updated": "2026-01-07T07:14:25.344489",
-    "total_articles": 2
+    "last_updated": "2026-01-11T08:56:26.672325",
+    "total_articles": 6
   }
 }

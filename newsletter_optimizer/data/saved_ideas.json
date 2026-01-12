@@ -21,5 +21,94 @@
     "saved_at": "2026-01-06T11:28:58.993255",
     "used": true,
     "used_at": "2026-01-06T12:14:32.960377"
+  },
+  {
+    "title": "The world is already on fire, but we have to talk about Grok and deepfakes",
+    "story_type": "warning",
+    "summary": "Elon Musk\u2019s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only being allowed, but promoted. This week\u2019s burning question asks if AI is going to create a world of conspiracy theories and we have a tragic lesson about what happens when you use an AI tool that your platform is trying to sell (and it gets the facts of your story wrong).",
+    "sources": [
+      {
+        "title": "Grok Is Being Used to Mock and Strip Women in Hijabs and Saris",
+        "url": "https://www.wired.com/story/grok-is-being-used-to-mock-and-strip-women-in-hijabs-and-sarees/",
+        "publication": "Wired",
+        "date": "2026-01-10T00:23:08+00:00"
+      },
+      {
+        "title": "X Didn\u2019t Fix Grok's \u2018Undressing\u2019 Problem. It Just Makes People Pay for It",
+        "url": "https://www.wired.com/story/x-didnt-fix-groks-undressing-problem-it-just-makes-people-pay-for-it/",
+        "publication": "Wired",
+        "date": "2026-01-09T15:19:18+00:00"
+      }
+    ],
+    "search_query": "Grok deepfakes",
+    "angle": "A focus on what Musk is allowed to do (and get away with) despite the grotesque nature of the content being used as a marketing tool for his product.",
+    "why_it_works": "The Grok story is deeply disturbing and in the public interest to be reported on.",
+    "sections": [
+      "Main Story"
+    ],
+    "id": "idea_20260111_084508_0",
+    "saved_at": "2026-01-11T08:45:08.742847",
+    "used": true,
+    "auto_saved": true,
+    "used_at": "2026-01-11T08:54:12.495623"
+  },
+  {
+    "title": "How to use your voice to create a podcast (without talking or writing a script) with AI",
+    "story_type": "how_to",
+    "summary": "I\u2019ve been testing a bunch of new voice and video tools from Meta\u2019s new Character Studio to Deepbrain AI\u2019s speaking avatars. The results are mixed, but it sets the scene for an exciting year.",
+    "sources": [],
+    "search_query": "AI podcast creation tools",
+    "angle": "An examination of what tools are available to create content without speaking or writing.",
+    "why_it_works": "People love AI tools they can use (even if it doesn\u2019t result in a perfect product every time). This will help them see what is possible.",
+    "sections": [
+      "Tools & Tips"
+    ],
+    "id": "idea_20260111_084511_1",
+    "saved_at": "2026-01-11T08:45:11.021433",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "title": "OpenAI is asking contractors to upload their work for the benefit of their models\u2026 and they\u2019re mad",
+    "story_type": "news_analysis",
+    "summary": "This week OpenAI was slammed for asking their contractors to upload work from past jobs to evaluate the performance of their AI agents. We\u2019ll explore if this is fair and if it is the future.",
+    "sources": [
+      {
+        "title": "OpenAI Is Asking Contractors to Upload Work From Past Jobs to Evaluate the Performance of AI Agents",
+        "url": "https://www.wired.com/story/openai-contractor-upload-real-work-documents-ai-agents/",
+        "publication": "Wired",
+        "date": "2026-01-10T01:11:25+00:00"
+      },
+      {
+        "title": "OpenAI is reportedly asking contractors to upload real work from past jobs",
+        "url": "https://techcrunch.com/2026/01/10/openai-is-reportedly-asking-contractors-to-upload-real-work-from-past-jobs/",
+        "publication": "TechCrunch AI",
+        "date": "2026-01-10T21:18:29+00:00"
+      }
+    ],
+    "search_query": "OpenAI contractors",
+    "angle": "This story seems to be the evolution towards how we are all going to have to work in the future and what we will all need to accept.",
+    "why_it_works": "It taps into people\u2019s fears of how the workplace is changing.",
+    "sections": [],
+    "id": "idea_20260111_084511_2",
+    "saved_at": "2026-01-11T08:45:11.021451",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "title": "How to build your own AI model and trap it in your house",
+    "story_type": "how_to",
+    "summary": "I\u2019ve been building and training my own AI model so I don\u2019t have to rely on the whims of OpenAI for our beloved Baychat. You can do it too.",
+    "sources": [],
+    "search_query": "",
+    "angle": "The importance of the AI community to build their own tools that are independent is increasing. This will help people to do that.",
+    "why_it_works": "People are desperate to not rely on the big AI companies and their flaky APIs. This will help them to take back control.",
+    "sections": [
+      "Develop AI Update"
+    ],
+    "id": "idea_20260111_084511_3",
+    "saved_at": "2026-01-11T08:45:11.663095",
+    "used": false,
+    "auto_saved": true
   }
 ]

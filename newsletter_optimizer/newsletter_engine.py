@@ -346,7 +346,9 @@ Return ONLY valid JSON, no markdown formatting."""
     def build_prompt(
         self,
         outline: str,
-        target_length: int = 800
+        target_length: int = 800,
+        outline_sources: List[Dict] = None,
+        style_metrics: Dict = None
     ) -> Tuple[str, str, Dict]:
         """
         Build the optimal prompt with intelligent context selection
@@ -368,7 +370,7 @@ Return ONLY valid JSON, no markdown formatting."""
         learnings = self.get_applicable_learnings(analysis)
         
         # Step 3: Build system prompt (voice/identity)
-        system_prompt = self._build_system_prompt(bible_sections, learnings)
+        system_prompt = self._build_system_prompt(bible_sections, learnings, style_metrics or {})
         
         # Step 4: Build user prompt with token position optimization
         user_prompt = self._build_user_prompt(
@@ -377,7 +379,8 @@ Return ONLY valid JSON, no markdown formatting."""
             rag_examples=rag_examples,
             bible_sections=bible_sections,
             target_length=target_length,
-            analysis=analysis
+            analysis=analysis,
+            outline_sources=outline_sources or []
         )
         
         # Step 5: Collect metadata
@@ -393,7 +396,7 @@ Return ONLY valid JSON, no markdown formatting."""
         
         return system_prompt, user_prompt, metadata
     
-    def _build_system_prompt(self, bible: Dict, learnings: List[str]) -> str:
+    def _build_system_prompt(self, bible: Dict, learnings: List[str], style_metrics: Dict) -> str:
         """Build the system prompt with voice and identity."""
         
         prompt = """You are Paul McNally, writing your "Develop AI" newsletter for newsrooms and content creators in Africa and Asia.
@@ -419,6 +422,46 @@ Return ONLY valid JSON, no markdown formatting."""
             prompt += "\nExamples of your typical sentences:\n"
             for sent in bible['representative_sentences']:
                 prompt += f'- "{sent[:100]}..."\n'
+
+        # Add structure and formulas
+        if 'structure_patterns' in bible:
+            prompt += "\n## HOW YOU STRUCTURE A NEWSLETTER\n"
+            patterns = bible['structure_patterns']
+            if patterns.get('typical_sections'):
+                prompt += f"- Typical sections: {', '.join(patterns['typical_sections'][:6])}\n"
+            if patterns.get('opening_style'):
+                prompt += f"- Openings: {patterns['opening_style']}\n"
+            if patterns.get('closing_style'):
+                prompt += f"- Closings: {patterns['closing_style']}\n"
+
+        if 'headline_formulas' in bible:
+            prompt += "\nHeadline patterns that work for you:\n"
+            for formula, data in list(bible['headline_formulas'].items())[:4]:
+                example = data.get('examples', [''])[0] if isinstance(data, dict) else ''
+                prompt += f"- {formula}: e.g., \"{example}\" \n"
+
+        if 'rules_for_success' in bible:
+            prompt += "\nRules that drive performance (follow these):\n"
+            for rule in bible['rules_for_success'][:6]:
+                prompt += f"- {rule}\n"
+
+        if 'cliches_to_avoid' in bible:
+            prompt += "\nCliches and weak phrases to avoid:\n"
+            prompt += ", ".join(bible['cliches_to_avoid'][:10]) + "\n"
+
+        if 'cta_patterns' in bible:
+            prompt += "\nCalls-to-action that fit your voice:\n"
+            prompt += "; ".join(bible['cta_patterns'][:4]) + "\n"
+
+        # Africa/Global South emphasis
+        # Africa/Global South emphasis ONLY when style controls request it
+        africa_dial = style_metrics.get('africa_focus', 50)
+        global_south_dial = style_metrics.get('global_south_focus', 50)
+        if (africa_dial > 65 or global_south_dial > 65) and 'topic_strategy' in bible:
+            themes = bible['topic_strategy'].get('primary_themes', [])
+            if themes:
+                prompt += "\nAfrica/Global South focus (dial enabled):\n"
+                prompt += ", ".join(themes[:6]) + "\n"
         
         # Add learned instructions
         if learnings:
@@ -443,7 +486,8 @@ Return ONLY valid JSON, no markdown formatting."""
         rag_examples: List[Dict],
         bible_sections: Dict,
         target_length: int,
-        analysis: Dict
+        analysis: Dict,
+        outline_sources: List[Dict]
     ) -> str:
         """
         Build user prompt with TOKEN POSITION OPTIMIZATION.
@@ -477,6 +521,22 @@ Return ONLY valid JSON, no markdown formatting."""
             prompt += "\n"
         
         # SECTION 3: Facts and Data (MEDIUM attention - middle)
+        if outline_sources:
+            prompt += "# PROVIDED SOURCES (must cite if used)\n\n"
+            for src in outline_sources:
+                if isinstance(src, dict):
+                    title = src.get('title', 'Source')
+                    url = src.get('url', '')
+                    pub = src.get('publication', src.get('source', ''))
+                    date = src.get('date', '')
+                    prompt += f"- {title}"
+                    if url:
+                        prompt += f": {url}"
+                    if pub or date:
+                        prompt += f" ({', '.join([x for x in [pub, date] if x])})"
+                    prompt += "\n"
+            prompt += "\n"
+
         if facts:
             prompt += "# FACTS AND DATA TO USE (cite sources!)\n\n"
             for i, fact in enumerate(facts[:8], 1):
@@ -562,7 +622,9 @@ class NewsletterGenerator:
         # Use the intelligent prompt builder
         system_prompt, user_prompt, metadata = self.prompt_constructor.build_prompt(
             outline=outline_text,
-            target_length=target_length
+            target_length=target_length,
+            outline_sources=outline_data.get('sources', []),
+            style_metrics=style_metrics
         )
         
         # Add outline_data specific info to metadata
@@ -584,6 +646,8 @@ class NewsletterGenerator:
         
         text = f"# {outline_data.get('headline', idea)}\n\n"
         text += f"*{outline_data.get('preview', '')}*\n\n"
+        if idea:
+            text += f"Original idea/context: {idea}\n\n"
         
         # Opening hook
         if outline_data.get('opening_hook'):
