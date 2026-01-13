@@ -1,5 +1,30 @@
 [
   {
+    "title": "AI Healthcare: Can We Trust It With Our Lives?",
+    "summary": "Google removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in critical fields like healthcare and how tech companies are handling these issues.",
+    "angle": "Google's recent removal of AI health summaries due to dangerous flaws highlights critical issues of trust and safety in AI healthcare applications.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "Ars Technica",
+        "title": "Google removes some AI health summaries after investigation finds \u201cdangerous\u201d flaws",
+        "url": "https://arstechnica.com/ai/2026/01/google-removes-some-ai-health-summaries-after-investigation-finds-dangerous-flaws/",
+        "date": "2026-01-12"
+      }
+    ],
+    "why_it_works": "Taps into major public concern about AI safety and regulation",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "search_query": "google ai health",
+    "id": "idea_20260113_081917_8",
+    "saved_at": "2026-01-13T08:19:17.323775",
+    "used": false
+  },
+  {
     "title": "What do the new PC chips mean for the future of AI?",
     "summary": "AMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This points to a future where we are all going to need to have better machines to keep pace with the AI race.",
     "angle": "The idea of what we will need to process the AI tools of the near future is fascinating. I was recently told I need to upgrade my computer to ensure I can continue to use some tools.",
@@ -50,23 +75,7 @@
     "saved_at": "2026-01-11T08:45:08.742847",
     "used": true,
     "auto_saved": true,
-    "used_at": "2026-01-11T08:54:12.495623"
-  },
-  {
-    "title": "How to use your voice to create a podcast (without talking or writing a script) with AI",
-    "story_type": "how_to",
-    "summary": "I\u2019ve been testing a bunch of new voice and video tools from Meta\u2019s new Character Studio to Deepbrain AI\u2019s speaking avatars. The results are mixed, but it sets the scene for an exciting year.",
-    "sources": [],
-    "search_query": "AI podcast creation tools",
-    "angle": "An examination of what tools are available to create content without speaking or writing.",
-    "why_it_works": "People love AI tools they can use (even if it doesn\u2019t result in a perfect product every time). This will help them see what is possible.",
-    "sections": [
-      "Tools & Tips"
-    ],
-    "id": "idea_20260111_084511_1",
-    "saved_at": "2026-01-11T08:45:11.021433",
-    "used": false,
-    "auto_saved": true
+    "used_at": "2026-01-12T14:26:59.153997"
   },
   {
     "title": "OpenAI is asking contractors to upload their work for the benefit of their models\u2026 and they\u2019re mad",
@@ -92,22 +101,142 @@
     "sections": [],
     "id": "idea_20260111_084511_2",
     "saved_at": "2026-01-11T08:45:11.021451",
+    "used": true,
+    "auto_saved": true,
+    "used_at": "2026-01-12T06:11:22.565336"
+  },
+  {
+    "angle": "Google's recent removal of AI health summaries due to dangerous flaws highlights critical issues of trust and safety in AI healthcare applications.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "Ars Technica",
+        "title": "Google removes some AI health summaries after investigation finds \u201cdangerous\u201d flaws",
+        "url": "https://arstechnica.com/ai/2026/01/google-removes-some-ai-health-summaries-after-investigation-finds-dangerous-flaws/",
+        "date": "2026-01-12"
+      }
+    ],
+    "search_query": "google ai health",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "AI Healthcare: Can We Trust It With Our Lives?",
+    "why_it_works": "Taps into major public concern about AI safety and regulation",
+    "summary": "Google removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in critical fields like healthcare and how tech companies are handling these issues.",
+    "id": "idea_20260113_081845_0",
+    "saved_at": "2026-01-13T08:18:45.703177",
     "used": false,
     "auto_saved": true
   },
   {
-    "title": "How to build your own AI model and trap it in your house",
-    "story_type": "how_to",
-    "summary": "I\u2019ve been building and training my own AI model so I don\u2019t have to rely on the whims of OpenAI for our beloved Baychat. You can do it too.",
-    "sources": [],
-    "search_query": "",
-    "angle": "The importance of the AI community to build their own tools that are independent is increasing. This will help people to do that.",
-    "why_it_works": "People are desperate to not rely on the big AI companies and their flaky APIs. This will help them to take back control.",
-    "sections": [
-      "Develop AI Update"
+    "angle": "With Meta launching its own AI infrastructure and Anthropic's new healthcare product, the AI arms race is intensifying.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "TechCrunch",
+        "title": "Mark Zuckerberg says Meta is launching its own AI infrastructure initiative",
+        "url": "https://techcrunch.com/2026/01/12/mark-zuckerberg-says-meta-is-launching-its-own-ai-infrastructure-initiative/",
+        "date": "2026-01-12"
+      },
+      {
+        "publication": "TechCrunch",
+        "title": "Anthropic announces Claude for Healthcare following OpenAI\u2019s ChatGPT Health reveal",
+        "url": "https://techcrunch.com/2026/01/12/anthropic-announces-claude-for-healthcare-following-openais-chatgpt-health-reveal/",
+        "date": "2026-01-12"
+      }
     ],
-    "id": "idea_20260111_084511_3",
-    "saved_at": "2026-01-11T08:45:11.663095",
+    "search_query": "meta anthropic ai",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "The AI Arms Race: Meta and Anthropic's Next Moves",
+    "why_it_works": "Highlights the competition among tech giants in AI development",
+    "summary": "Meta is building its own AI infrastructure, and Anthropic has launched a healthcare-focused AI product. These moves show how companies are racing to dominate AI, especially in high-stakes areas like healthcare.",
+    "id": "idea_20260113_081846_1",
+    "saved_at": "2026-01-13T08:18:46.881815",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "angle": "Amazon's acquisition of an AI wearable and its Alexa expansion show a strategy to integrate AI deeply into daily life.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "TechCrunch",
+        "title": "Why Amazon bought Bee, an AI wearable",
+        "url": "https://techcrunch.com/2026/01/12/why-amazon-bought-bee-an-ai-wearable/",
+        "date": "2026-01-12"
+      },
+      {
+        "publication": "TechCrunch",
+        "title": "Amazon says 97% of its devices can support Alexa+",
+        "url": "https://techcrunch.com/2026/01/12/amazon-says-97-of-its-devices-can-support-alexa/",
+        "date": "2026-01-12"
+      }
+    ],
+    "search_query": "amazon ai wearable alexa",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "Amazon's AI Strategy: Wearables and Alexa Takeover",
+    "why_it_works": "Explores the practical implications of AI in consumer tech",
+    "summary": "Amazon's acquisition of Bee, an AI wearable, and its expansion of Alexa capabilities highlight its strategy to embed AI into consumer tech. This could change how we interact with devices and information daily.",
+    "id": "idea_20260113_081847_2",
+    "saved_at": "2026-01-13T08:18:47.189241",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "angle": "Apple and Google's collaboration on AI models could significantly enhance consumer tech experiences, but also raises questions about data privacy.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "TechCrunch",
+        "title": "Google\u2019s Gemini to power Apple\u2019s AI features like Siri",
+        "url": "https://techcrunch.com/2026/01/12/googles-gemini-to-power-apples-ai-features-like-siri/",
+        "date": "2026-01-12"
+      }
+    ],
+    "search_query": "apple google ai",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "Apple + Google: The AI Partnership That Could Change Everything",
+    "why_it_works": "Focuses on major tech collaboration and its potential impact",
+    "summary": "Apple and Google are partnering on AI, with Google\u2019s Gemini models set to power Apple\u2019s AI features. This partnership could lead to major improvements in services like Siri, but also intensifies the spotlight on data privacy.",
+    "id": "idea_20260113_081847_3",
+    "saved_at": "2026-01-13T08:18:47.443843",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "angle": "The struggles of a New Jersey lawsuit highlight the challenges in combating the harmful use of AI in creating deepfake pornography.",
+    "story_type": "news_analysis",
+    "sources": [],
+    "search_query": "deepfake porn lawsuit",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "The Deepfake Dilemma: Legal Battles Against AI Porn",
+    "why_it_works": "Addresses a controversial and harmful use of AI technology",
+    "summary": "A New Jersey lawsuit underscores the difficulty of fighting deepfake pornography. While there are laws against it, holding platforms accountable remains a significant challenge, raising questions about regulation and responsibility.",
+    "id": "idea_20260113_081847_4",
+    "saved_at": "2026-01-13T08:18:47.606077",
     "used": false,
     "auto_saved": true
   }

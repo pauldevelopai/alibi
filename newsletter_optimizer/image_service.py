@@ -44,6 +44,48 @@ IMAGES_DIR.mkdir(exist_ok=True)
 # DALL-E Image Generation
 # ============================================================================
 
+def _sanitize_visual_prompt(text: str) -> tuple[str, bool]:
+    """
+    Sanitize visual prompts to prevent harmful imagery generation.
+    Returns (sanitized_text, was_sanitized).
+    """
+    if not text:
+        return text, False
+    
+    text_lower = text.lower()
+    
+    # Unsafe keywords
+    unsafe_keywords = {
+        'undress', 'strip', 'nude', 'naked', 'sexual', 'breasts', 
+        'intimate', 'explicit', 'nsfw', 'pornographic', 'sexualized'
+    }
+    
+    # Gender/person keywords
+    gender_keywords = {'woman', 'women', 'girl', 'girls', 'female', 'lady', 'ladies'}
+    
+    # Check if prompt contains unsafe + gender keywords
+    has_unsafe = any(kw in text_lower for kw in unsafe_keywords)
+    has_gender = any(kw in text_lower for kw in gender_keywords)
+    
+    if has_unsafe and has_gender:
+        # Replace with safe alternative
+        safe_alternatives = [
+            "Abstract illustration of a phone screen with an 'AI-generated' warning label, blurred faces, and a platform logo in the background",
+            "Collage of verification signals: metadata tags, 'synthetic media' labels, and newsroom fact-check tools",
+            "A courtroom-themed sketch: 'consent' missing, 'platform accountability' on trial",
+            "Digital illustration: a shield with 'verification' protecting against deepfake imagery, checkmarks and warning symbols",
+        ]
+        # Pick based on text hash for consistency
+        idx = abs(hash(text)) % len(safe_alternatives)
+        return safe_alternatives[idx], True
+    
+    # Check for any unsafe keywords alone (without gender) - still risky
+    if has_unsafe:
+        return "Abstract digital illustration showing AI technology and content verification systems", True
+    
+    return text, False
+
+
 def generate_image_dalle(
     prompt: str,
     style: str = "vivid",
@@ -67,11 +109,16 @@ def generate_image_dalle(
     if not os.getenv("OPENAI_API_KEY"):
         return {'error': 'OpenAI API key not configured'}
     
+    # Sanitize prompt for safety
+    sanitized_prompt, was_sanitized = _sanitize_visual_prompt(prompt)
+    if was_sanitized:
+        print(f"⚠️ Visual prompt sanitized for safety")
+    
     try:
         # Enhance prompt for newsletter context
         enhanced_prompt = f"""Create a professional, editorial-style image for a newsletter about AI and media.
 
-{prompt}
+{sanitized_prompt}
 
 Style notes:
 - Modern, clean aesthetic

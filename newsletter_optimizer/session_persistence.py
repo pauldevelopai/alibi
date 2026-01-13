@@ -53,6 +53,7 @@ def get_default_session() -> dict:
         'idea_angle': '',
         'story_type': 'news_analysis',
         'selected_sections': [],
+        'idea_sources': [],
         
         # Step 1 - Metrics/Dials
         'metrics': {},
@@ -174,6 +175,8 @@ def sync_to_streamlit(st):
             st.session_state.generator_story_type = session.get('story_type', 'news_analysis')
         if 'generator_sections' not in st.session_state:
             st.session_state.generator_sections = session.get('selected_sections', [])
+        if 'generator_idea_sources' not in st.session_state:
+            st.session_state.generator_idea_sources = session.get('idea_sources', [])
         if 'generator_metrics' not in st.session_state:
             st.session_state.generator_metrics = session.get('metrics', {})
         if 'generator_images' not in st.session_state:
@@ -216,6 +219,7 @@ def sync_from_streamlit(st):
         'idea_angle': st.session_state.get('generator_angle', ''),
         'story_type': st.session_state.get('generator_story_type', 'news_analysis'),
         'selected_sections': serializable_sections,
+        'idea_sources': st.session_state.get('generator_idea_sources', []),
         'metrics': st.session_state.get('generator_metrics', {}),
         'images': st.session_state.get('generator_images', []),
         
@@ -247,6 +251,7 @@ def clear_and_reset_streamlit(st):
     st.session_state.generator_images = []
     st.session_state.generator_outline = None
     st.session_state.generator_edited_outline = None
+    st.session_state.generator_idea_sources = []
     st.session_state.generator_final = None
     st.session_state.generator_step = 1
     st.session_state.current_newsletter_id = None

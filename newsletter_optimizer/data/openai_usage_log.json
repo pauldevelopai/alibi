@@ -548,13 +548,103 @@
       "output_tokens": 589,
       "is_image": false,
       "cost": 0.003403
+    },
+    {
+      "timestamp": "2026-01-12T06:11:51.582837",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8798,
+      "output_tokens": 1438,
+      "is_image": false,
+      "cost": 0.004365
+    },
+    {
+      "timestamp": "2026-01-12T13:53:20.563494",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8834,
+      "output_tokens": 1318,
+      "is_image": false,
+      "cost": 0.004232
+    },
+    {
+      "timestamp": "2026-01-12T14:27:33.162307",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 9024,
+      "output_tokens": 495,
+      "is_image": false,
+      "cost": 0.003301
+    },
+    {
+      "timestamp": "2026-01-12T14:28:07.711877",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 9024,
+      "output_tokens": 1793,
+      "is_image": false,
+      "cost": 0.004859
+    },
+    {
+      "timestamp": "2026-01-12T17:16:27.754827",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 9024,
+      "output_tokens": 292,
+      "is_image": false,
+      "cost": 0.003058
+    },
+    {
+      "timestamp": "2026-01-12T17:18:12.554971",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 9024,
+      "output_tokens": 1134,
+      "is_image": false,
+      "cost": 0.004068
+    },
+    {
+      "timestamp": "2026-01-12T18:39:35.817009",
+      "model": "gpt-4o",
+      "feature": "newsletter_execution",
+      "input_tokens": 2582,
+      "output_tokens": 917,
+      "is_image": false,
+      "cost": 0.026665
+    },
+    {
+      "timestamp": "2026-01-13T08:18:45.695898",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "idea_generation",
+      "input_tokens": 3342,
+      "output_tokens": 1412,
+      "is_image": false,
+      "cost": 0.002697
+    },
+    {
+      "timestamp": "2026-01-13T08:20:15.087073",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8535,
+      "output_tokens": 1275,
+      "is_image": false,
+      "cost": 0.00409
+    },
+    {
+      "timestamp": "2026-01-13T10:54:02.500395",
+      "model": "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR",
+      "feature": "newsletter_outline",
+      "input_tokens": 8571,
+      "output_tokens": 1204,
+      "is_image": false,
+      "cost": 0.004016
     }
   ],
   "totals": {
-    "input_tokens": 317181,
-    "output_tokens": 65093,
+    "input_tokens": 393939,
+    "output_tokens": 76371,
     "images": 3,
-    "estimated_cost": 1.0534042999999997
+    "estimated_cost": 1.1147552999999994
   },
   "by_model": {
     "test-model": {
@@ -578,14 +668,14 @@
       "cost": 0.12
     },
     "ft:gpt-4o-2024-08-06:developai:newsletter-jan03:CtrWqavR": {
-      "calls": 22,
-      "tokens": 135158,
-      "cost": 0.0581019
+      "calls": 31,
+      "tokens": 219695,
+      "cost": 0.09278789999999999
     },
     "gpt-4o": {
-      "calls": 12,
-      "tokens": 89682,
-      "cost": 0.61128
+      "calls": 13,
+      "tokens": 93181,
+      "cost": 0.6379450000000001
     }
   },
   "by_feature": {
@@ -595,14 +685,14 @@
       "cost": 4.4999999999999996e-05
     },
     "idea_generation": {
-      "calls": 10,
-      "tokens": 32714,
-      "cost": 0.020794199999999995
+      "calls": 11,
+      "tokens": 37468,
+      "cost": 0.023491199999999997
     },
     "newsletter_outline": {
-      "calls": 13,
-      "tokens": 123099,
-      "cost": 0.046908
+      "calls": 21,
+      "tokens": 202882,
+      "cost": 0.07889699999999998
     },
     "newsletter_generation": {
       "calls": 6,
@@ -635,9 +725,9 @@
       "cost": 0.5631884
     },
     "newsletter_execution": {
-      "calls": 6,
-      "tokens": 21552,
-      "cost": 0.127535
+      "calls": 7,
+      "tokens": 25051,
+      "cost": 0.1542
     }
   },
   "session_start": "2026-01-01T12:31:09.167564"

@@ -1,61 +1,70 @@
 {
-  "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only being allowed, but promoted. This week’s burning question asks if AI is going to create a world of conspiracy theories and we have a tragic lesson about what happens when you use an AI tool that your platform is trying to sell (and it gets the facts of your story wrong).\n\nAngle: A focus on what Musk is allowed to do (and get away with) despite the grotesque nature of the content being used as a marketing tool for his product.",
+  "idea": "AI Healthcare: Can We Trust It With Our Lives?\n\nGoogle removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in critical fields like healthcare and how tech companies are handling these issues.\n\nAngle: Google's recent removal of AI health summaries due to dangerous flaws highlights critical issues of trust and safety in AI healthcare applications.",
   "idea_angle": "",
   "story_type": "news_analysis",
   "selected_sections": [],
+  "idea_sources": [
+    {
+      "publication": "Ars Technica",
+      "title": "Google removes some AI health summaries after investigation finds “dangerous” flaws",
+      "url": "https://arstechnica.com/ai/2026/01/google-removes-some-ai-health-summaries-after-investigation-finds-dangerous-flaws/",
+      "date": "2026-01-12"
+    }
+  ],
   "metrics": {
     "expert_citations": 32,
     "africa_focus": 38,
     "subhead_density": 4,
     "doom_level": 20,
     "storytelling": 27,
-    "question_engagement": 13
+    "question_engagement": 13,
+    "western_focus": 80,
+    "skepticism_level": 37
   },
   "images": [],
   "outline": {
     "headline_options": [
-      "X’s Grok is being used to create non-consensual sexual deepfakes and no one cares",
-      "This is the future of AI regulation",
-      "The world is on fire, but we have to talk about Grok and deepfakes",
-      "How we are regulating AI, but it isn’t working",
-      "A platform is using its own AI tool to create deepfakes of women in religious clothing"
+      "Google's AI health tool is inaccurate... but will we stop using it?",
+      "AI healthcare is becoming a danger to us all",
+      "How AI is rewriting the future of healthcare",
+      "The ethical concerns of AI",
+      "The benefits and risks of AI in healthcare"
     ],
     "preview_options": [
-      "Elon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only being allowed, but promoted. This week’s burning question asks if AI is going to create a world of conspiracy theories and we have a tragic lesson about what happens when you use an AI tool that your platform is trying to sell (and it gets the facts of your story wrong)."
+      "Eric Nehrlich writes about AI and economics and is far too smart for me to argue with. I have been enjoying his newsletter and you should check it out."
     ],
-    "opening_hook": "The defense I have heard for the proliferation of Elon Musk and his X empire is that he is pushing freedom of expression to its limits and we need people like that to test what is possible, but at this point that attitude is warped and naïve. Musk has been transparent about the intent of his “everything app” and it is not to improve or maintain our democracies. This is an app that is actively spreading disinformation and encouraging its users to be as cruel as possible to each other. I have seen the benefits in the world to allowing people to speak their minds, but the power of speech has now been amplified to such an extent that we are not only going to have to accept regulation, but demand it.",
+    "opening_hook": "I am going to die. I am sure you are in a similar situation. I have also been sick in the past and not known what was wrong with me. And if you have a doctor that is a perk, but we often also rely on the web to diagnose our ailments. We all have stories of how that has sent us into a spiral, but it has also given many of us a sense of agency over our health. But the worry is that people are shifting to using AI tools to check their symptoms and the tools are not up to the task.",
     "main_story": {
-      "heading": "Main Story Heading (based on the idea)",
+      "heading": "The benefits and risks of AI in healthcare",
       "structure": [
-        "Opening: Hook with a specific example or anecdote",
-        "Context: Why this matters now",
-        "Analysis: The deeper issue or trend",
-        "Examples: 2-3 specific cases or data points",
-        "Global South angle: How this affects Africa/developing world",
-        "Takeaway: What readers should do or think about"
+        "I called up Dr Heather A. E. Moses, PhD, a Senior Lecturer and Researcher at the University of Cape Town, who is working on the intersection of AI and healthcare. She gave me a full download on where we are with these tools and how they are going to change our lives.",
+        "Created with ChatGPT",
+        "The easiest place where we can start to see what is possible is in the realm of medical imaging analysis. This is where AI can analyse images from X-rays, MRIs, and CT scans to help spot irregularities and diseases more quickly and accurately than the average human eye. My father had a knee replacement years ago and they first built a 3D model of his knee before they went into surgery. The idea was that they would then know exactly what was going on in there before they opened him up. The problem was they found a massive cyst in the 3D model that wasn’t there in the real knee. He canceled the surgery and spent weeks having tests that were all negative, but he was still convinced he had a cyst. At the end of it all he did get his new knee, but from then on was always looking for the cyst.",
+        "This example is years old, but the point is if we rely too heavily on this tech we can end up seeing things that aren’t there. You also have to consider that medical imaging data could be compromised and there are concerns over privacy and data security. We've already seen cases of AI models inadvertently memorising sensitive information, which could lead to a confidentiality breach.",
+        "Dr Moses and I spoke about using AI to analyse patient data to assist in creating personalised treatment plans. These algorithms could consider a wide range of factors from genetic information to lifestyle, offering tailored treatment plans that are more likely to be effective. But the risk is that these AI systems could inherit biases present in their training data, leading to unequal treatment recommendations. There are also ethical concerns about transparency. For instance, if an AI recommends a treatment plan, doctors and patients would need to understand the rationale behind those recommendations, which isn't always straightforward with complex AI models.",
+        "AI and healthcare is so huge, even to scratch the surface of where we are with tools like ChatGPT diagnosing us we have to talk about what happened last month. In December 2025, Google removed its AI health summaries after a BuzzFeed investigation found dangerous inaccuracies. People were being misdiagnosed and potentially given the wrong treatment plans. I wrote last year about the ruthless removal of BuzzFeed from the media landscape in 2023, but I am happy they are still going strong and holding tech to account. We are going to need them.",
+        "A piece in The Guardian describes how people are using ChatGPT “as an alternative to Google search”. Unfortunately, they are also doing this while they are at the hospital. The influx of cases where people are Googling their symptoms and going to the emergency room is what they call “cyberchondria” and it seems to be getting worse. The problem is that the AI tools are getting better at being convincing, but the accuracy is not improving at the same rate.",
+        "Dr Moses said, “The future of AI in healthcare is promising but must be approached with caution, especially in the South African context. While AI holds the potential to revolutionise healthcare, it is crucial to ensure these technologies are used responsibly and equitably, without reinforcing existing biases or causing harm.”",
+        "As part of my work in the AI healthcare space I am collaborating with the University of Cape Town on a project to build an AI tool to assist with the diagnosis and treatment of a major disease in South Africa. We are still in the early phases, but we will keep you updated on the progress and how it will help the people of this country.",
+        "See you next week. All the best,"
       ],
+      "target_word_count": 741,
+      "notes": "This should be 600-800 words since there are no extra sections. The main intellectual substance of the newsletter.",
       "key_points": [
-        "Key insight 1 to develop",
-        "Key insight 2 to develop",
-        "Key insight 3 to develop"
-      ],
-      "target_word_count": 800,
-      "notes": "This should be 600-800 words since there are no extra sections. The main intellectual substance of the newsletter."
+        "AI healthcare is becoming a danger to us all",
+        "How AI is rewriting the future of healthcare",
+        "The ethical concerns of AI"
+      ]
     },
     "additional_sections": [],
-    "closing_approach": "Description of how to end - thought-provoking, call to action, or forward-looking",
-    "suggested_links": [
-      "https://www.wired.com/story/grok-is-being-used-to-mock-and-strip-women-in-hijabs-and-sarees/",
-      "https://www.theguardian.com/commentisfree/2024/aug/11/twitter-x-elon-musk-social-media-refuge"
-    ],
-    "image_prompts": [
-      "Grok X deepfakes religious clothing"
-    ],
-    "tone_notes": "We need to keep the tone factual and not get too carried away with the moral implications. The facts are bad enough."
+    "closing_approach": "How AI is rewriting the future of healthcare",
+    "suggested_links": [],
+    "image_prompts": [],
+    "tone_notes": "Develop Al is an innovative company that reports on AI, builds AI focused projects and provides training on how to use AI responsibly. \nCheck out Develop AI’s\ntalks\n&\ntraining workshops\n(and see how your team could benefit from being trained in using AI).\nThis newsletter is syndicated to millions of people on the\nDaily Maverick\n.\nEmail me directly on paul@developai.co.za. Or find me on\nLinkedIn\n.\nIf you aren’t subscribed to this newsletter,\nclick here\n.\nSee you next week. All the best,"
   },
   "edited_outline": null,
-  "generated_content": "",
+  "generated_content": null,
   "current_step": 2,
   "newsletter_id": null,
-  "last_saved": "2026-01-11T08:55:30.218079"
+  "last_saved": "2026-01-13T10:54:02.529239"
 }

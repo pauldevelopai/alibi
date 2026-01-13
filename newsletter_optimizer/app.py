@@ -3802,6 +3802,7 @@ def render_inbox_tab():
     # Get stats
     inbox_stats = get_inbox_stats()
     kb_stats = get_kb_stats() if HAS_KNOWLEDGE_BASE else {'total_articles': 0, 'recent_articles': 0}
+    inbox_items = load_inbox()
     
     # Stats row
     col1, col2, col3 = st.columns(3)
@@ -5455,7 +5456,7 @@ def render_generator_tab():
             "Select the primary story type:",
             options=list(story_type_options.keys()),
             format_func=lambda x: story_type_options[x],
-            index=list(story_type_options.keys()).index(st.session_state.generator_story_type),
+            index=list(story_type_options.keys()).index(st.session_state.generator_story_type) if st.session_state.generator_story_type in story_type_options else 0,
             key="story_type_radio",
             horizontal=True
         )
