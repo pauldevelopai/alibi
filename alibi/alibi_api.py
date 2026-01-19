@@ -113,6 +113,10 @@ app.mount("/camera_snapshots", StaticFiles(directory=str(CAMERA_SNAPSHOTS_DIR)),
 from alibi.mobile_camera import router as mobile_camera_router
 app.include_router(mobile_camera_router)
 
+# Include enhanced mobile camera with security threat detection
+from alibi.mobile_camera_enhanced import router as mobile_camera_enhanced_router
+app.include_router(mobile_camera_enhanced_router)
+
 # Include camera insights router for AI-powered analysis
 from alibi.camera_insights import router as camera_insights_router
 app.include_router(camera_insights_router)

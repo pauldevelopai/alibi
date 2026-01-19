@@ -213,12 +213,12 @@ MOBILE_HOME_HTML = """
             <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
         
-        <!-- Featured: Camera -->
-        <a href="/camera/mobile-stream" class="card featured">
-            <div class="card-icon">📱</div>
+        <!-- Featured: Enhanced Security Camera -->
+        <a href="/camera/secure-stream" class="card featured">
+            <div class="card-icon">🔒</div>
             <div class="card-content">
-                <div class="card-title">Live Camera Stream</div>
-                <div class="card-description">Point your phone at anything and get instant AI feedback</div>
+                <div class="card-title">Security Camera</div>
+                <div class="card-description">Real-time threat detection with red flag capability</div>
             </div>
         </a>
         
