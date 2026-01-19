@@ -267,6 +267,35 @@ async def create_red_flag(
     """
     _, _, _, _, intelligence_store = get_security_components()
     
+    # Save snapshot if provided
+    snapshot_path = None
+    snapshot_data = data.get("snapshot_path")
+    if snapshot_data and snapshot_data.startswith("data:image"):
+        try:
+            # Extract base64 data
+            import base64
+            from pathlib import Path
+            
+            header, encoded = snapshot_data.split(",", 1)
+            image_data = base64.b64decode(encoded)
+            
+            # Save to red_flags directory
+            red_flags_dir = Path("alibi/data/red_flags")
+            red_flags_dir.mkdir(parents=True, exist_ok=True)
+            
+            flag_id = str(uuid.uuid4())
+            snapshot_filename = f"{flag_id}_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.jpg"
+            snapshot_path_full = red_flags_dir / snapshot_filename
+            
+            with open(snapshot_path_full, "wb") as f:
+                f.write(image_data)
+            
+            snapshot_path = str(snapshot_path_full)
+            print(f"✅ Saved red flag snapshot: {snapshot_path}")
+        except Exception as e:
+            print(f"⚠️  Failed to save red flag snapshot: {e}")
+            snapshot_path = "snapshot_save_failed"
+    
     red_flag = RedFlag(
         flag_id=str(uuid.uuid4()),
         timestamp=datetime.utcnow(),
@@ -275,16 +304,18 @@ async def create_red_flag(
         severity=data.get("severity", "medium"),
         category=data.get("category", "suspicious_activity"),
         description=data.get("description", ""),
-        snapshot_path=data.get("snapshot_path"),
+        snapshot_path=snapshot_path,
         notes=data.get("notes", "")
     )
     
     intelligence_store.add_red_flag(red_flag)
     
+    print(f"✅ Red flag created: {red_flag.flag_id} by {current_user.username}")
+    
     return {
         "success": True,
         "flag_id": red_flag.flag_id,
-        "message": "Red flag created"
+        "message": "Red flag created successfully"
     }
 
 
@@ -479,6 +510,10 @@ SECURE_CAMERA_HTML = """
             transition: all 0.3s;
         }
         
+        #pause-btn, #red-flag-btn {
+            display: none;
+        }
+        
         .btn-primary {
             background: #10b981;
             color: white;
@@ -659,6 +694,11 @@ SECURE_CAMERA_HTML = """
                 });
                 video.srcObject = stream;
                 
+                // Hide start button, show pause button
+                document.getElementById('start-btn').style.display = 'none';
+                document.getElementById('pause-btn').style.display = 'block';
+                document.getElementById('red-flag-btn').style.display = 'block';
+                
                 // Start analysis loop
                 setInterval(analyzeFrame, 2000);  // Every 2 seconds
             } catch (error) {
@@ -801,10 +841,21 @@ SECURE_CAMERA_HTML = """
         }
         
         async function submitRedFlag() {
+            if (!lastSnapshot) {
+                alert('No snapshot available. Please wait for camera analysis to complete.');
+                return;
+            }
+            
+            const description = document.getElementById('description').value.trim();
+            if (!description) {
+                alert('Please enter a description of what you saw.');
+                return;
+            }
+            
             const data = {
                 severity: document.getElementById('severity').value,
                 category: document.getElementById('category').value,
-                description: document.getElementById('description').value,
+                description: description,
                 camera_id: 'mobile_camera',
                 snapshot_path: lastSnapshot
             };
@@ -819,14 +870,22 @@ SECURE_CAMERA_HTML = """
                     body: JSON.stringify(data)
                 });
                 
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+                
                 const result = await response.json();
                 
                 if (result.success) {
-                    alert('🚩 Red flag created!');
+                    alert('🚩 Red flag created successfully!');
                     closeRedFlagModal();
                     document.getElementById('description').value = '';
+                } else {
+                    alert('Failed to create red flag: ' + (result.message || 'Unknown error'));
                 }
             } catch (error) {
+                console.error('Red flag error:', error);
                 alert('Failed to create red flag: ' + error.message);
             }
         }
