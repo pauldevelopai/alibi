@@ -6,9 +6,11 @@ NOTHING becomes fine-tune eligible without explicit human confirmation.
 """
 
 from dataclasses import dataclass, field
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from datetime import datetime
 from enum import Enum
+from pathlib import Path
+import json
 
 
 class ReviewStatus(Enum):
@@ -290,9 +292,3 @@ class TrainingDataStore:
                     f.write(json.dumps(inc.to_dict()) + "\n")
         
         return updated
-
-
-# Imports for type hints
-from pathlib import Path
-from typing import List
-import json

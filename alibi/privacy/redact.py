@@ -11,7 +11,7 @@ Methods:
 
 import cv2
 import numpy as np
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Dict
 from pathlib import Path
 
 
@@ -289,7 +289,3 @@ def check_privacy_risk(image_path: str) -> Tuple[bool, int]:
     
     faces = detect_faces(image)
     return len(faces) > 0, len(faces)
-
-
-# Type hint imports
-from typing import Dict
