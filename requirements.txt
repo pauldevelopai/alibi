@@ -1,0 +1,56 @@
+streamlit>=1.28.0
+openai>=1.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+pandas>=2.0.0
+lxml>=4.9.0
+pyyaml>=6.0.0
+flask>=3.0.0
+feedparser>=6.0.0
+tiktoken>=0.5.0
+pypdf>=4.0.0
+numpy>=1.24.0
+
+# Alibi API dependencies
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pytest>=7.4.0
+
+# Video processing and AI vision dependencies
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0  # Extra OpenCV modules (tracking, feature detection)
+
+# PyTorch for deep learning (CPU version - use torch.org for GPU)
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+
+# Detectron2 for object detection (installed separately - see install_detectron2.sh)
+# detectron2 @ git+https://github.com/facebookresearch/detectron2.git
+
+# Authentication dependencies
+python-jose[cryptography]>=3.3.0
+bcrypt>=4.0.0
+python-multipart>=0.0.6
+
+# License plate recognition (optional but recommended for hotlist feature)
+# easyocr>=1.7.0  # Uncomment to enable plate OCR
+
+# NLP / Embeddings (optional but recommended for full features)
+# These enable local semantic search - FREE, FAST, OFFLINE
+sentence-transformers>=2.2.0  # Hugging Face embeddings
+textstat>=0.7.0               # Readability metrics
+textblob>=0.17.0              # Sentiment analysis
+
+# Vision AI for scene understanding (mobile camera support)
+openai>=1.12.0                # OpenAI Vision API (GPT-4 Vision)
+
+# Training data collection from Hugging Face
+datasets>=2.14.0              # Hugging Face datasets (COCO, Open Images, etc.)
+Pillow>=10.0.0               # Image processing
+huggingface-hub>=0.17.0      # Hugging Face model hub
+
+# spaCy for deep linguistic analysis (optional)
+# After installing, run: python -m spacy download en_core_web_sm
+spacy>=3.5.0

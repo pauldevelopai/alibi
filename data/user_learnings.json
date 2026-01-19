@@ -1,0 +1,76 @@
+{
+  "headline_preferences": [
+    {
+      "context": "I want to write a main story about how to code this Newsletter Optimizer app. how do you take your o",
+      "rejected": [
+        "How to Build a Newsletter Optimizer with AI (Even If You Can’t Code)",
+        "Stop Letting Your Old Newsletters Gather Dust. Here’s How to Make Them Better—Daily.",
+        "From Lagos to Cape Town: Using AI to Reinvent Your Newsletter Archive",
+        "Your Best Newsletters… Every Day? Here’s How to Hack It with AI",
+        "A Practical Guide: Use AI to Upgrade Your Past Newsletters in Minutes"
+      ],
+      "preferred": "Here is how to use AI on your past newsletter stats and create a fresh one that hits every day ",
+      "timestamp": "2026-01-01T08:42:10.386586"
+    },
+    {
+      "context": "Show readers how to build this app, the Letter+ app. ",
+      "rejected": [
+        "How to build your own AI model and trap it in your house",
+        "How to build your own AI app and spread it around the world",
+        "How to build an AI app step by step",
+        "How to code with AI and why you should"
+      ],
+      "preferred": "Can you use AI to learn from past successes and write a newsletter every day of the year?",
+      "timestamp": "2026-01-02T09:37:23.579550"
+    },
+    {
+      "context": "Show readers how to build this app, the Letter+ app. ",
+      "rejected": [
+        "How to build your own AI model and trap it in your house",
+        "How to build your own AI app and spread it around the world",
+        "How to build an AI app step by step",
+        "How to code with AI and why you should"
+      ],
+      "preferred": "This is the future of AI newsletters",
+      "timestamp": "2026-01-02T11:42:24.207082"
+    },
+    {
+      "context": "Show readers how to build this app, the Letter+ app. ",
+      "rejected": [
+        "How to build your own AI model and trap it in your house",
+        "How to build your own AI app and spread it around the world",
+        "How to build an AI app step by step",
+        "How to code with AI and why you should"
+      ],
+      "preferred": "THIS IS A NEW HEADLINE",
+      "timestamp": "2026-01-02T11:50:51.260548"
+    },
+    {
+      "context": "Show readers how to build this app, the Letter+ app. ",
+      "rejected": [
+        "How to build your own AI model and trap it in your house",
+        "How to build your own AI app and spread it around the world",
+        "How to build an AI app step by step",
+        "How to code with AI and why you should"
+      ],
+      "preferred": "NEW HEADLINE",
+      "timestamp": "2026-01-02T11:58:02.084949"
+    },
+    {
+      "context": "write an article about the creation of this newsletter app, Letter+",
+      "rejected": [
+        "How a revolutionary podcast app was built for $2000",
+        "The letter I wish I had when I started creating this newsletter app",
+        "How this app could change the way we do newsletters in Africa",
+        "Could this be the future of AI podcasting?",
+        "From zero to one: how we built this app with no experience"
+      ],
+      "preferred": "This is how AI will change newsletters",
+      "timestamp": "2026-01-02T12:03:42.950481"
+    }
+  ],
+  "section_preferences": [],
+  "tone_adjustments": [],
+  "common_additions": [],
+  "rejected_patterns": []
+}

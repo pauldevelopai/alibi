@@ -1,0 +1,46 @@
+{
+  "zones": [
+    {
+      "zone_id": "zone_entrance",
+      "name": "Main Entrance",
+      "polygon": [[100, 100], [540, 100], [540, 380], [100, 380]],
+      "enabled": true
+    },
+    {
+      "zone_id": "zone_lobby",
+      "name": "Lobby Area",
+      "polygon": [[50, 50], [590, 50], [590, 430], [50, 430]],
+      "enabled": true
+    },
+    {
+      "zone_id": "zone_perimeter_east",
+      "name": "East Perimeter",
+      "polygon": [[400, 50], [600, 50], [600, 450], [400, 450]],
+      "enabled": true
+    },
+    {
+      "zone_id": "zone_perimeter_west",
+      "name": "West Perimeter",
+      "polygon": [[20, 50], [220, 50], [220, 450], [20, 450]],
+      "enabled": true
+    },
+    {
+      "zone_id": "zone_parking_north",
+      "name": "North Parking",
+      "polygon": [[50, 50], [350, 50], [350, 250], [50, 250]],
+      "enabled": true
+    },
+    {
+      "zone_id": "zone_parking_south",
+      "name": "South Parking",
+      "polygon": [[50, 250], [350, 250], [350, 450], [50, 450]],
+      "enabled": true
+    },
+    {
+      "zone_id": "zone_restricted",
+      "name": "Restricted Area",
+      "polygon": [[300, 200], [500, 200], [500, 400], [300, 400]],
+      "enabled": true
+    }
+  ]
+}

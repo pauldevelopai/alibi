@@ -1,0 +1,18 @@
+{
+  "cameras": [
+    {
+      "camera_id": "traffic_cam_001",
+      "location": "Main St & 1st Ave",
+      "traffic_light_roi": [50, 50, 100, 150],
+      "stop_line": [[100, 400], [540, 400]],
+      "intersection_roi": [0, 200, 640, 280],
+      "traffic_direction": "up",
+      "enabled": true,
+      "metadata": {
+        "speed_limit_mph": 35,
+        "description": "Sample traffic camera configuration"
+      }
+    }
+  ],
+  "_readme": "Traffic camera configuration for red light enforcement. Each camera needs: traffic_light_roi (where the light is), stop_line (line vehicles should not cross on red), intersection_roi (area to detect vehicles)."
+}

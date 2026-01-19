@@ -1,0 +1,45 @@
+# Alibi System Notes
+
+This repository has been converted from Letter+ (newsletter system) to Alibi (incident management).
+
+## Active System: Alibi
+
+The main product is now in the `alibi/` package:
+- Core engine: alibi/alibi_engine.py
+- Validation: alibi/validator.py
+- Tests: tests/test_alibi_engine_validation.py
+
+## Old Newsletter Files
+
+The following files are from the old Letter+ system and are NOT used by Alibi:
+- newsletter_*.py
+- app.py (old newsletter UI)
+- *_newsletter_*.py
+- data/newsletters_*.json
+- data/newsletter_*.json
+- data/published_newsletters.json
+- data/generation_history.json
+
+These files remain in the repo for reference but do not affect Alibi functionality.
+
+## Running Alibi
+
+```bash
+# Demo
+PYTHONPATH=. python alibi/demo.py
+
+# Tests
+pytest tests/test_alibi_engine_validation.py -v
+
+# Simple example
+PYTHONPATH=. python alibi/example.py
+```
+
+## Key Safety Rules
+
+1. No accusatory language (enforced)
+2. Low confidence → monitor only (enforced)
+3. High severity/watchlist → human approval required (enforced)
+4. Actions must reference evidence (enforced)
+
+See alibi/README.md for full documentation.

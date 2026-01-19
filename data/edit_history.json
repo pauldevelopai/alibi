@@ -1,0 +1,598 @@
+[
+  {
+    "timestamp": "2025-12-31T14:33:58.435280",
+    "idea": "create a newsletter about how to use your archive with AI to create future letters that are better",
+    "story_type": "how_to_tutorial",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "How to use your archive with AI to write better newsletters"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-12-31T14:48:23.479642",
+    "idea": "AI 2026",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "AI 2026: How Tech Hubs Are Reshaping the Newsroom"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-12-31T14:53:52.149673",
+    "idea": "AI 2026",
+    "story_type": "opinion_take",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Why AI in 2026 is Less Impressive Than You Think"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-12-31T14:58:39.733701",
+    "idea": "AI 2026",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "AI 2026: How Silicon Valley's New Bets Will Shape Your Newsroom"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-12-31T15:06:55.677358",
+    "idea": "AI 2026",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "AI 2026: How to Actually Use What Silicon Valley Is Building"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-01T08:42:10.386573",
+    "idea": "I want to write a main story about how to code this Newsletter Optimizer app. how do you take your own newsletter and use AI to make the best versions of your past newsletters every day. ",
+    "story_type": "how_to_tutorial",
+    "changes": [
+      {
+        "type": "custom_headline",
+        "original_options": [
+          "How to Build a Newsletter Optimizer with AI (Even If You Can’t Code)",
+          "Stop Letting Your Old Newsletters Gather Dust. Here’s How to Make Them Better—Daily.",
+          "From Lagos to Cape Town: Using AI to Reinvent Your Newsletter Archive",
+          "Your Best Newsletters… Every Day? Here’s How to Hack It with AI",
+          "A Practical Guide: Use AI to Upgrade Your Past Newsletters in Minutes"
+        ],
+        "user_wrote": "Here is how to use AI on your past newsletter stats and create a fresh one that hits every day "
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-01T12:41:52.356449",
+    "idea": "Investors predict AI is coming for labor in 2026\n\nInvestors are preparing for the arrival of AI in the labor market, with predictions of significant changes beginning in 2026. The extent of AI's impac",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "The Future of Work is Here: How AI is Set to Reshape Labor in 2026"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-01T13:01:39.255626",
+    "idea": "2026 is going to be the year AI comes for your job\n\nInvestors are expecting a rapid transition to AI and the enterprise labor market is going to reflect that. We look at what this means, what kinds of",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "2026 is coming for your job: The rise of AI in the workplace"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-01T15:59:51.697988",
+    "idea": "Investors predict AI is coming for labor in 2026\n\nThis newsletter will examine how the labor market is about to be impacted by AI according to well-known investors.\n\nAngle: The situation has the poten",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Investors predict AI is coming for labor in 2026"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-02T09:32:20.158725",
+    "idea": "Show readers how to build this app, the Letter+ app. ",
+    "story_type": "how_to_tutorial",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "How to build your own AI model and trap it in your house"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-02T09:37:23.579534",
+    "idea": "Show readers how to build this app, the Letter+ app. ",
+    "story_type": "how_to_tutorial",
+    "changes": [
+      {
+        "type": "custom_headline",
+        "original_options": [
+          "How to build your own AI model and trap it in your house",
+          "How to build your own AI app and spread it around the world",
+          "How to build an AI app step by step",
+          "How to code with AI and why you should"
+        ],
+        "user_wrote": "Can you use AI to learn from past successes and write a newsletter every day of the year?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-02T11:42:24.207072",
+    "idea": "Show readers how to build this app, the Letter+ app. ",
+    "story_type": "how_to_tutorial",
+    "changes": [
+      {
+        "type": "custom_headline",
+        "original_options": [
+          "How to build your own AI model and trap it in your house",
+          "How to build your own AI app and spread it around the world",
+          "How to build an AI app step by step",
+          "How to code with AI and why you should"
+        ],
+        "user_wrote": "This is the future of AI newsletters"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-02T11:50:51.260534",
+    "idea": "Show readers how to build this app, the Letter+ app. ",
+    "story_type": "how_to_tutorial",
+    "changes": [
+      {
+        "type": "custom_headline",
+        "original_options": [
+          "How to build your own AI model and trap it in your house",
+          "How to build your own AI app and spread it around the world",
+          "How to build an AI app step by step",
+          "How to code with AI and why you should"
+        ],
+        "user_wrote": "THIS IS A NEW HEADLINE"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-02T11:58:02.084935",
+    "idea": "Show readers how to build this app, the Letter+ app. ",
+    "story_type": "how_to_tutorial",
+    "changes": [
+      {
+        "type": "custom_headline",
+        "original_options": [
+          "How to build your own AI model and trap it in your house",
+          "How to build your own AI app and spread it around the world",
+          "How to build an AI app step by step",
+          "How to code with AI and why you should"
+        ],
+        "user_wrote": "NEW HEADLINE"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-02T12:03:42.950471",
+    "idea": "write an article about the creation of this newsletter app, Letter+",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "custom_headline",
+        "original_options": [
+          "How a revolutionary podcast app was built for $2000",
+          "The letter I wish I had when I started creating this newsletter app",
+          "How this app could change the way we do newsletters in Africa",
+          "Could this be the future of AI podcasting?",
+          "From zero to one: how we built this app with no experience"
+        ],
+        "user_wrote": "This is how AI will change newsletters"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-05T15:44:28.858204",
+    "idea": "Is AI really going to take jobs in 2026?\n\nInvestors predict AI is going to leave lots of people without jobs in 2026. Are these fears justified? And how can the media prepare for this?\n\nAngle: Develop",
+    "story_type": "opinion_take",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Is AI really going to take jobs in 2026?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-05T16:04:27.849204",
+    "idea": "Is AI really going to take jobs in 2026?\n\nInvestors predict AI is going to leave lots of people without jobs in 2026. Are these fears justified? And how can the media prepare for this?\n\nAngle: Focus o",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Is AI going to take your job in 2026?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-05T16:49:12.442615",
+    "idea": "Is AI really going to take jobs in 2026?\n\nInvestors predict AI is going to leave lots of people without jobs in 2026. Are these fears justified? And how can the media prepare for this?\n\nAngle: Focus o",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Is AI going to take your job in 2026?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-05T16:55:49.729256",
+    "idea": "Is AI really going to take jobs in 2026?\n\nInvestors predict AI is going to leave lots of people without jobs in 2026. Are these fears justified? And how can the media prepare for this?\n\nAngle: Focus o",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Is AI going to take your job in 2026?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-05T17:02:52.666814",
+    "idea": "Is AI really going to take jobs in 2026?\n\nInvestors predict AI is going to leave lots of people without jobs in 2026. Are these fears justified? And how can the media prepare for this?\n\nAngle: Focus o",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Is AI going to take your job in 2026?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-05T17:09:40.338163",
+    "idea": "Is AI really going to take jobs in 2026?\n\nInvestors predict AI is going to leave lots of people without jobs in 2026. Are these fears justified? And how can the media prepare for this?\n\nAngle: Focus o",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Is AI going to take your job in 2026?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-06T11:57:21.175381",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 1,
+        "chosen": "Are we heading to a place where we all need to be developers?"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-06T12:21:14.027067",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 2,
+        "chosen": "PC chips are getting an upgrade. Here’s why you should care."
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-06T12:30:53.305385",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 2,
+        "chosen": "PC chips are getting an upgrade. Here’s why you should care."
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-07T05:53:13.621210",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 2,
+        "chosen": "PC chips are getting an upgrade. Here’s why you should care."
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-07T06:00:27.069220",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 1,
+        "chosen": "The future of AI is going to depend on your hardware"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-07T06:01:48.872016",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 1,
+        "chosen": "The future of AI is going to depend on your hardware"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-07T06:10:58.155771",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 1,
+        "chosen": "The future of AI is going to depend on your hardware"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-07T06:19:39.706992",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 1,
+        "chosen": "The future of AI is going to depend on your hardware"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-07T06:30:38.432701",
+    "idea": "What do the new PC chips mean for the future of AI?\n\nAMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This ",
+    "story_type": "future_opportunity",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 1,
+        "chosen": "The future of AI is going to depend on your hardware"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-11T08:56:26.670224",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "X’s Grok is being used to create non-consensual sexual deepfakes and no one cares"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T06:12:20.940621",
+    "idea": "OpenAI is asking contractors to upload their work for the benefit of their models… and they’re mad\n\nThis week OpenAI was slammed for asking their contractors to upload work from past jobs to evaluate ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "OpenAI is asking contractors to upload all their work to help their models and they’re mad"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T09:05:03.816582",
+    "idea": "OpenAI is asking contractors to upload their work for the benefit of their models… and they’re mad\n\nThis week OpenAI was slammed for asking their contractors to upload work from past jobs to evaluate ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "OpenAI is asking contractors to upload all their work to help their models and they’re mad"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T13:53:57.352190",
+    "idea": "OpenAI is asking contractors to upload their work for the benefit of their models… and they’re mad\n\nThis week OpenAI was slammed for asking their contractors to upload work from past jobs to evaluate ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "The insane corporate ask for data that is your job"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T14:28:33.046251",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "The world is already on fire, but we have to talk about Grok and deepfakes"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T17:01:32.891247",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "The world is already on fire, but we have to talk about Grok and deepfakes"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T17:17:04.308696",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "The world is already on fire, but we have to talk about Grok and deepfakes"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T17:18:41.077886",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Grok is a horror show and Musk is loving it"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T17:34:59.750585",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Grok is a horror show and Musk is loving it"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T17:35:32.786978",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Grok is a horror show and Musk is loving it"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T17:51:50.915324",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Grok is a horror show and Musk is loving it"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T17:52:30.748693",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Grok is a horror show and Musk is loving it"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T18:37:54.225888",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Grok is a horror show and Musk is loving it"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-12T18:38:53.486379",
+    "idea": "The world is already on fire, but we have to talk about Grok and deepfakes\n\nElon Musk’s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Grok is a horror show and Musk is loving it"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-13T08:26:24.371049",
+    "idea": "AI Healthcare: Can We Trust It With Our Lives?\n\nGoogle removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "Google removes some AI health summaries after investigation finds 'dangerous' flaws"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-13T13:49:05.070837",
+    "idea": "AI Healthcare: Can We Trust It With Our Lives?\n\nGoogle removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "This Is Why We Can't Trust AI With Our Health"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-01-13T13:50:31.924349",
+    "idea": "AI Healthcare: Can We Trust It With Our Lives?\n\nGoogle removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in ",
+    "story_type": "news_analysis",
+    "changes": [
+      {
+        "type": "chose_headline",
+        "index": 0,
+        "chosen": "This Is Why We Can't Trust AI With Our Health"
+      }
+    ]
+  }
+]

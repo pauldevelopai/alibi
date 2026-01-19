@@ -1,0 +1,96 @@
+# Alibi Security - Sensitive Files
+alibi/data/.jwt_secret
+alibi/data/.initial_passwords.txt
+alibi/data/users.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Alibi Data (contains real operational data)
+alibi/data/incidents.jsonl
+alibi/data/decisions.jsonl
+alibi/data/audit.jsonl
+alibi/data/watchlist.jsonl
+alibi/data/hotlist_plates.jsonl
+alibi/data/plate_registry.jsonl
+alibi/data/vehicle_sightings.jsonl
+alibi/data/weekly_metrics.json
+
+# Evidence (contains sensitive media)
+alibi/data/evidence/
+alibi/data/evidence_packs/
+alibi/data/media/
+
+# Node modules (frontend)
+alibi/console/node_modules/
+alibi/console/dist/
+alibi/console/.next/
+
+# Environment files
+.env
+.env.local
+.env.production
+*.env
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Intelligence data
+alibi/data/red_flags.jsonl
+alibi/data/people_tags.jsonl
+alibi/data/place_tags.jsonl
+alibi/data/intelligence_notes.jsonl
+alibi/data/training_agent.jsonl
+alibi/data/fine_tuning_history.jsonl
+alibi/data/security_training_dataset.jsonl
+cvat/

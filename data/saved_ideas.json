@@ -1,0 +1,245 @@
+[
+  {
+    "title": "AI Healthcare: Can We Trust It With Our Lives?",
+    "summary": "Google removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in critical fields like healthcare and how tech companies are handling these issues.",
+    "angle": "Google's recent removal of AI health summaries due to dangerous flaws highlights critical issues of trust and safety in AI healthcare applications.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "Ars Technica",
+        "title": "Google removes some AI health summaries after investigation finds \u201cdangerous\u201d flaws",
+        "url": "https://arstechnica.com/ai/2026/01/google-removes-some-ai-health-summaries-after-investigation-finds-dangerous-flaws/",
+        "date": "2026-01-12"
+      }
+    ],
+    "why_it_works": "Taps into major public concern about AI safety and regulation",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "search_query": "google ai health",
+    "id": "idea_20260113_081917_8",
+    "saved_at": "2026-01-13T08:19:17.323775",
+    "used": true,
+    "used_at": "2026-01-13T13:47:34.646501"
+  },
+  {
+    "title": "What do the new PC chips mean for the future of AI?",
+    "summary": "AMD announced the latest version of its AI-powered PC chips designed for a variety of tasks from gaming to content creation and multitasking. This points to a future where we are all going to need to have better machines to keep pace with the AI race.",
+    "angle": "The idea of what we will need to process the AI tools of the near future is fascinating. I was recently told I need to upgrade my computer to ensure I can continue to use some tools.",
+    "story_type": "future",
+    "sources": [
+      {
+        "title": "AMD unveils new AI PC processors for general use and gaming at CES",
+        "url": "https://techcrunch.com/2026/01/05/amd-unveils-new-ai-pc-processors-for-general-use-and-gaming-at-ces/",
+        "publication": "TechCrunch AI",
+        "date": "2026-01-06"
+      }
+    ],
+    "why_it_works": "Fits perfectly with what we have been working on in our newsletter.",
+    "sections": [
+      "Main Story"
+    ],
+    "search_query": "",
+    "id": "idea_20260106_112858_0",
+    "saved_at": "2026-01-06T11:28:58.993255",
+    "used": true,
+    "used_at": "2026-01-06T12:14:32.960377"
+  },
+  {
+    "title": "The world is already on fire, but we have to talk about Grok and deepfakes",
+    "story_type": "warning",
+    "summary": "Elon Musk\u2019s Grok is being used to create non-consensual sexual deepfakes of women in religious clothing. And it is not only being allowed, but promoted. This week\u2019s burning question asks if AI is going to create a world of conspiracy theories and we have a tragic lesson about what happens when you use an AI tool that your platform is trying to sell (and it gets the facts of your story wrong).",
+    "sources": [
+      {
+        "title": "Grok Is Being Used to Mock and Strip Women in Hijabs and Saris",
+        "url": "https://www.wired.com/story/grok-is-being-used-to-mock-and-strip-women-in-hijabs-and-sarees/",
+        "publication": "Wired",
+        "date": "2026-01-10T00:23:08+00:00"
+      },
+      {
+        "title": "X Didn\u2019t Fix Grok's \u2018Undressing\u2019 Problem. It Just Makes People Pay for It",
+        "url": "https://www.wired.com/story/x-didnt-fix-groks-undressing-problem-it-just-makes-people-pay-for-it/",
+        "publication": "Wired",
+        "date": "2026-01-09T15:19:18+00:00"
+      }
+    ],
+    "search_query": "Grok deepfakes",
+    "angle": "A focus on what Musk is allowed to do (and get away with) despite the grotesque nature of the content being used as a marketing tool for his product.",
+    "why_it_works": "The Grok story is deeply disturbing and in the public interest to be reported on.",
+    "sections": [
+      "Main Story"
+    ],
+    "id": "idea_20260111_084508_0",
+    "saved_at": "2026-01-11T08:45:08.742847",
+    "used": true,
+    "auto_saved": true,
+    "used_at": "2026-01-12T14:26:59.153997"
+  },
+  {
+    "title": "OpenAI is asking contractors to upload their work for the benefit of their models\u2026 and they\u2019re mad",
+    "story_type": "news_analysis",
+    "summary": "This week OpenAI was slammed for asking their contractors to upload work from past jobs to evaluate the performance of their AI agents. We\u2019ll explore if this is fair and if it is the future.",
+    "sources": [
+      {
+        "title": "OpenAI Is Asking Contractors to Upload Work From Past Jobs to Evaluate the Performance of AI Agents",
+        "url": "https://www.wired.com/story/openai-contractor-upload-real-work-documents-ai-agents/",
+        "publication": "Wired",
+        "date": "2026-01-10T01:11:25+00:00"
+      },
+      {
+        "title": "OpenAI is reportedly asking contractors to upload real work from past jobs",
+        "url": "https://techcrunch.com/2026/01/10/openai-is-reportedly-asking-contractors-to-upload-real-work-from-past-jobs/",
+        "publication": "TechCrunch AI",
+        "date": "2026-01-10T21:18:29+00:00"
+      }
+    ],
+    "search_query": "OpenAI contractors",
+    "angle": "This story seems to be the evolution towards how we are all going to have to work in the future and what we will all need to accept.",
+    "why_it_works": "It taps into people\u2019s fears of how the workplace is changing.",
+    "sections": [],
+    "id": "idea_20260111_084511_2",
+    "saved_at": "2026-01-11T08:45:11.021451",
+    "used": true,
+    "auto_saved": true,
+    "used_at": "2026-01-12T06:11:22.565336"
+  },
+  {
+    "angle": "Google's recent removal of AI health summaries due to dangerous flaws highlights critical issues of trust and safety in AI healthcare applications.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "Ars Technica",
+        "title": "Google removes some AI health summaries after investigation finds \u201cdangerous\u201d flaws",
+        "url": "https://arstechnica.com/ai/2026/01/google-removes-some-ai-health-summaries-after-investigation-finds-dangerous-flaws/",
+        "date": "2026-01-12"
+      }
+    ],
+    "search_query": "google ai health",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "AI Healthcare: Can We Trust It With Our Lives?",
+    "why_it_works": "Taps into major public concern about AI safety and regulation",
+    "summary": "Google removed its AI healthcare summaries after a BuzzFeed investigation found dangerous inaccuracies. This raises questions about the safety of AI in critical fields like healthcare and how tech companies are handling these issues.",
+    "id": "idea_20260113_081845_0",
+    "saved_at": "2026-01-13T08:18:45.703177",
+    "used": true,
+    "auto_saved": true,
+    "used_at": "2026-01-13T13:47:56.733662"
+  },
+  {
+    "angle": "With Meta launching its own AI infrastructure and Anthropic's new healthcare product, the AI arms race is intensifying.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "TechCrunch",
+        "title": "Mark Zuckerberg says Meta is launching its own AI infrastructure initiative",
+        "url": "https://techcrunch.com/2026/01/12/mark-zuckerberg-says-meta-is-launching-its-own-ai-infrastructure-initiative/",
+        "date": "2026-01-12"
+      },
+      {
+        "publication": "TechCrunch",
+        "title": "Anthropic announces Claude for Healthcare following OpenAI\u2019s ChatGPT Health reveal",
+        "url": "https://techcrunch.com/2026/01/12/anthropic-announces-claude-for-healthcare-following-openais-chatgpt-health-reveal/",
+        "date": "2026-01-12"
+      }
+    ],
+    "search_query": "meta anthropic ai",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "The AI Arms Race: Meta and Anthropic's Next Moves",
+    "why_it_works": "Highlights the competition among tech giants in AI development",
+    "summary": "Meta is building its own AI infrastructure, and Anthropic has launched a healthcare-focused AI product. These moves show how companies are racing to dominate AI, especially in high-stakes areas like healthcare.",
+    "id": "idea_20260113_081846_1",
+    "saved_at": "2026-01-13T08:18:46.881815",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "angle": "Amazon's acquisition of an AI wearable and its Alexa expansion show a strategy to integrate AI deeply into daily life.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "TechCrunch",
+        "title": "Why Amazon bought Bee, an AI wearable",
+        "url": "https://techcrunch.com/2026/01/12/why-amazon-bought-bee-an-ai-wearable/",
+        "date": "2026-01-12"
+      },
+      {
+        "publication": "TechCrunch",
+        "title": "Amazon says 97% of its devices can support Alexa+",
+        "url": "https://techcrunch.com/2026/01/12/amazon-says-97-of-its-devices-can-support-alexa/",
+        "date": "2026-01-12"
+      }
+    ],
+    "search_query": "amazon ai wearable alexa",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "Amazon's AI Strategy: Wearables and Alexa Takeover",
+    "why_it_works": "Explores the practical implications of AI in consumer tech",
+    "summary": "Amazon's acquisition of Bee, an AI wearable, and its expansion of Alexa capabilities highlight its strategy to embed AI into consumer tech. This could change how we interact with devices and information daily.",
+    "id": "idea_20260113_081847_2",
+    "saved_at": "2026-01-13T08:18:47.189241",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "angle": "Apple and Google's collaboration on AI models could significantly enhance consumer tech experiences, but also raises questions about data privacy.",
+    "story_type": "news_analysis",
+    "sources": [
+      {
+        "publication": "TechCrunch",
+        "title": "Google\u2019s Gemini to power Apple\u2019s AI features like Siri",
+        "url": "https://techcrunch.com/2026/01/12/googles-gemini-to-power-apples-ai-features-like-siri/",
+        "date": "2026-01-12"
+      }
+    ],
+    "search_query": "apple google ai",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "Apple + Google: The AI Partnership That Could Change Everything",
+    "why_it_works": "Focuses on major tech collaboration and its potential impact",
+    "summary": "Apple and Google are partnering on AI, with Google\u2019s Gemini models set to power Apple\u2019s AI features. This partnership could lead to major improvements in services like Siri, but also intensifies the spotlight on data privacy.",
+    "id": "idea_20260113_081847_3",
+    "saved_at": "2026-01-13T08:18:47.443843",
+    "used": false,
+    "auto_saved": true
+  },
+  {
+    "angle": "The struggles of a New Jersey lawsuit highlight the challenges in combating the harmful use of AI in creating deepfake pornography.",
+    "story_type": "news_analysis",
+    "sources": [],
+    "search_query": "deepfake porn lawsuit",
+    "sections": [
+      "Main Story",
+      "AI Tool of the Week",
+      "Develop AI Update",
+      "In the News"
+    ],
+    "title": "The Deepfake Dilemma: Legal Battles Against AI Porn",
+    "why_it_works": "Addresses a controversial and harmful use of AI technology",
+    "summary": "A New Jersey lawsuit underscores the difficulty of fighting deepfake pornography. While there are laws against it, holding platforms accountable remains a significant challenge, raising questions about regulation and responsibility.",
+    "id": "idea_20260113_081847_4",
+    "saved_at": "2026-01-13T08:18:47.606077",
+    "used": false,
+    "auto_saved": true
+  }
+]

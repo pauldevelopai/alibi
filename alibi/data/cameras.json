@@ -1,0 +1,22 @@
+{
+  "cameras": [
+    {
+      "camera_id": "cam_entrance_main",
+      "input": "alibi/data/test_video.mp4",
+      "zone_id": "zone_entrance",
+      "enabled": true,
+      "sample_fps": 1.0
+    },
+    {
+      "camera_id": "cam_perimeter_east",
+      "input": "alibi/data/test_video.mp4",
+      "zone_id": "zone_perimeter_east",
+      "enabled": false,
+      "sample_fps": 0.5
+    }
+  ],
+  "event_throttle_seconds": 30,
+  "api_timeout": 10,
+  "api_retry_max": 3,
+  "api_retry_delay": 2.0
+}

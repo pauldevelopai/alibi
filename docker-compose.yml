@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  alibi_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alibi_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./alibi/data:/app/alibi/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - alibi_network
+    restart: unless-stopped
+
+  alibi_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: alibi_worker
+    depends_on:
+      - alibi_api
+    volumes:
+      - ./alibi/data:/app/alibi/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - alibi_network
+    restart: unless-stopped
+    command: python -m alibi.video.worker --config alibi/data/cameras.json --api http://alibi_api:8000 --zones alibi/data/zones.json
+
+  alibi_console:
+    image: node:18-alpine
+    container_name: alibi_console
+    working_dir: /app
+    volumes:
+      - ./alibi/console:/app
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - alibi_network
+    command: sh -c "npm install && npm run dev -- --host"
+    restart: unless-stopped
+
+networks:
+  alibi_network:
+    driver: bridge

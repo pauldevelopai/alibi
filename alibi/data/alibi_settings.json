@@ -1,0 +1,62 @@
+{
+  "incident_grouping": {
+    "merge_window_seconds": 300,
+    "dedup_window_seconds": 30,
+    "compatible_event_types": {
+      "loitering": ["loitering", "suspicious_behavior"],
+      "breach": ["breach", "unauthorized_access", "forced_entry"],
+      "person_detected": ["person_detected", "person_loitering"],
+      "vehicle_detected": ["vehicle_detected", "vehicle_loitering"],
+      "aggression": ["aggression", "altercation", "violence"],
+      "crowd_panic": ["crowd_panic", "stampede", "mass_movement"]
+    }
+  },
+  "thresholds": {
+    "min_confidence_for_notify": 0.75,
+    "min_confidence_for_action": 0.80,
+    "high_severity_threshold": 4
+  },
+  "digital_shield": {
+    "loitering": {
+      "enabled": true,
+      "dwell_threshold_seconds": 30,
+      "min_blob_area": 1000,
+      "severity_scale": 1
+    },
+    "aggression": {
+      "enabled": true,
+      "motion_threshold": 5000,
+      "variability_threshold": 0.4,
+      "clustering_threshold": 0.3
+    },
+    "crowd_panic": {
+      "enabled": true,
+      "entropy_threshold": 2.5,
+      "change_rate_threshold": 0.5,
+      "grid_size": [8, 8]
+    }
+  },
+  "evidence": {
+    "clip_seconds_before": 5,
+    "clip_seconds_after": 5,
+    "buffer_seconds": 10
+  },
+  "watchlist": {
+    "enabled": true,
+    "match_threshold": 0.6,
+    "face_confidence": 0.5,
+    "check_interval_seconds": 5.0,
+    "reload_interval_seconds": 300,
+    "top_k_candidates": 3
+  },
+  "llm": {
+    "enabled": true,
+    "model": "gpt-4o-mini",
+    "max_tokens": 500,
+    "temperature": 0.3
+  },
+  "api": {
+    "port": 8000,
+    "host": "0.0.0.0"
+  }
+}
