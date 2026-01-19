@@ -1,0 +1,50 @@
+[
+  {
+    "id": "entrance",
+    "name": "Main Entrance",
+    "type": "monitored",
+    "polygon": [
+      [100, 100],
+      [400, 100],
+      [400, 300],
+      [100, 300]
+    ],
+    "rules_enabled": ["loitering", "crowd_formation"]
+  },
+  {
+    "id": "restricted_area",
+    "name": "Restricted Area",
+    "type": "restricted",
+    "polygon": [
+      [500, 200],
+      [800, 200],
+      [800, 500],
+      [500, 500]
+    ],
+    "rules_enabled": ["restricted_zone_entry", "zone_violation"]
+  },
+  {
+    "id": "parking_lot",
+    "name": "Parking Lot",
+    "type": "monitored",
+    "polygon": [
+      [50, 400],
+      [450, 400],
+      [450, 650],
+      [50, 650]
+    ],
+    "rules_enabled": ["object_left_unattended", "loitering"]
+  },
+  {
+    "id": "hallway",
+    "name": "Main Hallway",
+    "type": "public",
+    "polygon": [
+      [200, 50],
+      [600, 50],
+      [600, 150],
+      [200, 150]
+    ],
+    "rules_enabled": ["rapid_movement", "crowd_formation"]
+  }
+]

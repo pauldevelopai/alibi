@@ -1,0 +1,94 @@
+# Rule-Based Event Detection Configuration
+#
+# Thresholds for time-based incident triggers.
+# Adjust these based on your security requirements.
+
+# Loitering detection
+loitering:
+  # Minimum time in zone before triggering (seconds)
+  threshold_seconds: 30.0
+  
+  # Zones where loitering is monitored
+  monitored_zones:
+    - entrance
+    - parking_lot
+  
+  # Classes to monitor for loitering
+  classes:
+    - person
+
+# Object left unattended
+unattended_object:
+  # Minimum time stationary before triggering (seconds)
+  threshold_seconds: 60.0
+  
+  # Classes considered "objects" (not people)
+  object_classes:
+    - backpack
+    - handbag
+    - suitcase
+    - umbrella
+    - bottle
+  
+  # Zones where this rule applies
+  monitored_zones:
+    - entrance
+    - parking_lot
+    - hallway
+
+# Restricted zone entry
+restricted_zone:
+  # Minimum time in restricted zone before alert (seconds)
+  # Set to 0 for immediate alert
+  min_duration_seconds: 5.0
+  
+  # Zone types considered restricted
+  restricted_types:
+    - restricted
+    - private
+  
+  # Classes that trigger alerts in restricted zones
+  alert_classes:
+    - person
+    - vehicle
+
+# Rapid movement detection
+rapid_movement:
+  # Minimum speed to trigger (pixels per second)
+  threshold_pixels_per_second: 100.0
+  
+  # Frame window for speed calculation
+  frame_window: 10
+  
+  # Classes to monitor
+  classes:
+    - person
+
+# Crowd formation
+crowd_formation:
+  # Minimum number of people to trigger
+  threshold_count: 3
+  
+  # Zones where crowd formation is monitored
+  monitored_zones:
+    - entrance
+    - hallway
+  
+  # Only count these classes
+  classes:
+    - person
+
+# Global settings
+global:
+  # Minimum track confirmation hits before rules apply
+  min_track_hits: 3
+  
+  # Maximum track age before cleanup (frames)
+  max_track_age: 30
+  
+  # Confidence threshold for detections
+  min_confidence: 0.5
+  
+  # Zone violation grace period (seconds)
+  # Tracks must be in zone for this long before rules trigger
+  zone_grace_period: 2.0
