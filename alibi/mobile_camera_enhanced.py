@@ -24,6 +24,8 @@ from alibi.vision.gatekeeper import VisionGatekeeper, GatekeeperPolicy
 from alibi.vision.tracking import MultiObjectTracker
 from alibi.rules.events import RuleEvaluator
 from alibi.vision.simulate import IncidentManager
+from alibi.vision.scene_analyzer import get_scene_analyzer
+from alibi.camera_analysis_store import CameraAnalysis, get_camera_analysis_store
 
 router = APIRouter(prefix="/camera", tags=["Enhanced Mobile Camera"])
 
@@ -134,12 +136,13 @@ async def analyze_frame_secure(
     current_user: User = Depends(get_current_user)
 ):
     """
-    Analyze camera frame with security threat detection.
+    Analyze camera frame with security threat detection AND AI descriptions.
     
     Returns:
     - Detection results
     - Threat level assessment
     - Rule violations
+    - AI natural language description (what the camera is seeing)
     - Recommended actions
     """
     # Get components
@@ -183,6 +186,26 @@ async def analyze_frame_secure(
         triggered_rules
     )
     
+    # Get AI description of what camera is seeing
+    scene_analyzer = get_scene_analyzer()
+    ai_analysis = scene_analyzer.analyze_frame(frame)
+    
+    # Store analysis for history
+    analysis_store = get_camera_analysis_store()
+    analysis_entry = CameraAnalysis(
+        analysis_id=str(uuid.uuid4()),
+        timestamp=timestamp,
+        camera_id="mobile_camera",
+        description=ai_analysis.description,
+        confidence=ai_analysis.confidence,
+        detected_objects=ai_analysis.objects_detected,
+        detected_activities=ai_analysis.activities,
+        safety_concern=threat_level in ["warning", "critical"],
+        safety_details=threat_message if threat_level in ["warning", "critical"] else None,
+        analysis_method=ai_analysis.backend_used
+    )
+    analysis_store.save_analysis(analysis_entry, frame)
+    
     # Build response
     return {
         "timestamp": timestamp.isoformat(),
@@ -199,6 +222,12 @@ async def analyze_frame_secure(
         "tracking": {
             "active_tracks": len(tracks),
             "triggered_rules": triggered_rules
+        },
+        "ai_description": {
+            "description": ai_analysis.description,
+            "confidence": ai_analysis.confidence,
+            "objects": ai_analysis.objects_detected,
+            "activities": ai_analysis.activities
         },
         "scores": result.get("scores", {}),
         "eligible_for_training": result.get("eligible", False)
@@ -348,8 +377,29 @@ SECURE_CAMERA_HTML = """
             left: 0;
             right: 0;
             padding: 15px;
-            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            background: linear-gradient(0deg, rgba(0,0,0,0.95) 0%, transparent 100%);
             z-index: 10;
+        }
+        
+        .ai-description {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.4;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+        
+        .ai-description strong {
+            color: #10b981;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .detection-stats {
@@ -488,6 +538,10 @@ SECURE_CAMERA_HTML = """
         <video id="video" autoplay playsinline></video>
         
         <div class="detection-info">
+            <div class="ai-description" id="ai-description">
+                <strong>AI Vision:</strong>
+                <span id="ai-text">Starting camera...</span>
+            </div>
             <div class="detection-stats">
                 <div class="stat">
                     <strong id="object-count">0</strong> objects
@@ -570,6 +624,11 @@ SECURE_CAMERA_HTML = """
         async function analyzeFrame() {
             if (isPaused || !stream) return;
             
+            // Show analyzing state
+            const aiText = document.getElementById('ai-text');
+            aiText.textContent = 'Analyzing...';
+            aiText.style.fontStyle = 'italic';
+            
             // Capture frame
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
@@ -590,10 +649,13 @@ SECURE_CAMERA_HTML = """
                     });
                     
                     const result = await response.json();
+                    aiText.style.fontStyle = 'normal';
                     updateThreatDisplay(result);
                     lastSnapshot = canvas.toDataURL('image/jpeg');
                 } catch (error) {
                     console.error('Analysis failed:', error);
+                    aiText.textContent = 'Analysis failed - retrying...';
+                    aiText.style.color = '#ef4444';
                 }
             }, 'image/jpeg');
         }
@@ -605,6 +667,7 @@ SECURE_CAMERA_HTML = """
             const objectCount = document.getElementById('object-count');
             const trackCount = document.getElementById('track-count');
             const securityStatus = document.getElementById('security-status');
+            const aiText = document.getElementById('ai-text');
             
             // Update threat level
             const threat = result.threat;
@@ -616,6 +679,20 @@ SECURE_CAMERA_HTML = """
             else if (threat.level === 'caution') icon.textContent = '⚠️';
             else if (threat.level === 'warning') icon.textContent = '🔴';
             else icon.textContent = '🚨';
+            
+            // Update AI description
+            if (result.ai_description && result.ai_description.description) {
+                aiText.textContent = result.ai_description.description;
+                
+                // Highlight safety concerns
+                if (threat.level === 'warning' || threat.level === 'critical') {
+                    document.getElementById('ai-description').style.borderColor = threat.color;
+                    document.getElementById('ai-description').style.background = `${threat.color}22`;
+                } else {
+                    document.getElementById('ai-description').style.borderColor = 'rgba(16, 185, 129, 0.5)';
+                    document.getElementById('ai-description').style.background = 'rgba(16, 185, 129, 0.2)';
+                }
+            }
             
             // Update stats
             objectCount.textContent = result.detections.count;
