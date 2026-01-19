@@ -24,7 +24,7 @@ from alibi.vision.gatekeeper import VisionGatekeeper, GatekeeperPolicy
 from alibi.vision.tracking import MultiObjectTracker
 from alibi.rules.events import RuleEvaluator
 from alibi.vision.simulate import IncidentManager
-from alibi.vision.scene_analyzer import get_scene_analyzer
+from alibi.vision.scene_analyzer import SceneAnalyzer
 from alibi.camera_analysis_store import CameraAnalysis, get_camera_analysis_store
 
 router = APIRouter(prefix="/camera", tags=["Enhanced Mobile Camera"])
@@ -193,7 +193,7 @@ async def analyze_frame_secure(
     ai_activities = []
     
     try:
-        scene_analyzer = get_scene_analyzer()
+        scene_analyzer = SceneAnalyzer(mode="auto")
         # Add timeout to prevent hanging
         import asyncio
         from concurrent.futures import TimeoutError
