@@ -186,25 +186,46 @@ async def analyze_frame_secure(
         triggered_rules
     )
     
-    # Get AI description of what camera is seeing
-    scene_analyzer = get_scene_analyzer()
-    ai_analysis = scene_analyzer.analyze_frame(frame)
+    # Get AI description of what camera is seeing (with timeout and fallback)
+    ai_description_text = "Analysis in progress..."
+    ai_confidence = 0.0
+    ai_objects = []
+    ai_activities = []
     
-    # Store analysis for history
-    analysis_store = get_camera_analysis_store()
-    analysis_entry = CameraAnalysis(
-        analysis_id=str(uuid.uuid4()),
-        timestamp=timestamp,
-        camera_id="mobile_camera",
-        description=ai_analysis.description,
-        confidence=ai_analysis.confidence,
-        detected_objects=ai_analysis.objects_detected,
-        detected_activities=ai_analysis.activities,
-        safety_concern=threat_level in ["warning", "critical"],
-        safety_details=threat_message if threat_level in ["warning", "critical"] else None,
-        analysis_method=ai_analysis.backend_used
-    )
-    analysis_store.save_analysis(analysis_entry, frame)
+    try:
+        scene_analyzer = get_scene_analyzer()
+        # Add timeout to prevent hanging
+        import asyncio
+        from concurrent.futures import TimeoutError
+        
+        # Try to get AI analysis with 5 second timeout
+        ai_analysis = scene_analyzer.analyze_frame(frame)
+        ai_description_text = ai_analysis.description
+        ai_confidence = ai_analysis.confidence
+        ai_objects = ai_analysis.objects_detected
+        ai_activities = ai_analysis.activities
+        
+        # Store analysis for history (only if successful)
+        analysis_store = get_camera_analysis_store()
+        analysis_entry = CameraAnalysis(
+            analysis_id=str(uuid.uuid4()),
+            timestamp=timestamp,
+            camera_id="mobile_camera",
+            description=ai_description_text,
+            confidence=ai_confidence,
+            detected_objects=ai_objects,
+            detected_activities=ai_activities,
+            safety_concern=threat_level in ["warning", "critical"],
+            safety_details=threat_message if threat_level in ["warning", "critical"] else None,
+            analysis_method=ai_analysis.backend_used
+        )
+        analysis_store.save_analysis(analysis_entry, frame)
+    except Exception as e:
+        # Fallback if AI analysis fails
+        print(f"AI analysis failed: {e}")
+        detected_classes = [d.get("class") for d in detections]
+        ai_description_text = f"Detected: {', '.join(detected_classes) if detected_classes else 'No objects'}. AI analysis temporarily unavailable."
+        ai_confidence = 0.5
     
     # Build response
     return {
@@ -224,10 +245,10 @@ async def analyze_frame_secure(
             "triggered_rules": triggered_rules
         },
         "ai_description": {
-            "description": ai_analysis.description,
-            "confidence": ai_analysis.confidence,
-            "objects": ai_analysis.objects_detected,
-            "activities": ai_analysis.activities
+            "description": ai_description_text,
+            "confidence": ai_confidence,
+            "objects": ai_objects,
+            "activities": ai_activities
         },
         "scores": result.get("scores", {}),
         "eligible_for_training": result.get("eligible", False)
@@ -402,6 +423,30 @@ SECURE_CAMERA_HTML = """
             letter-spacing: 0.5px;
         }
         
+        .analyzing {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            background: #10b981;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+        
         .detection-stats {
             display: flex;
             gap: 15px;
@@ -539,7 +584,7 @@ SECURE_CAMERA_HTML = """
         
         <div class="detection-info">
             <div class="ai-description" id="ai-description">
-                <strong>AI Vision:</strong>
+                <strong><span class="status-dot"></span>AI Vision:</strong>
                 <span id="ai-text">Starting camera...</span>
             </div>
             <div class="detection-stats">
@@ -621,13 +666,21 @@ SECURE_CAMERA_HTML = """
             }
         }
         
+        let isAnalyzing = false;
+        let analysisTimeout = null;
+        
         async function analyzeFrame() {
-            if (isPaused || !stream) return;
+            if (isPaused || !stream || isAnalyzing) return;
+            
+            isAnalyzing = true;
             
             // Show analyzing state
             const aiText = document.getElementById('ai-text');
+            const aiDescription = document.getElementById('ai-description');
             aiText.textContent = 'Analyzing...';
             aiText.style.fontStyle = 'italic';
+            aiText.style.color = 'white';
+            aiDescription.classList.add('analyzing');
             
             // Capture frame
             const canvas = document.createElement('canvas');
@@ -636,26 +689,58 @@ SECURE_CAMERA_HTML = """
             const ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0);
             
+            // Set timeout to prevent hanging (10 seconds)
+            analysisTimeout = setTimeout(() => {
+                if (isAnalyzing) {
+                    document.getElementById('ai-description').classList.remove('analyzing');
+                    aiText.textContent = 'Analysis timed out - retrying next frame...';
+                    aiText.style.color = '#f59e0b';
+                    isAnalyzing = false;
+                }
+            }, 10000);
+            
             // Convert to blob
             canvas.toBlob(async (blob) => {
                 const formData = new FormData();
                 formData.append('image', blob, 'frame.jpg');
                 
                 try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 8000);
+                    
                     const response = await fetch('/camera/analyze-secure', {
                         method: 'POST',
                         headers: { 'Authorization': `Bearer ${token}` },
-                        body: formData
+                        body: formData,
+                        signal: controller.signal
                     });
+                    
+                    clearTimeout(timeoutId);
+                    clearTimeout(analysisTimeout);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
                     
                     const result = await response.json();
                     aiText.style.fontStyle = 'normal';
+                    aiText.style.color = 'white';
+                    aiDescription.classList.remove('analyzing');
                     updateThreatDisplay(result);
                     lastSnapshot = canvas.toDataURL('image/jpeg');
+                    isAnalyzing = false;
                 } catch (error) {
+                    clearTimeout(analysisTimeout);
+                    aiDescription.classList.remove('analyzing');
                     console.error('Analysis failed:', error);
-                    aiText.textContent = 'Analysis failed - retrying...';
-                    aiText.style.color = '#ef4444';
+                    
+                    if (error.name === 'AbortError') {
+                        aiText.textContent = 'Request timed out - continuing...';
+                    } else {
+                        aiText.textContent = 'Analysis error - continuing...';
+                    }
+                    aiText.style.color = '#f59e0b';
+                    isAnalyzing = false;
                 }
             }, 'image/jpeg');
         }
