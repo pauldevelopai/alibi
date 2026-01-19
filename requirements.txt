@@ -20,6 +20,7 @@ pytest>=7.4.0
 # Video processing and AI vision dependencies
 opencv-python>=4.8.0
 opencv-contrib-python>=4.8.0  # Extra OpenCV modules (tracking, feature detection)
+ultralytics>=8.0.0            # YOLO v8 for object detection (vision gatekeeper)
 
 # PyTorch for deep learning (CPU version - use torch.org for GPU)
 torch>=2.1.0
