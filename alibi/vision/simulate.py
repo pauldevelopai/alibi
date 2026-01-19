@@ -28,6 +28,7 @@ except ImportError:
 
 from alibi.vision.tracking import MultiObjectTracker, TrackState
 from alibi.rules.events import RuleEvaluator
+from alibi.training import get_converter
 
 
 class IncidentManager:
@@ -40,14 +41,23 @@ class IncidentManager:
     - CLOSE when rule becomes false or track ends
     """
     
-    def __init__(self, rule_evaluator: RuleEvaluator):
+    def __init__(
+        self,
+        rule_evaluator: RuleEvaluator,
+        auto_convert_to_training: bool = True,
+        camera_id: str = "unknown"
+    ):
         """
         Initialize incident manager.
         
         Args:
             rule_evaluator: RuleEvaluator instance
+            auto_convert_to_training: Automatically convert closed incidents to TrainingIncidents
+            camera_id: Source camera ID for training data
         """
         self.rule_evaluator = rule_evaluator
+        self.auto_convert_to_training = auto_convert_to_training
+        self.camera_id = camera_id
         
         # Active incidents: track_id -> incident dict
         self.active_incidents: Dict[int, Dict] = {}
@@ -57,6 +67,9 @@ class IncidentManager:
         
         # Incident counter
         self.incident_counter = 0
+        
+        # Training converter (if enabled)
+        self.converter = get_converter() if auto_convert_to_training else None
     
     def update(
         self,
@@ -130,9 +143,20 @@ class IncidentManager:
                     incident["last_time"] - incident["start_time"]
                 ).total_seconds()
                 
-                closed.append(incident.copy())
-                self.closed_incidents.append(incident.copy())
+                closed_incident = incident.copy()
+                closed.append(closed_incident)
+                self.closed_incidents.append(closed_incident)
                 tracks_to_close.append(track_id)
+                
+                # Auto-convert to TrainingIncident for human review
+                if self.converter:
+                    try:
+                        self.converter.convert_incident(
+                            closed_incident,
+                            camera_id=self.camera_id
+                        )
+                    except Exception as e:
+                        print(f"⚠️  Failed to convert incident {incident['incident_id']} to training: {e}")
         
         # Remove closed incidents from active
         for track_id in tracks_to_close:
