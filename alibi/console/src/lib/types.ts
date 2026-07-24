@@ -335,6 +335,9 @@ export interface WatchingFor {
 export interface DashboardOverview {
   range: string;
   generated_at: string;
+  /** Set only when the chosen window is empty: when the cameras last saw
+   *  anything, so the page can say "nothing in 24h, last activity 25h ago". */
+  latest_event_ts?: string | null;
   kpis: { events: number; alerts: number; people: number; vehicles: number; vehicles_distinct: number | null };
   by_type: Array<{ type: string; count: number }>;
   over_time: Array<{ hour: string; events: number; alerts: number }>;

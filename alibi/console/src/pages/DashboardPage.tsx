@@ -218,6 +218,29 @@ export function DashboardPage() {
 
             {isEmpty && <EmptyState />}
 
+            {/* The window is empty but the cameras HAVE seen things — say when,
+                and offer the wider window, instead of a page of zeros that reads
+                as "the system is broken". */}
+            {!isEmpty && data.kpis.events === 0 && data.latest_event_ts && (
+              <div className="mb-4 rounded-lg border border-amber-500/30 bg-amber-500/[0.06] px-4 py-3">
+                <p className="text-sm text-amber-200">
+                  Nothing in {WINDOWS.find(w => w.key === range)?.label || 'this window'} — but your cameras
+                  last saw activity <span className="font-semibold">{timeAgo(data.latest_event_ts)}</span>.
+                </p>
+                <div className="mt-2 flex items-center gap-2 flex-wrap">
+                  {(['7d', '30d', 'all'] as Win[]).filter(w => w !== range).map(w => (
+                    <button key={w} onClick={() => setRange(w)}
+                            className="text-[11px] font-medium bg-amber-400/90 hover:bg-amber-300 text-black rounded px-2 py-1">
+                      Show {WINDOWS.find(x => x.key === w)?.label || w}
+                    </button>
+                  ))}
+                  <span className="text-[11px] text-amber-200/60">
+                    Nothing is lost — the data sits just outside this window.
+                  </span>
+                </div>
+              </div>
+            )}
+
             {!isEmpty && (
               <>
                 {/* Situations — did anything happen? The loudest surface on the

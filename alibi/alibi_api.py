@@ -1657,9 +1657,23 @@ async def dashboard_overview(range: str = "24h",
     store = get_store()
     # Pull generously, then filter/sort here (the store's limit is file-order).
     # cutoff is None for "all time" — every stored event counts.
-    events = [e for e in store.list_events(limit=100000 if cutoff is None else 5000)
+    _all_recent = store.list_events(limit=100000 if cutoff is None else 5000)
+    events = [e for e in _all_recent
               if getattr(e, "ts", None) and (cutoff is None or e.ts >= cutoff)]
     events.sort(key=lambda e: e.ts, reverse=True)
+
+    # When the chosen window is EMPTY, say when there WAS activity rather than
+    # showing a page of zeros. Data sitting half an hour outside the window looks
+    # identical to no data at all otherwise — which reads as "the system broke".
+    latest_event_ts = None
+    if not events:
+        try:
+            _ts = [e.ts for e in _all_recent if getattr(e, "ts", None)]
+            if _ts:
+                _m = max(_ts)
+                latest_event_ts = _m.isoformat() if hasattr(_m, "isoformat") else str(_m)
+        except Exception as e:
+            print(f"[dashboard] latest-event lookup unavailable: {e}", flush=True)
 
     # Camera display names, disambiguated when several share a vendor name.
     names = _display_names()
@@ -2587,6 +2601,8 @@ async def dashboard_overview(range: str = "24h",
     return {
         "range": range,
         "generated_at": datetime.utcnow().isoformat(),
+        # Set only when THIS window is empty: when the cameras last saw anything.
+        "latest_event_ts": latest_event_ts,
         "kpis": {
             "events": len(events),
             "alerts": sum(1 for e in events if _is_alert(e)),
