@@ -56,6 +56,27 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
   .dot { width:9px;height:9px;border-radius:50%;background:#475569;display:inline-block;margin-right:7px; }
   .dot.live { background:#4ade80; box-shadow:0 0 9px #4ade80; }
   .hide { display:none; }
+
+  /* Full console, WITHOUT leaving this page. Navigating away would tear down
+     the camera, and a second tab gets suspended by the phone — either way the
+     capture stops. So the console loads in an iframe while THIS document stays
+     the top-level page and keeps grabbing frames.
+     The video must keep rendering for that to work, so it is not hidden: the
+     rest of the page is made invisible and the video is pinned to the corner as
+     a live thumbnail — same element, never re-parented (re-parenting a playing
+     stream glitches on iOS). */
+  #dashOv { position:fixed; inset:0; z-index:60; background:#0b1020; display:flex; flex-direction:column;
+            padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom); }
+  #dashBar { display:flex; align-items:center; gap:10px; padding:8px 10px;
+             background:#131a30; border-bottom:1px solid #24304f; }
+  #dashBar .grow { flex:1; min-width:0; font-size:12px; color:#94a3b8;
+                   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  #dashBar button { width:auto; margin:0; padding:8px 14px; font-size:14px; }
+  #dashFrame { flex:1; width:100%; border:0; background:#0b1020; }
+  body.dash .wrap { visibility:hidden; }
+  body.dash #v { visibility:visible; position:fixed; top:calc(env(safe-area-inset-top) + 10px);
+                 right:10px; width:52px; height:auto; z-index:70; border-radius:7px;
+                 border:1.5px solid #4ade80; box-shadow:0 0 10px rgba(74,222,128,.5); }
 </style>
 </head>
 <body>
@@ -90,6 +111,8 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     <div class="row" style="margin-top:6px">
       <span class="muted">Last</span><span class="stat muted" id="last">—</span>
     </div>
+    <!-- The console, over this page — the camera keeps running behind it. -->
+    <button id="openDash" style="margin-top:14px">Open the full dashboard</button>
   </div>
 
   <!-- Live overview, IN this page. A phone suspends background tabs, so opening
@@ -120,6 +143,16 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     </p>
     <button class="ghost" id="forget" style="margin-top:14px">Unpair this phone</button>
   </div>
+</div>
+
+<!-- The console, over this page. Deliberately OUTSIDE .wrap so it stays visible
+     when the rest of the page is made invisible to keep the capture alive. -->
+<div id="dashOv" class="hide">
+  <div id="dashBar">
+    <button class="ghost" id="dashClose">← Camera</button>
+    <span class="grow"><span class="dot live"></span><span id="dashStat">Recording</span></span>
+  </div>
+  <iframe id="dashFrame" title="Vantage dashboard"></iframe>
 </div>
 
 <script>
@@ -291,12 +324,38 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     } catch (e) { /* keep the last view; recording matters more */ }
   }
 
+  // ---- the full console, over this page ----------------------------------
+  // Opening the console normally (a link, or another tab) stops the capture:
+  // navigating away tears down the camera, and a phone suspends background
+  // tabs. So it loads in an iframe while THIS document stays on top and keeps
+  // grabbing frames. Same origin, so a sign-in on this phone carries over.
+  function dashOpen() {
+    var f = $('dashFrame');
+    if (!f.getAttribute('src')) f.setAttribute('src', '/overview');
+    $('dashOv').classList.remove('hide');
+    document.body.classList.add('dash');
+    dashStatus();
+  }
+  function dashClose() {
+    $('dashOv').classList.add('hide');
+    document.body.classList.remove('dash');
+  }
+  function dashStatus() {
+    if (!document.body.classList.contains('dash')) return;
+    $('dashStat').textContent = timer
+      ? 'Recording · ' + sent + ' frame' + (sent === 1 ? '' : 's') + ' sent'
+      : 'Camera paused — tap ← Camera';
+  }
+  $('openDash').onclick = dashOpen;
+  $('dashClose').onclick = dashClose;
+
   var lastTick = 0;
 
   async function tick() {
     lastTick = Date.now();
     heartbeat();
     refreshOverview();
+    dashStatus();
     // A still scene is not a reason to stop. We keep looking and keep saying
     // we're here; the system counts that as recording, just quiet.
     var sig = signature();
@@ -356,6 +415,7 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     $('stopBtn').classList.remove('hide');
     setState('Watching', 'ok');
     refreshOverview(true);          // show what's happening straight away
+    dashStatus();
     holdScreen();
   }
 
@@ -366,6 +426,7 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     $('startBtn').classList.remove('hide');
     $('stopBtn').classList.add('hide');
     setState('Stopped');
+    dashStatus();
   }
 
   $('startBtn').onclick = startWatching;
