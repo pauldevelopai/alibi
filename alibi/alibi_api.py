@@ -4216,6 +4216,56 @@ async def bridge_heartbeat(
     return {"status": "ok"}
 
 
+@app.get("/cameras/bridge/overview", tags=["Camera Bridge"])
+async def bridge_overview(bridge_id: str = Depends(_require_bridge)):
+    """A compact "what's happening" summary for the phone that is RECORDING.
+
+    A handset suspends background tabs, so opening the console in another tab
+    pauses the capture — you could record or watch, not both. This lets the
+    recording page show the same headline facts in place: counts for the last 24
+    hours and the few most recent detections. Authenticated by the phone's own
+    bridge credentials (it is already trusted to POST frames); it returns only
+    summary text and counts — no frames, and no identity the console wouldn't
+    show. Doubles as a heartbeat, so polling it keeps the camera marked live."""
+    from datetime import timedelta as _td
+    from alibi.cameras.bridge import get_bridge_registry
+    get_bridge_registry().heartbeat(bridge_id)
+
+    cut = datetime.utcnow() - _td(hours=24)
+    try:
+        evs = [e for e in get_store().list_events(limit=4000)
+               if getattr(e, "ts", None) and e.ts >= cut]
+    except Exception as e:
+        print(f"[bridge] overview unavailable: {e}", flush=True)
+        return {"events": 0, "people": 0, "vehicles": 0, "recent": []}
+    evs.sort(key=lambda e: e.ts, reverse=True)
+    names = _display_names()
+
+    def _count(kind: str) -> int:
+        return sum(1 for e in evs if kind in str(getattr(e, "event_type", "")))
+
+    recent = []
+    for e in evs[:6]:
+        md = getattr(e, "metadata", None) or {}
+        who = None
+        try:
+            who = _who_in_frame(e)
+        except Exception:
+            who = None
+        et = str(getattr(e, "event_type", "") or "")
+        what = (who or ("Person" if "person" in et else
+                        "Vehicle" if "vehicle" in et else (et or "Activity")))
+        recent.append({
+            "what": what,
+            "camera": names.get(getattr(e, "camera_id", None), getattr(e, "camera_id", "")),
+            "ts": e.ts.isoformat() if hasattr(e.ts, "isoformat") else str(e.ts),
+            "flagged": bool((md.get("intel") or {}).get("watchlist_hit")
+                            or (md.get("intel") or {}).get("hotlist_hit")),
+        })
+    return {"events": len(evs), "people": _count("person"),
+            "vehicles": _count("vehicle"), "recent": recent}
+
+
 @app.get("/cameras/bridge/jobs", tags=["Camera Bridge"])
 async def bridge_next_job(bridge_id: str = Depends(_require_bridge)):
     """Agent polls for the next pending scan job (also refreshes heartbeat)."""

@@ -90,6 +90,26 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     <div class="row" style="margin-top:6px">
       <span class="muted">Last</span><span class="stat muted" id="last">—</span>
     </div>
+  </div>
+
+  <!-- Live overview, IN this page. A phone suspends background tabs, so opening
+       the console in another tab would pause the capture — you could record or
+       watch, not both. This shows the same headline facts here while it keeps
+       recording. -->
+  <div class="card hide" id="ovCard">
+    <div class="row" style="margin-bottom:10px">
+      <strong style="font-size:14px">What's happening</strong>
+      <span class="muted" id="ovAge">—</span>
+    </div>
+    <div class="row" style="gap:6px;text-align:center">
+      <div style="flex:1"><div class="stat" id="ovEvents">0</div><div class="muted">events 24h</div></div>
+      <div style="flex:1"><div class="stat" id="ovPeople">0</div><div class="muted">people</div></div>
+      <div style="flex:1"><div class="stat" id="ovVehicles">0</div><div class="muted">vehicles</div></div>
+    </div>
+    <div id="ovList" style="margin-top:12px"></div>
+    <p class="muted" style="margin-top:12px;margin-bottom:0">
+      Updates while this phone keeps recording — no need to leave the page.
+    </p>
     <p class="muted" style="margin-top:14px;margin-bottom:0">
       It keeps watching while nothing moves — a still room is fine, it just
       stays quiet and checks in every minute. Only frames where something
@@ -232,11 +252,51 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     } catch (e) { /* the next tick tries again */ }
   }
 
+  // ---- live overview, in this page ---------------------------------------
+  // Same headline facts as the console's Overview, fetched with this phone's own
+  // bridge credentials, so you can watch what's coming in WITHOUT switching tabs
+  // (which would suspend the capture).
+  var lastOv = 0;
+  function ago(iso) {
+    var s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+    if (s < 60) return Math.round(s) + 's ago';
+    if (s < 3600) return Math.round(s / 60) + 'm ago';
+    if (s < 86400) return Math.round(s / 3600) + 'h ago';
+    return Math.round(s / 86400) + 'd ago';
+  }
+  async function refreshOverview(force) {
+    if (!creds) return;
+    if (!force && Date.now() - lastOv < 20000) return;
+    lastOv = Date.now();
+    try {
+      var r = await fetch(API + '/cameras/bridge/overview', {
+        headers: { 'X-Bridge-Id': creds.bridge_id, 'X-Bridge-Token': creds.token }
+      });
+      if (!r.ok) return;
+      var d = await r.json();
+      $('ovCard').classList.remove('hide');
+      $('ovEvents').textContent = d.events || 0;
+      $('ovPeople').textContent = d.people || 0;
+      $('ovVehicles').textContent = d.vehicles || 0;
+      $('ovAge').textContent = 'just now';
+      var rows = (d.recent || []).map(function (x) {
+        return '<div class="row" style="margin-top:6px">' +
+               '<span>' + (x.flagged ? '<span class="warn">● </span>' : '') +
+               String(x.what).replace(/[<>&]/g, '') + '</span>' +
+               '<span class="muted">' + String(x.camera || '').replace(/[<>&]/g, '') +
+               ' · ' + ago(x.ts) + '</span></div>';
+      }).join('');
+      $('ovList').innerHTML = rows ||
+        '<p class="muted" style="margin:0">Nothing detected in the last 24 hours.</p>';
+    } catch (e) { /* keep the last view; recording matters more */ }
+  }
+
   var lastTick = 0;
 
   async function tick() {
     lastTick = Date.now();
     heartbeat();
+    refreshOverview();
     // A still scene is not a reason to stop. We keep looking and keep saying
     // we're here; the system counts that as recording, just quiet.
     var sig = signature();
@@ -295,6 +355,7 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
     $('startBtn').classList.add('hide');
     $('stopBtn').classList.remove('hide');
     setState('Watching', 'ok');
+    refreshOverview(true);          // show what's happening straight away
     holdScreen();
   }
 

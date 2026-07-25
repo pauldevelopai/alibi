@@ -741,15 +741,17 @@ function Kpi({ label, value, tint, delay, sub }:
              { label: string; value: number; tint: string; delay: number; alert?: boolean; sub?: string }) {
   const shown = useCountUp(value);
   return (
-    <div className="vg-rise relative rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur p-4 overflow-hidden"
+    // Tighter padding / smaller numeral BELOW sm only — three KPIs abreast on a
+    // 375px phone need the room. sm: and up is exactly as it was on desktop.
+    <div className="vg-rise relative rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur p-3 sm:p-4 overflow-hidden"
          style={{ animationDelay: `${delay}ms` }}>
       <div className="vg-glow absolute -top-16 -right-10 w-32 h-32 rounded-full blur-3xl"
            style={{ background: tint, opacity: 0.35 }} />
       <div className="relative">
-        <div className="text-[10px] text-slate-500 uppercase tracking-[0.14em]">{label}</div>
+        <div className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-[0.1em] sm:tracking-[0.14em] leading-tight">{label}</div>
         <div className="flex items-baseline gap-2 mt-1">
           {/* No "needs review" dot — the amber tint alone signals incidents. */}
-          <span className="text-4xl font-semibold tabular-nums tracking-tight"
+          <span className="text-2xl sm:text-4xl font-semibold tabular-nums tracking-tight"
                 style={{ color: tint, textShadow: `0 0 22px ${tint}55` }}>
             {shown.toLocaleString()}
           </span>

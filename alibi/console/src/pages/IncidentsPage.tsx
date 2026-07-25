@@ -137,7 +137,9 @@ export function IncidentsPage() {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+      {/* overflow-x-auto: the table scrolls WITHIN its card on a phone instead
+          of pushing the whole page sideways. No effect on desktop, where it fits. */}
+      <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 rounded-lg">
         <table className="min-w-full divide-y divide-gray-300">
           <thead className="bg-gray-50">
             <tr>

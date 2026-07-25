@@ -288,6 +288,8 @@ export function CostsPage() {
         {services.length === 0 ? (
           <p className="text-sm text-gray-500">No AI usage recorded yet in this window.</p>
         ) : (
+          // overflow-x-auto: scrolls inside the card on a phone, not the page.
+          <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead>
               <tr className="text-left text-gray-500 border-b border-gray-100">
@@ -308,6 +310,7 @@ export function CostsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 

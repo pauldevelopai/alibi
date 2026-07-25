@@ -167,7 +167,9 @@ export function HotlistPage({ embedded = false }: { embedded?: boolean } = {}) {
           </p>
         </div>
       ) : (
-        <div className="bg-white shadow rounded-lg overflow-hidden">
+        // overflow-x-auto so the table scrolls inside its card on a phone
+        // rather than pushing the page sideways. Desktop is unchanged.
+        <div className="bg-white shadow rounded-lg overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead className="bg-gray-50">
               <tr className="text-left text-gray-500">
