@@ -1043,14 +1043,14 @@ async def identify_incident_person(
     except Exception:
         views = len(WatchlistStore().get_galleries().get(person_id, []))
 
-    # Teach the ranker: a known person shouldn't head the alert list.
-    try:
-        from alibi.learning.relevance import get_relevance_store
-        get_relevance_store().record(subject=f"person:{label.strip().lower()}",
-                                     decision="confirm", by=current_user.username,
-                                     note=f"identified on {incident_id}")
-    except Exception as e:
-        print(f"[identify] relevance not recorded: {e}", flush=True)
+    # NOTE: deliberately NO relevance feedback here. Naming someone is a
+    # statement about IDENTITY, not about whether they are worth alerting on —
+    # and the two pull opposite ways. Recording a "confirm" (the obvious first
+    # guess) actually RAISED their importance 1.5x, the exact opposite of what
+    # correcting a mis-flagged known person should do. The ranker already
+    # dampens a named person who is simply present (see importance_score), so
+    # the attribution above is what fixes the ranking. If the operator also
+    # wants this kind of alert to rank lower, "not useful" says so explicitly.
 
     # Record the answer on the incident itself, so the page reads correctly.
     try:
