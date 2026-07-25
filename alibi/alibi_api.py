@@ -1067,18 +1067,27 @@ async def identify_incident_person(
     store.append_audit("incident_identified", {
         "user": current_user.username, "incident_id": incident_id,
         "label": label, "person_id": person_id,
-        "faces_attributed": attributed, "faces_recovered": recovered,
-        "extended_existing": bool(existing and existing == person_id and attributed),
+        "faces_found": len(claimed), "faces_attributed": attributed,
+        "faces_recovered": recovered,
     })
+    # Report what is TRUE of the record, not merely what changed on this click.
+    # _attribute_sightings returns how many sightings it CHANGED, so re-saving a
+    # face already filed under this person returned 0 — which read as "no
+    # readable face was found" on a clear, front-on portrait. Three distinct
+    # outcomes, said plainly.
+    if attributed:
+        msg = (f"Saved — {attributed} face{'' if attributed == 1 else 's'} added to "
+               f"{label}. {views} view{'' if views == 1 else 's'} on file now, so "
+               f"they'll be easier to recognise.")
+    elif claimed:
+        msg = (f"Already filed under {label} — this face was on their record before. "
+               f"{views} view{'' if views == 1 else 's'} on file.")
+    else:
+        msg = (f"Saved as {label}, but no readable face was found on these frames — "
+               f"so recognition can't improve from this one.")
     return {"label": label, "person_id": person_id,
-            "faces_attributed": attributed, "faces_recovered": recovered,
-            "views": views,
-            "message": (f"Saved — {attributed} face{'' if attributed == 1 else 's'} "
-                        f"added to {label}. {views} view{'' if views == 1 else 's'} "
-                        f"on file now, so they'll be easier to recognise."
-                        if attributed else
-                        f"Saved as {label}, but no readable face was found on these "
-                        f"frames — so recognition can't improve from this one.")}
+            "faces_found": len(claimed), "faces_attributed": attributed,
+            "faces_recovered": recovered, "views": views, "message": msg}
 
 
 class AlertFeedbackRequest(BaseModel):
