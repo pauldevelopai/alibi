@@ -180,6 +180,10 @@ export function CamerasPage() {
   const [phoneMins, setPhoneMins] = useState(0);
   const [phoneBusy, setPhoneBusy] = useState(false);
   const [phoneErr, setPhoneErr] = useState<string | null>(null);
+  // The pairing link with the code already in it (same URL the QR encodes).
+  // A QR can't be scanned by the phone that is DISPLAYING it, so this is what
+  // lets you pair the handset you're holding — one tap, code pre-filled.
+  const [phoneLink, setPhoneLink] = useState<string | null>(null);
 
   async function makePhoneCode() {
     setPhoneBusy(true);
@@ -189,9 +193,32 @@ export function CamerasPage() {
       setPhoneCode(r.code);
       setPhoneQr(r.qr_svg || null);
       setPhoneMins(r.expires_in_minutes);
+      setPhoneLink(r.phone_url || `${phoneUrl}?code=${encodeURIComponent(r.code)}`);
     } catch (e: any) {
       setPhoneErr(e?.message || 'Could not create a pairing code');
     } finally { setPhoneBusy(false); }
+  }
+
+  /** Pair the device you're reading this on. Same code, same page — it just
+   *  skips the scan/typing, which is impossible on a single handset. */
+  async function useThisDevice() {
+    let link = phoneLink;
+    if (!link) {                       // no code yet — make one, then go
+      setPhoneBusy(true);
+      setPhoneErr(null);
+      try {
+        const r = await api.pairBridge();
+        setPhoneCode(r.code);
+        setPhoneQr(r.qr_svg || null);
+        setPhoneMins(r.expires_in_minutes);
+        link = r.phone_url || `${phoneUrl}?code=${encodeURIComponent(r.code)}`;
+        setPhoneLink(link);
+      } catch (e: any) {
+        setPhoneErr(e?.message || 'Could not create a pairing code');
+        return;
+      } finally { setPhoneBusy(false); }
+    }
+    window.location.href = link;       // same tab: a phone suspends background tabs
   }
 
   // Camera Bridge state (scan the user's own WiFi via a local agent)
@@ -552,9 +579,24 @@ export function CamerasPage() {
             Any phone can become a camera. Its frames go through the same detection, plates,
             faces and vehicle matching as your fixed cameras, and it appears alongside them.
           </p>
-          <p className="mt-3 text-sm text-gray-500">
-            <span className="font-medium text-gray-700">1.</span> Press the button below for a code.
-            {' '}<span className="font-medium text-gray-700">2.</span> On the phone, scan the QR — or
+          {/* Two paths, said plainly. A QR cannot be scanned by the phone that
+              is showing it, so "this device" needs its own one-tap button. */}
+          <div className="mt-4 rounded-md border border-emerald-200 bg-emerald-50 p-4">
+            <p className="text-sm font-medium text-emerald-900">Using the phone you're holding?</p>
+            <p className="mt-1 text-xs text-emerald-800/80">
+              You can't scan a QR with the same phone that's showing it — tap here instead. It opens the
+              camera page on this device with the code already filled in.
+            </p>
+            <button onClick={useThisDevice} disabled={phoneBusy}
+                    className="mt-3 w-full sm:w-auto px-4 py-2.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-md">
+              {phoneBusy ? 'Working…' : 'Use THIS phone as a camera →'}
+            </button>
+          </div>
+
+          <p className="mt-4 text-sm text-gray-500">
+            <span className="font-medium text-gray-700">Pairing a different phone?</span>
+            {' '}<span className="font-medium text-gray-700">1.</span> Press the button below for a code.
+            {' '}<span className="font-medium text-gray-700">2.</span> On that phone, scan the QR — or
             open the address and type the code.
             {' '}<span className="font-medium text-gray-700">3.</span> Allow the camera when asked, then
             tap <span className="font-medium text-gray-700">Start watching</span>.
@@ -598,6 +640,11 @@ export function CamerasPage() {
                       Single use, expires in {phoneMins} minutes. Scanning the QR fills the code in
                       for you — no sign-in needed on the handset, the code is the gate.
                     </p>
+                    {/* Same code, this device — for when you're already on the phone. */}
+                    <button onClick={useThisDevice}
+                            className="mt-2 text-xs font-medium text-emerald-800 underline hover:text-emerald-900">
+                      …or use this code on THIS device →
+                    </button>
                   </div>
                 </div>
               </div>
