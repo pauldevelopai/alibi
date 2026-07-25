@@ -2437,18 +2437,10 @@ async def dashboard_overview(range: str = "24h",
                        "end": int(str(_sh.get("close", 21))[:2] or 21)}
         except Exception:
             _nh = None
-        def _subject_key(row: dict) -> str:
-            """What this alert is ABOUT, so the same subject isn't listed five
-            times. A named/recognised person collapses by name; a vehicle by its
-            cluster; anything else is its own event."""
-            who = (row.get("who") or row.get("watchlist_label")
-                   or (row.get("confirmed") or {}).get("label"))
-            if who:
-                return f"person:{str(who).strip().lower()}"
-            veh = row.get("owner_label") or row.get("entity_id")
-            if veh:
-                return f"veh:{veh}"
-            return f"ev:{row.get('event_id') or row.get('incident_id') or id(row)}"
+        # ONE subject key everywhere — the same function the ranker and the
+        # feedback loop use — so an unidentified car/person seen repeatedly at a
+        # camera collapses to a single alert instead of flooding the top five.
+        from alibi.patterns.situations import subject_key as _subject_key
 
         all_rows = situations + criteria_rows
         alerts_total = len(all_rows)

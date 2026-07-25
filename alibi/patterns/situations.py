@@ -249,20 +249,35 @@ def alert_factors(row: Dict[str, Any], normal_hours: Optional[dict] = None) -> D
 
 
 def subject_key(row: Dict[str, Any]) -> str:
-    """What an alert is ABOUT — the key the operator's feedback is learned
-    against. A recognised/named/watchlisted person keys by name; a named vehicle
-    by its label/cluster; otherwise the pattern kind. Shared by the ranker (to
-    apply learned adjustments) and the dashboard (to dedupe and to record
-    feedback), so 'you dismissed Conrad' lines up with 'this row is Conrad'."""
+    """What an alert is ABOUT — the key used to DEDUPE the panel, to rank, and to
+    learn the operator's feedback against. Shared everywhere so they agree.
+
+    A recognised person keys by name; a NAMED vehicle by its owner label. But an
+    UNIDENTIFIED subject has no stable id — every frame of the same unknown car
+    or person is a separate event/cluster — so those collapse by KIND + CAMERA:
+    the same unknown vehicle photographed ten times in the driveway is ONE alert,
+    not ten. That is what stops the top-5 flooding with repeats. (We deliberately
+    do NOT key an unnamed vehicle by its ReID cluster id — the same car fragments
+    into several clusters, which would defeat the dedupe.)"""
     who = (row.get("who") or row.get("watchlist_label")
            or (row.get("confirmed") or {}).get("label"))
     if who:
         return f"person:{str(who).strip().lower()}"
-    veh = row.get("owner_label") or row.get("entity_id")
-    if veh:
-        return f"veh:{str(veh).strip().lower()}"
-    k = row.get("kind") or row.get("event_type")
-    return f"kind:{k}" if k else "other"
+    owner = row.get("owner_label")
+    if owner:
+        return f"veh:{str(owner).strip().lower()}"
+    # No identity → collapse repeats of the same kind at the same camera.
+    et = str(row.get("event_type") or row.get("kind") or "").lower()
+    cam = str(row.get("camera_name") or row.get("camera_id") or "?").strip().lower()
+    if "person" in et:
+        cls = "person"
+    elif "vehicle" in et or et in ("new_vehicle", "at_vehicles"):
+        cls = "vehicle"
+    elif et in ("dwell", "after_hours", "repeated_passes"):
+        cls = et
+    else:
+        cls = et or "other"
+    return f"{cls}@{cam}"
 
 
 def importance_score(row: Dict[str, Any], now: Optional[datetime] = None,
