@@ -67,6 +67,9 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
      stream glitches on iOS). */
   #dashOv { position:fixed; inset:0; z-index:60; background:#0b1020; display:flex; flex-direction:column;
             padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom); }
+  /* An ID selector outranks .hide, so the overlay needs its own hidden rule —
+     without this it covers the page from load and the camera is unreachable. */
+  #dashOv.hide { display:none; }
   #dashBar { display:flex; align-items:center; gap:10px; padding:8px 10px;
              background:#131a30; border-bottom:1px solid #24304f; }
   /* padding-right leaves room for the live thumbnail pinned in the corner, so
