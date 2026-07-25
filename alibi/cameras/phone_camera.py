@@ -69,14 +69,18 @@ PHONE_CAMERA_HTML = r"""<!doctype html>
             padding-top:env(safe-area-inset-top); padding-bottom:env(safe-area-inset-bottom); }
   #dashBar { display:flex; align-items:center; gap:10px; padding:8px 10px;
              background:#131a30; border-bottom:1px solid #24304f; }
+  /* padding-right leaves room for the live thumbnail pinned in the corner, so
+     the status text never runs underneath it. */
   #dashBar .grow { flex:1; min-width:0; font-size:12px; color:#94a3b8;
-                   overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+                   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+                   padding-right:64px; }
   #dashBar button { width:auto; margin:0; padding:8px 14px; font-size:14px; }
   #dashFrame { flex:1; width:100%; border:0; background:#0b1020; }
   body.dash .wrap { visibility:hidden; }
-  body.dash #v { visibility:visible; position:fixed; top:calc(env(safe-area-inset-top) + 10px);
-                 right:10px; width:52px; height:auto; z-index:70; border-radius:7px;
-                 border:1.5px solid #4ade80; box-shadow:0 0 10px rgba(74,222,128,.5); }
+  body.dash #v { visibility:visible; position:fixed; top:calc(env(safe-area-inset-top) + 8px);
+                 right:10px; width:52px; height:40px; object-fit:cover; z-index:70;
+                 border-radius:7px; border:1.5px solid #4ade80;
+                 box-shadow:0 0 10px rgba(74,222,128,.5); }
 </style>
 </head>
 <body>
