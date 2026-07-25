@@ -104,6 +104,36 @@ export function IncidentDetailPage() {
   const [exportPath, setExportPath] = useState<string | null>(null);
   const [explanation, setExplanation] = useState<IncidentExplanation | null>(null);
   const [explanationLoading, setExplanationLoading] = useState(false);
+  // "That's actually Paul" — correcting who an incident is about. The known
+  // names are offered as one-tap buttons so the common case (someone already
+  // enrolled who was missed at a bad angle) is a single click.
+  const [knownPeople, setKnownPeople] = useState<string[]>([]);
+  const [identLabel, setIdentLabel] = useState('');
+  const [identBusy, setIdentBusy] = useState(false);
+  const [identMsg, setIdentMsg] = useState<string | null>(null);
+  const [identErr, setIdentErr] = useState<string | null>(null);
+
+  useEffect(() => {
+    api.getWatchlist()
+      .then(r => setKnownPeople(
+        Array.from(new Set((r.entries || []).map((e: any) => e.label).filter(Boolean)))))
+      .catch(() => {});
+  }, []);
+
+  async function identify(label: string) {
+    const name = (label || '').trim();
+    if (!name || !incident) return;
+    setIdentBusy(true); setIdentErr(null); setIdentMsg(null);
+    try {
+      const r = await api.identifyIncident(incident.incident_id, name);
+      setIdentMsg(r.message || `Saved as ${name}.`);
+      setIdentLabel('');
+      await loadIncident(incident.incident_id);
+    } catch (e: any) {
+      setIdentErr(e?.message || 'Could not save who this is');
+    } finally { setIdentBusy(false); }
+  }
+
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmLabel, setConfirmLabel] = useState('');
   const [confirmNotes, setConfirmNotes] = useState('');
@@ -609,6 +639,54 @@ export function IncidentDetailPage() {
           </div>
         );
       })()}
+
+      {/* Correct who this is — and teach the system. An incident flagged as an
+          unidentified person is often someone already enrolled, missed at an
+          awkward angle; naming them here adds this view to THEIR gallery. */}
+      {hasRole(['supervisor', 'admin']) && (
+        <div className="bg-white shadow rounded-lg p-6 mb-6 border-l-4 border-indigo-400">
+          <h2 className="text-lg font-medium text-gray-900">Who is this?</h2>
+          <p className="mt-1 text-sm text-gray-500">
+            If the system didn't recognise someone you know, say so here. This picture joins their
+            record, so the angle that was missed is recognised next time — and the alerts stop
+            leading with them.
+          </p>
+
+          {knownPeople.length > 0 && (
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="text-xs text-gray-500">Someone you know:</span>
+              {knownPeople.map(n => (
+                <button key={n} onClick={() => identify(n)} disabled={identBusy}
+                        className="px-3 py-1.5 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-md">
+                  {n}
+                </button>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="text-xs text-gray-500">…or someone new:</span>
+            <input
+              value={identLabel}
+              onChange={(e) => setIdentLabel(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') identify(identLabel); }}
+              placeholder="Their name"
+              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+            />
+            <button onClick={() => identify(identLabel)} disabled={identBusy || !identLabel.trim()}
+                    className="px-3 py-1.5 text-sm font-medium bg-gray-800 hover:bg-gray-700 disabled:bg-gray-300 text-white rounded-md">
+              {identBusy ? 'Saving…' : 'Save'}
+            </button>
+          </div>
+
+          {identMsg && (
+            <p className="mt-3 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md px-3 py-2">
+              ✓ {identMsg}
+            </p>
+          )}
+          {identErr && <p className="mt-3 text-sm text-red-600">{identErr}</p>}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Events Timeline (Replay Timeline) */}

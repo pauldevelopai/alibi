@@ -906,6 +906,174 @@ async def record_decision(
     }
 
 
+class IdentifyIncidentRequest(BaseModel):
+    label: str                       # who it actually is
+    details: str = ""                # anything worth remembering about them
+
+
+@app.post("/incidents/{incident_id}/identify", tags=["Incidents"])
+async def identify_incident_person(
+    incident_id: str,
+    payload: IdentifyIncidentRequest,
+    current_user: User = Depends(require_role([Role.SUPERVISOR, Role.ADMIN])),
+):
+    """"That's actually Paul." Correct who an incident is about, and LEARN.
+
+    An incident flagged as an unidentified person is often someone already in
+    the databank, missed because the face was at an awkward angle. Naming it
+    here does three things, so the correction changes the future and not just
+    this page:
+
+      1. every face on the incident's frames is attributed to that person —
+         joining THEIR gallery (never creating a second Paul), which is what
+         makes the angle that was missed recognisable next time;
+      2. a frame with no stored face is re-examined on demand, so a body-only
+         detection can still be named;
+      3. the ranker is told this subject is known, so it stops leading the
+         alerts with them.
+
+    It never invents a face: if no readable face is found on any frame, it says
+    so and records the name against the incident alone.
+    """
+    import re
+    import uuid as _uuid
+    from alibi.cameras import frame_analyzer as fa
+    from alibi.watchlist import face_recover
+    from alibi.watchlist.face_sighting_store import (FaceSighting,
+                                                     get_face_sighting_store)
+    from alibi.watchlist.watchlist_store import WatchlistStore, WatchlistEntry
+    from fastapi.concurrency import run_in_threadpool
+
+    label = (payload.label or "").strip()
+    if not label:
+        raise HTTPException(status_code=400, detail="A name is required")
+
+    store = get_store()
+    inc = store.get_incident_with_metadata(incident_id)
+    if not inc:
+        raise HTTPException(status_code=404, detail="Incident not found")
+
+    # The person this name belongs to — reuse the existing one so a correction
+    # EXTENDS them rather than creating a duplicate.
+    ws = WatchlistStore()
+    existing = next((pid for pid, e in ws._get_active_entries().items()
+                     if e.label.strip().lower() == label.lower()), None)
+    person_id = existing or (
+        f"{re.sub(r'[^a-z0-9]+', '-', label.lower()).strip('-') or 'person'}"
+        f"-{_uuid.uuid4().hex[:6]}")
+
+    # The incident's frames, in order.
+    ev_by_id = {e.event_id: e for e in store.list_events(limit=8000)}
+    events = [ev_by_id[eid] for eid in (inc.get("event_ids") or []) if eid in ev_by_id]
+    frames = []
+    for e in events:
+        url = getattr(e, "snapshot_url", None) or ""
+        if "/frames/" in url:
+            frames.append((url.rsplit("/", 1)[-1].replace(".jpg", ""),
+                           getattr(e, "camera_id", None),
+                           e.ts.isoformat() if hasattr(e.ts, "isoformat") else str(e.ts)))
+
+    # Faces already stored on those frames get claimed outright.
+    claimed: list = []
+    fss = get_face_sighting_store()
+    frame_ids = {f[0] for f in frames}
+    for s in fss.load_all():
+        fid = (s.image_path or "").rsplit("/", 1)[-1].replace(".jpg", "")
+        if fid in frame_ids and s.embedding:
+            claimed.append(s.sighting_id)
+
+    # A frame with no stored face: look again, now that a human says someone is
+    # there. Never invents one — find_face returns nothing when there is nothing.
+    recovered = 0
+    if not claimed:
+        for fid, cam, ts in frames[:4]:
+            data = fa.get_frame(fid)
+            if not data:
+                continue
+            def _run(_d=data):
+                frame = fa.decode(_d)
+                if frame is None:
+                    return None
+                h, w = frame.shape[:2]
+                return face_recover.find_face(frame, [0, 0, w, h])
+            try:
+                found = await run_in_threadpool(_run)
+            except Exception as e:
+                print(f"[identify] face pass failed on {fid}: {e}", flush=True)
+                continue
+            if not isinstance(found, dict) or not found.get("embedding"):
+                continue
+            sid = _uuid.uuid4().hex[:16]
+            fss.add_sighting(FaceSighting(
+                sighting_id=sid, camera_id=cam, ts=ts,
+                embedding=found["embedding"], bbox=tuple(found.get("bbox") or (0, 0, 0, 0)),
+                confidence=float(found.get("score") or 0.0),
+                image_path=f"/api/cameras/frames/{fid}.jpg",
+                metadata={"recovered_by": current_user.username,
+                          "recovered_from": "incident_identify",
+                          "confirmed_by_human": True},
+            ))
+            claimed.append(sid)
+            recovered += 1
+            if not existing:
+                # First view of a brand-new person: enrol them from it.
+                ws.add_entry(WatchlistEntry(
+                    person_id=person_id, label=label,
+                    embedding=list(found["embedding"]),
+                    added_ts=datetime.utcnow().isoformat(),
+                    source_ref=f"sighting:{sid}",
+                    metadata={"enrolled_by": current_user.username,
+                              "enrolled_from": "incident_identify",
+                              "camera_id": cam, "sighting_ts": ts,
+                              "frame_url": f"/api/cameras/frames/{fid}.jpg",
+                              "notes": (payload.details or "").strip()[:2000] or None},
+                ))
+                existing = person_id
+            break
+
+    # Attribute every face we hold for this incident to them. This is the bit
+    # that grows the gallery, so the missed angle is recognised next time.
+    attributed = _attribute_sightings(claimed, person_id) if claimed else 0
+    views = len(WatchlistStore().get_galleries().get(person_id, []))
+
+    # Teach the ranker: a known person shouldn't head the alert list.
+    try:
+        from alibi.learning.relevance import get_relevance_store
+        get_relevance_store().record(subject=f"person:{label.strip().lower()}",
+                                     decision="confirm", by=current_user.username,
+                                     note=f"identified on {incident_id}")
+    except Exception as e:
+        print(f"[identify] relevance not recorded: {e}", flush=True)
+
+    # Record the answer on the incident itself, so the page reads correctly.
+    try:
+        obj = store.get_incident(incident_id)
+        md = inc.get("_metadata", {}) or {}
+        md["identified_as"] = {"label": label, "person_id": person_id,
+                               "by": current_user.username,
+                               "ts": datetime.utcnow().isoformat()}
+        if obj is not None:
+            store.upsert_incident(obj, md)
+    except Exception as e:
+        print(f"[identify] could not stamp the incident: {e}", flush=True)
+
+    store.append_audit("incident_identified", {
+        "user": current_user.username, "incident_id": incident_id,
+        "label": label, "person_id": person_id,
+        "faces_attributed": attributed, "faces_recovered": recovered,
+        "extended_existing": bool(existing and existing == person_id and attributed),
+    })
+    return {"label": label, "person_id": person_id,
+            "faces_attributed": attributed, "faces_recovered": recovered,
+            "views": views,
+            "message": (f"Saved — {attributed} face{'' if attributed == 1 else 's'} "
+                        f"added to {label}. {views} view{'' if views == 1 else 's'} "
+                        f"on file now, so they'll be easier to recognise."
+                        if attributed else
+                        f"Saved as {label}, but no readable face was found on these "
+                        f"frames — so recognition can't improve from this one.")}
+
+
 class AlertFeedbackRequest(BaseModel):
     subject_key: str                      # e.g. "person:conrad" | "veh:..." | "kind:after_hours"
     decision: str                         # "dismiss" | "confirm"

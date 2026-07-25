@@ -73,6 +73,22 @@ export const api = {
     return res.json();
   },
 
+  /** "That's actually Paul." Correct who an incident is about: the faces on its
+   *  frames join that person's gallery (so the missed angle is recognised next
+   *  time) and the ranker learns they're known. */
+  async identifyIncident(incidentId: string, label: string, details?: string): Promise<any> {
+    const res = await fetchWithAuth(`${API_BASE}/incidents/${encodeURIComponent(incidentId)}/identify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ label, details: details || '' }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || 'Could not save who this is');
+    }
+    return res.json();
+  },
+
   /** Teach the alert panel: a subject the operator dismisses sinks, one they
    *  confirm rises. Reorders only — nothing is hidden. */
   async alertFeedback(subjectKey: string, decision: 'dismiss' | 'confirm', kind?: string): Promise<any> {
