@@ -1034,7 +1034,14 @@ async def identify_incident_person(
     # Attribute every face we hold for this incident to them. This is the bit
     # that grows the gallery, so the missed angle is recognised next time.
     attributed = _attribute_sightings(claimed, person_id) if claimed else 0
-    views = len(WatchlistStore().get_galleries().get(person_id, []))
+    # Count AFTER attribution, and from effective_galleries — get_galleries()
+    # reads only the enrolled templates, so it under-reported the real number of
+    # views the matcher will actually use (it said 3 when it was 4).
+    try:
+        from alibi.watchlist.watchlist_store import effective_galleries as _eg
+        views = len(_eg().get(person_id, []))
+    except Exception:
+        views = len(WatchlistStore().get_galleries().get(person_id, []))
 
     # Teach the ranker: a known person shouldn't head the alert list.
     try:
