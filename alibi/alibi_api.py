@@ -942,6 +942,69 @@ async def not_a_person(payload: NotAPersonRequest,
                        "Someone standing there still will be."}
 
 
+@app.post("/incidents/{incident_id}/not-a-person", tags=["Incidents"])
+async def incident_not_a_person(
+    incident_id: str,
+    current_user: User = Depends(require_role([Role.SUPERVISOR, Role.ADMIN])),
+):
+    """"There's no one there." Reject every person-box on this incident's frames.
+
+    The same static-scenery learning as /people/not-a-person, but driven from the
+    incident page, where you are actually looking when you notice the detector
+    called a pot plant a person. Finds the boxes itself, so there is nothing to
+    measure by hand. Also dismisses the incident, since it was a false alarm."""
+    from alibi.learning.detections import get_detection_rejections
+
+    store = get_store()
+    inc = store.get_incident_with_metadata(incident_id)
+    if not inc:
+        raise HTTPException(status_code=404, detail="Incident not found")
+
+    ev_by_id = {e.event_id: e for e in store.list_events(limit=8000)}
+    events = [ev_by_id[eid] for eid in (inc.get("event_ids") or []) if eid in ev_by_id]
+
+    rej = get_detection_rejections()
+    learned = 0
+    for e in events:
+        intel = ((getattr(e, "metadata", None) or {}).get("intel") or {})
+        for d in (intel.get("detections") or []):
+            if d.get("class") != "person":
+                continue
+            box = d.get("bbox") or []
+            if len(box) != 4 or rej.is_rejected(e.camera_id, box):
+                continue
+            rej.record(e.camera_id, box, score=d.get("confidence"),
+                       frame_url=getattr(e, "snapshot_url", None),
+                       by=current_user.username,
+                       note=f"not a person (incident {incident_id})")
+            learned += 1
+
+    # A false positive is also a false alarm — close it off.
+    try:
+        obj = store.get_incident(incident_id)
+        md = inc.get("_metadata", {}) or {}
+        md["not_a_person"] = {"by": current_user.username,
+                              "ts": datetime.utcnow().isoformat(),
+                              "regions": learned}
+        if obj is not None:
+            obj.status = IncidentStatus.DISMISSED
+            store.upsert_incident(obj, md)
+    except Exception as e:
+        print(f"[not-a-person] could not dismiss the incident: {e}", flush=True)
+
+    store.append_audit("incident_not_a_person", {
+        "user": current_user.username, "incident_id": incident_id,
+        "regions_learned": learned,
+    })
+    return {"status": "learned", "regions_learned": learned,
+            "message": (f"Learned — {learned} spot{'' if learned == 1 else 's'} on this "
+                        f"camera won't be reported as a person again. Someone actually "
+                        f"standing there still will be."
+                        if learned else
+                        "No person boxes were stored on these frames, so there was "
+                        "nothing to learn from — the incident has been dismissed.")}
+
+
 @app.get("/people/not-a-person/list", tags=["People"])
 async def list_not_a_person(current_user: User = Depends(get_current_user)):
     """Everything currently suppressed as 'not a person', so it's visible and

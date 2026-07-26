@@ -134,6 +134,19 @@ export function IncidentDetailPage() {
     } finally { setIdentBusy(false); }
   }
 
+  /** "There's no one there." Teaches the camera that this spot is scenery. */
+  async function notAPerson() {
+    if (!incident) return;
+    setIdentBusy(true); setIdentErr(null); setIdentMsg(null);
+    try {
+      const r = await api.incidentNotAPerson(incident.incident_id);
+      setIdentMsg(r.message || 'Learned.');
+      await loadIncident(incident.incident_id);
+    } catch (e: any) {
+      setIdentErr(e?.message || 'Could not save that correction');
+    } finally { setIdentBusy(false); }
+  }
+
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmLabel, setConfirmLabel] = useState('');
   const [confirmNotes, setConfirmNotes] = useState('');
@@ -676,6 +689,21 @@ export function IncidentDetailPage() {
             <button onClick={() => identify(identLabel)} disabled={identBusy || !identLabel.trim()}
                     className="px-3 py-1.5 text-sm font-medium bg-gray-800 hover:bg-gray-700 disabled:bg-gray-300 text-white rounded-md">
               {identBusy ? 'Saving…' : 'Save'}
+            </button>
+          </div>
+
+          {/* The other honest answer: there's nobody there at all. The detector
+              reads pot plants and garden furniture as people, and that correction
+              has to be reachable from the page you're actually looking at. */}
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <p className="text-xs text-gray-500">
+              …or is there <span className="font-medium text-gray-700">nobody there at all</span>? Scenery —
+              a pot plant, a bin, a shadow — read as a person. This teaches the camera to stop reporting
+              that spot; someone actually standing there will still be detected.
+            </p>
+            <button onClick={notAPerson} disabled={identBusy}
+                    className="mt-2 px-3 py-1.5 text-sm font-medium bg-white border border-gray-300 hover:border-gray-400 hover:bg-gray-50 disabled:opacity-50 text-gray-700 rounded-md">
+              {identBusy ? 'Saving…' : 'Not a person — nothing there'}
             </button>
           </div>
 

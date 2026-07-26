@@ -88,6 +88,20 @@ export const api = {
     return res.json();
   },
 
+  /** "There's no one there." Reject every person-box on this incident's frames,
+   *  so that scenery stops being reported, and dismiss the false alarm. */
+  async incidentNotAPerson(incidentId: string): Promise<any> {
+    const res = await fetchWithAuth(`${API_BASE}/incidents/${encodeURIComponent(incidentId)}/not-a-person`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || 'Could not save that correction');
+    }
+    return res.json();
+  },
+
   /** "That's actually Paul." Correct who an incident is about: the faces on its
    *  frames join that person's gallery (so the missed angle is recognised next
    *  time) and the ranker learns they're known. */
