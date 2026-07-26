@@ -147,9 +147,10 @@ export function DashboardPage() {
   //    Conrad?"), waiting on your one-click confirm.
   //  · General — captured, no identity and no suspicion: strangers and the
   //    body-only shots where no face was readable.
+  const knownFrames = new Set((data?.known_people || []).map(kp => kp.frame_url).filter(Boolean));
   const rp = data?.recent_people || [];
-  const suspectedPeople = rp.filter(p => !p.matched_label && p.suggested_label);
-  const generalPeople = rp.filter(p => !p.matched_label && !p.suggested_label);
+  const suspectedPeople = rp.filter(p => !p.matched_label && p.suggested_label && (!p.frame_url || !knownFrames.has(p.frame_url)));
+  const generalPeople = rp.filter(p => !p.matched_label && !p.suggested_label && (!p.frame_url || !knownFrames.has(p.frame_url)));
 
   return (
     <div className="min-h-screen bg-[#070912] vg-grid -mx-4 -my-6 px-4 py-6 sm:px-6">

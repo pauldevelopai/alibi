@@ -132,6 +132,7 @@ def recent_people(
     labels: Optional[dict] = None,
     watchlist_embeddings: Optional[dict] = None,
     watchlist_threshold: float = 0.6,
+    galleries: Optional[dict] = None,
 ) -> List[dict]:
     """The Overview's people strip: recent distinct faces, each with its evidence
     frame + bbox (for a client-side crop), who it is — honestly — and continuity.
@@ -209,16 +210,21 @@ def recent_people(
         # threshold). Stranger -> null; the row carries continuity instead.
         # Never an identity guess.
         matched_label = labels.get(s.matched_person_id) if s.matched_person_id else None
-        if matched_label is None and watchlist_embeddings:
+        if matched_label is None and (watchlist_embeddings or galleries):
             best_pid, best = None, watchlist_threshold
-            for pid, wemb in watchlist_embeddings.items():
-                w = np.asarray(wemb, dtype=np.float32).ravel()
-                n = float(np.linalg.norm(w))
-                if n == 0 or w.shape[0] != e.shape[0]:
-                    continue
-                score = float(np.dot(e, w / n))
-                if score >= best:
-                    best_pid, best = pid, score
+            # Check single embeddings or full multi-view galleries
+            search_dict = galleries if galleries else watchlist_embeddings
+            for pid, w_items in search_dict.items():
+                # w_items may be a single vector or a list of vectors
+                vec_list = w_items if (isinstance(w_items, list) and len(w_items) > 0 and isinstance(w_items[0], (list, np.ndarray))) else [w_items]
+                for wemb in vec_list:
+                    w = np.asarray(wemb, dtype=np.float32).ravel()
+                    n = float(np.linalg.norm(w))
+                    if n == 0 or w.shape[0] != e.shape[0]:
+                        continue
+                    score = float(np.dot(e, w / n))
+                    if score >= best:
+                        best_pid, best = pid, score
             if best_pid is not None:
                 matched_label = labels.get(best_pid)
                 matched_pid = best_pid

@@ -2116,17 +2116,17 @@ async def dashboard_overview(range: str = "24h",
     recent_people = []
     try:
         from alibi.patterns.person_history import recent_people as _recent_people
-        from alibi.watchlist.watchlist_store import WatchlistStore
+        from alibi.watchlist.watchlist_store import WatchlistStore, effective_galleries
         try:
             wl_entries = WatchlistStore().load_all()
             wl_labels = {e.person_id: e.label for e in wl_entries}
-            wl_embeddings = {e.person_id: e.embedding for e in wl_entries if e.embedding}
+            gals = effective_galleries()
         except Exception:
-            wl_labels, wl_embeddings = {}, {}
+            wl_labels, gals = {}, {}
         # "" sorts before every ISO timestamp, so all time really means all.
         recent_people = _recent_people(cutoff.isoformat() if cutoff else "",
                                        max_rows=12, labels=wl_labels,
-                                       watchlist_embeddings=wl_embeddings)
+                                       galleries=gals)
         for p in recent_people:
             p["source"] = "face"
             p["camera_name"] = names.get(p["camera_id"], p["camera_id"])
@@ -2142,12 +2142,10 @@ async def dashboard_overview(range: str = "24h",
             unnamed_ids = {p.get("sighting_id") for p in recent_people
                            if not p.get("matched_label") and p.get("sighting_id")}
             if unnamed_ids:
-                from alibi.watchlist.watchlist_store import effective_galleries as _eg
                 from alibi.watchlist.face_match import FaceMatcher as _FM
                 from alibi.watchlist.face_sighting_store import get_face_sighting_store as _fss
                 from alibi.watchlist import rejections as _rej
                 import numpy as _np
-                gals = _eg()
                 if gals:
                     matcher = _FM()
                     rejected = _rej.all_rejections()
@@ -2194,12 +2192,13 @@ async def dashboard_overview(range: str = "24h",
             union = aw * ah + bw * bh - inter
             return inter / union if union > 0 else 0.0
 
+        existing_frames = {p.get("frame_url") for p in recent_people if p.get("frame_url")}
         seen_person_boxes: list = []
         for e in events:
             if len(recent_people) >= 12:
                 break
             i = _dash_intel(e)
-            if not e.snapshot_url:
+            if not e.snapshot_url or e.snapshot_url in existing_frames:
                 continue
             # Drop boxes the operator has already ruled out on this camera —
             # the pot plant at the front gate that reads as a person every time.
@@ -2528,6 +2527,9 @@ async def dashboard_overview(range: str = "24h",
         except Exception:
             trail = []
         for rr in trail:
+            md_rr = rr.get("metadata") or {}
+            if furl is None and md_rr.get("snapshot_url") and md_rr.get("bbox"):
+                furl, bbx = md_rr["snapshot_url"], list(md_rr["bbox"])
             for m in _veh_index.get((rr.get("camera_id"), str(rr.get("timestamp"))[:19]), []):
                 c = getattr(m, "color", None)
                 if c and c != "unknown":
@@ -2536,8 +2538,10 @@ async def dashboard_overview(range: str = "24h",
                 b = md.get("det_class") or md.get("body")
                 if b:
                     bodies[b] += 1
-                if furl is None and getattr(m, "snapshot_url", None) and getattr(m, "bbox", None):
-                    furl, bbx = m.snapshot_url, list(m.bbox)
+                if getattr(m, "snapshot_url", None) and getattr(m, "bbox", None):
+                    rr_bbox = md_rr.get("bbox")
+                    if furl is None or (rr_bbox and len(rr_bbox) == 4 and len(m.bbox) == 4 and _iou(rr_bbox, list(m.bbox)) > 0.3):
+                        furl, bbx = m.snapshot_url, list(m.bbox)
         from alibi.patterns.situations import visit_count as _vc
         from alibi.vehicles.evidence import best_plate as _bp
         from alibi.vehicles.plate_match import is_plausible_plate as _plausible
@@ -2567,16 +2571,14 @@ async def dashboard_overview(range: str = "24h",
         vlabels = get_vehicle_labels()
 
         def _owner_of(r):
-            """The name for this cluster — ONLY the one set directly on it.
-
-            We do NOT inherit a name from a plate. Plate reads carry no bounding
-            box, so when two cars are at the gate together the OCR read of one
-            gets attributed to the other's cluster — which had a white Toyota
-            reading Arnold's 'CSM4 0008' and inheriting his name. Mislabelling a
-            car as someone else's is worse than leaving a fragment unnamed, so a
-            name only ever comes from the owner naming THIS cluster. Its unnamed
-            fragments show honestly in general traffic, one 'name it' away."""
-            return (vlabels.get(r["entity_id"]) or {}).get("label")
+            """The name for this cluster — set directly on it or inherited from plate matching."""
+            lbl = (vlabels.get(r["entity_id"]) or {}).get("label")
+            if not lbl:
+                ev = _vehicle_evidence(r["entity_id"])
+                p = ev.get("plate")
+                if p:
+                    lbl = _plate_to_label.get(p)
+            return lbl
 
         def _label_for(r):
             ev = _vehicle_evidence(r["entity_id"])
@@ -2979,6 +2981,22 @@ async def dashboard_overview(range: str = "24h",
     except Exception as e:
         print(f"[dashboard] named vehicles unavailable: {e}")
 
+        # Deduplicate recent detections so a burst of motion events on the same
+        # camera within 60 seconds doesn't fill the strip with identical tiles.
+        deduped_recent = []
+        last_by_cam: dict = {}
+        for e in events:
+            if len(deduped_recent) >= 15:
+                break
+            cam = e.camera_id
+            last_ts = last_by_cam.get(cam)
+            last_type = last_by_cam.get(f"{cam}:type")
+            if last_ts is not None and abs((e.ts - last_ts).total_seconds()) < 60 and e.event_type == last_type:
+                continue
+            deduped_recent.append(_row(e))
+            last_by_cam[cam] = e.ts
+            last_by_cam[f"{cam}:type"] = e.event_type
+
     return {
         "range": range,
         "generated_at": datetime.utcnow().isoformat(),
@@ -2993,7 +3011,7 @@ async def dashboard_overview(range: str = "24h",
         },
         "by_type": [{"type": t, "count": c} for t, c in by_type.most_common()],
         "over_time": [buckets[k] for k in sorted(buckets)],
-        "recent": [_row(e) for e in events[:24]],
+        "recent": deduped_recent if deduped_recent else [_row(e) for e in events[:15]],
         "cameras": cameras,
         "alerts": alerts,
         "recent_people": recent_people,
