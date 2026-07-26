@@ -5496,7 +5496,7 @@ async def set_vehicle_entity_label(
     if not (_fu and _bb):
         try:
             from alibi.patterns.api import vehicle_history as _vh
-            h = _vh(payload.entity_id, window="30d", frames_limit=1)
+            h = await _vh(payload.entity_id, window="30d", frames_limit=1)
             _fu, _bb = _fu or h.get("frame_url"), _bb or h.get("bbox")
         except Exception as e:
             print(f"[vehicle-label] no evidence frame to store: {e}", flush=True)
