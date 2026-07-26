@@ -94,6 +94,8 @@ def set_vehicle_label(entity_id: str, label: str, set_by: str,
                       make: Optional[str] = None,
                       model: Optional[str] = None,
                       mine: Optional[bool] = None,
+                      frame_url: Optional[str] = None,
+                      bbox: Optional[list] = None,
                       now: Optional[datetime] = None) -> Dict[str, Any]:
     """Name a recurring vehicle and record what the owner knows about it — now
     including the make, model, and a corrected plate they type in. Empty label
@@ -125,6 +127,17 @@ def set_vehicle_label(entity_id: str, label: str, set_by: str,
             row["mine"] = bool(mine)
         elif isinstance(labels.get(entity_id), dict) and "mine" in labels[entity_id]:
             row["mine"] = labels[entity_id]["mine"]
+        # Keep a PHOTO with the name. The card's picture used to be derived live
+        # from the tracker, so a named car lost its face the moment it went a
+        # week unseen and its trail aged out — on a panel that promises "your
+        # saved list, not a live feed". Saved once, it stays.
+        prev = labels.get(entity_id) if isinstance(labels.get(entity_id), dict) else {}
+        if frame_url and bbox and len(list(bbox)) == 4:
+            row["frame_url"] = str(frame_url)
+            row["bbox"] = [float(v) for v in bbox]
+        elif prev.get("frame_url") and prev.get("bbox"):
+            row["frame_url"] = prev["frame_url"]
+            row["bbox"] = prev["bbox"]
         labels[entity_id] = row
     else:
         labels.pop(entity_id, None)

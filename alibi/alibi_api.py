@@ -2918,11 +2918,17 @@ async def dashboard_overview(range: str = "24h",
             e = ent_by_id.get(eid)
             ev = _vehicle_evidence(eid) if e else {}
             plate = (meta or {}).get("plate") or (ev.get("plate") if ev else None)
+            # A named car keeps the photo saved with its name. Without this the
+            # picture came only from the live tracker, so a car that went a week
+            # unseen (its trail aged out) showed "no photo yet" on a list that
+            # explicitly promises to survive being idle.
+            _fu = (ev.get("frame_url") if ev else None) or (meta or {}).get("frame_url")
+            _bb = (ev.get("bbox") if ev else None) or (meta or {}).get("bbox")
             raw.append({
                 "entity_id": eid, "label": label, "plate": plate,
                 "plate_region": ev.get("plate_region") if ev else None,
-                "frame_url": ev.get("frame_url") if ev else None,
-                "bbox": ev.get("bbox") if ev else None,
+                "frame_url": _fu,
+                "bbox": _bb,
                 "last_seen": (e["last_seen"] if e else (meta or {}).get("set_at")),
                 "visits": (e.get("visits") if e else 0),
                 "cameras": [names.get(c, c) for c in (e["cameras"] if e else [])],
@@ -5463,6 +5469,8 @@ class VehicleLabelUpdate(BaseModel):
     make: Optional[str] = None
     model: Optional[str] = None
     mine: Optional[bool] = None            # True = YOURS, False = a known FAMILIAR car
+    frame_url: Optional[str] = None        # keep a photo WITH the name
+    bbox: Optional[list] = None
 
 
 @app.put("/vehicles/entity-label", tags=["Vehicles"])
@@ -5481,10 +5489,21 @@ async def set_vehicle_entity_label(
     details = (payload.details or "").strip() or None
     make = (payload.make or "").strip() or None
     model = (payload.model or "").strip() or None
+    # Persist a photo alongside the name when the caller has one, and otherwise
+    # take the current best evidence frame, so a named car keeps its picture even
+    # after it stops being seen.
+    _fu, _bb = payload.frame_url, payload.bbox
+    if not (_fu and _bb):
+        try:
+            from alibi.patterns.api import vehicle_history as _vh
+            h = _vh(payload.entity_id, window="30d", frames_limit=1)
+            _fu, _bb = _fu or h.get("frame_url"), _bb or h.get("bbox")
+        except Exception as e:
+            print(f"[vehicle-label] no evidence frame to store: {e}", flush=True)
     result = set_vehicle_label(payload.entity_id, payload.label,
                                set_by=current_user.username, plate=plate,
                                details=details, make=make, model=model,
-                               mine=payload.mine)
+                               mine=payload.mine, frame_url=_fu, bbox=_bb)
     get_store().append_audit("vehicle_labelled", {
         "user": current_user.username, "entity_id": payload.entity_id,
         "label": payload.label.strip() or None, "plate": plate,
