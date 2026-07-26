@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 import { canPerformAction, hasRole } from '../lib/auth';
 import { AuthImg } from '../components/AuthImg';
+import { CropImg } from '../components/CropImg';
 import type { IncidentDetail, IncidentExplanation } from '../lib/types';
 
 /**
@@ -134,14 +135,26 @@ export function IncidentDetailPage() {
     } finally { setIdentBusy(false); }
   }
 
-  /** "There's no one there." Teaches the camera that this spot is scenery. */
-  async function notAPerson() {
+  // Each thing the detector boxed as a person, judged individually — a frame
+  // often holds scenery AND a real person.
+  const [personBoxes, setPersonBoxes] = useState<any[]>([]);
+
+  async function loadPersonBoxes(incidentId: string) {
+    try {
+      const r = await api.incidentPersonBoxes(incidentId);
+      setPersonBoxes(r.boxes || []);
+    } catch { setPersonBoxes([]); }
+  }
+
+  /** "That one isn't a person." Only the box the operator picked. */
+  async function rejectBox(b: any) {
     if (!incident) return;
     setIdentBusy(true); setIdentErr(null); setIdentMsg(null);
     try {
-      const r = await api.incidentNotAPerson(incident.incident_id);
+      const r = await api.notAPerson(b.camera_id, b.bbox, b.frame_url,
+                                     `not a person (incident ${incident.incident_id})`);
       setIdentMsg(r.message || 'Learned.');
-      await loadIncident(incident.incident_id);
+      await loadPersonBoxes(incident.incident_id);
     } catch (e: any) {
       setIdentErr(e?.message || 'Could not save that correction');
     } finally { setIdentBusy(false); }
@@ -157,6 +170,7 @@ export function IncidentDetailPage() {
     if (id) {
       loadIncident(id);
       loadExplanation(id);
+      loadPersonBoxes(id);
     }
   }, [id]);
 
@@ -692,19 +706,58 @@ export function IncidentDetailPage() {
             </button>
           </div>
 
-          {/* The other honest answer: there's nobody there at all. The detector
-              reads pot plants and garden furniture as people, and that correction
-              has to be reachable from the page you're actually looking at. */}
+          {/* The other honest answer: that isn't a person. Shown box-by-box —
+              a frame often holds a pot plant AND a real person, so rejecting
+              "the" detection wholesale would suppress the spot where somebody
+              actually stood. */}
           <div className="mt-4 pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-500">
-              …or is there <span className="font-medium text-gray-700">nobody there at all</span>? Scenery —
-              a pot plant, a bin, a shadow — read as a person. This teaches the camera to stop reporting
-              that spot; someone actually standing there will still be detected.
+              …or did the detector get it wrong? Here is <span className="font-medium text-gray-700">each
+              thing it boxed as a person</span>. Rule out only the ones that are scenery — a pot plant, a
+              bin, a shadow. The rest of the frame is untouched, and a person standing in that same spot
+              is still detected.
             </p>
-            <button onClick={notAPerson} disabled={identBusy}
-                    className="mt-2 px-3 py-1.5 text-sm font-medium bg-white border border-gray-300 hover:border-gray-400 hover:bg-gray-50 disabled:opacity-50 text-gray-700 rounded-md">
-              {identBusy ? 'Saving…' : 'Not a person — nothing there'}
-            </button>
+
+            {personBoxes.length === 0 && (
+              <p className="mt-2 text-xs text-gray-400">
+                No stored person boxes on this incident's frames, so there's nothing to rule out here.
+              </p>
+            )}
+
+            {personBoxes.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-3">
+                {personBoxes.map((b, i) => (
+                  <div key={i} className="w-28 rounded-md border border-gray-200 overflow-hidden bg-gray-50">
+                    <div className="h-24 bg-black">
+                      {b.frame_url && b.bbox && (
+                        <CropImg src={b.frame_url} alt={`detection ${i + 1}`}
+                                 bbox={b.bbox as [number, number, number, number]} pad={0.3}
+                                 className="w-full h-full" />
+                      )}
+                    </div>
+                    <div className="px-1.5 py-1">
+                      <p className="text-[10px] text-gray-500 truncate">{b.camera_name}</p>
+                      {b.already_suppressed ? (
+                        <p className="text-[10px] text-emerald-700 font-medium">✓ ruled out</p>
+                      ) : (
+                        <button onClick={() => rejectBox(b)} disabled={identBusy}
+                                className="mt-0.5 w-full text-[10px] font-medium text-gray-700 border border-gray-300 hover:border-gray-500 rounded px-1 py-0.5 disabled:opacity-50">
+                          Not a person
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* The second half of the duality: suppression can't find someone
+                the detector missed entirely. Say so rather than implying the
+                frame has been fully accounted for. */}
+            <p className="mt-3 text-[11px] text-gray-400">
+              Check the full frame above too — ruling out scenery doesn't find a person the detector
+              missed. If someone is in the shot but not boxed here, use Confirm to record it.
+            </p>
           </div>
 
           {identMsg && (

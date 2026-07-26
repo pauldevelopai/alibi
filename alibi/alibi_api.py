@@ -942,6 +942,73 @@ async def not_a_person(payload: NotAPersonRequest,
                        "Someone standing there still will be."}
 
 
+def _incident_person_boxes(incident_id: str, inc: Optional[dict] = None) -> list:
+    """Every person-box on an incident's frames, each with its own crop.
+
+    A frame routinely holds more than one — the detector's box on a pot plant
+    AND a real person a few metres away. Anything offering to reject "the"
+    detection has to show them separately, or a single click quietly suppresses
+    the spot where somebody was actually standing.
+    """
+    from alibi.learning.detections import get_detection_rejections
+    store = get_store()
+    inc = inc or store.get_incident_with_metadata(incident_id)
+    if not inc:
+        return []
+    rej = get_detection_rejections()
+    ev_by_id = {e.event_id: e for e in store.list_events(limit=8000)}
+    out: list = []
+    for eid in (inc.get("event_ids") or []):
+        e = ev_by_id.get(eid)
+        if e is None:
+            continue
+        intel = ((getattr(e, "metadata", None) or {}).get("intel") or {})
+        for d in (intel.get("detections") or []):
+            if d.get("class") != "person":
+                continue
+            box = [float(v) for v in (d.get("bbox") or [])]
+            if len(box) != 4:
+                continue
+            # The same still-standing object across frames is one thing to judge.
+            if any(o["camera_id"] == e.camera_id and _piou_boxes(o["bbox"], box) > 0.6
+                   for o in out):
+                continue
+            out.append({
+                "camera_id": e.camera_id,
+                "camera_name": _display_names().get(e.camera_id, e.camera_id),
+                "frame_url": getattr(e, "snapshot_url", None),
+                "bbox": box,
+                "score": d.get("confidence"),
+                "already_suppressed": rej.is_rejected(e.camera_id, box),
+            })
+    return out
+
+
+def _piou_boxes(a, b) -> float:
+    """IoU for [x, y, w, h] — used to fold one still object across frames."""
+    try:
+        ax, ay, aw, ah = [float(v) for v in a]
+        bx, by, bw, bh = [float(v) for v in b]
+    except (TypeError, ValueError):
+        return 0.0
+    x1, y1 = max(ax, bx), max(ay, by)
+    x2, y2 = min(ax + aw, bx + bw), min(ay + ah, by + bh)
+    if x2 <= x1 or y2 <= y1:
+        return 0.0
+    inter = (x2 - x1) * (y2 - y1)
+    union = aw * ah + bw * bh - inter
+    return inter / union if union > 0 else 0.0
+
+
+@app.get("/incidents/{incident_id}/person-boxes", tags=["Incidents"])
+async def incident_person_boxes(incident_id: str,
+                                current_user: User = Depends(get_current_user)):
+    """What the detector actually boxed as a person on this incident, one entry
+    each, so scenery can be ruled out WITHOUT ruling out a real person who was
+    in the same frame."""
+    return {"boxes": _incident_person_boxes(incident_id)}
+
+
 @app.post("/incidents/{incident_id}/not-a-person", tags=["Incidents"])
 async def incident_not_a_person(
     incident_id: str,
@@ -960,24 +1027,26 @@ async def incident_not_a_person(
     if not inc:
         raise HTTPException(status_code=404, detail="Incident not found")
 
-    ev_by_id = {e.event_id: e for e in store.list_events(limit=8000)}
-    events = [ev_by_id[eid] for eid in (inc.get("event_ids") or []) if eid in ev_by_id]
-
     rej = get_detection_rejections()
+    boxes = _incident_person_boxes(incident_id, inc)
+    pending = [b for b in boxes if not b["already_suppressed"]]
+
+    # A frame can hold SEVERAL person boxes — a pot plant AND a real person.
+    # Rejecting them all because one is scenery would teach the camera to ignore
+    # the spot where someone actually stood. So when there is more than one, we
+    # refuse to guess and hand them back for the operator to judge individually.
+    if len(pending) > 1:
+        return {"status": "needs_choice", "boxes": boxes, "regions_learned": 0,
+                "message": (f"There are {len(pending)} separate detections on this "
+                            f"incident — one may be scenery and another a real "
+                            f"person. Pick the ones that aren't people.")}
+
     learned = 0
-    for e in events:
-        intel = ((getattr(e, "metadata", None) or {}).get("intel") or {})
-        for d in (intel.get("detections") or []):
-            if d.get("class") != "person":
-                continue
-            box = d.get("bbox") or []
-            if len(box) != 4 or rej.is_rejected(e.camera_id, box):
-                continue
-            rej.record(e.camera_id, box, score=d.get("confidence"),
-                       frame_url=getattr(e, "snapshot_url", None),
-                       by=current_user.username,
-                       note=f"not a person (incident {incident_id})")
-            learned += 1
+    for b in pending:
+        rej.record(b["camera_id"], b["bbox"], score=b.get("score"),
+                   frame_url=b.get("frame_url"), by=current_user.username,
+                   note=f"not a person (incident {incident_id})")
+        learned += 1
 
     # A false positive is also a false alarm — close it off.
     try:

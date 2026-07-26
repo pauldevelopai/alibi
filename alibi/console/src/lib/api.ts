@@ -88,6 +88,14 @@ export const api = {
     return res.json();
   },
 
+  /** What the detector boxed as a person on this incident — one entry each, so
+   *  scenery can be ruled out without ruling out a real person in the same frame. */
+  async incidentPersonBoxes(incidentId: string): Promise<{ boxes: any[] }> {
+    const res = await fetchWithAuth(`${API_BASE}/incidents/${encodeURIComponent(incidentId)}/person-boxes`);
+    if (!res.ok) throw new Error('Could not load the detections');
+    return res.json();
+  },
+
   /** "There's no one there." Reject every person-box on this incident's frames,
    *  so that scenery stops being reported, and dismiss the false alarm. */
   async incidentNotAPerson(incidentId: string): Promise<any> {
