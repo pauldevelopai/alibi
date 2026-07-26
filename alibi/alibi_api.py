@@ -906,6 +906,65 @@ async def record_decision(
     }
 
 
+class NotAPersonRequest(BaseModel):
+    camera_id: str
+    bbox: list                       # [x, y, w, h] of the thing that isn't a person
+    score: Optional[float] = None
+    frame_url: Optional[str] = None
+    note: str = ""
+
+
+@app.post("/people/not-a-person", tags=["People"])
+async def not_a_person(payload: NotAPersonRequest,
+                       current_user: User = Depends(require_role([Role.SUPERVISOR, Role.ADMIN]))):
+    """"That's a pot plant, not a person."
+
+    False positives on scenery are STATIC — the same object, same camera, same
+    box, every time — so the correction is stored as a region on that camera and
+    later detections landing there are suppressed. Matched strictly (high IoU
+    plus similar box shape), so a person standing in front of the plant is still
+    detected. Reversible, and /people/not-a-person/list shows everything being
+    suppressed so it never becomes an invisible blind spot."""
+    from alibi.learning.detections import get_detection_rejections
+    if len(payload.bbox or []) != 4:
+        raise HTTPException(status_code=400, detail="bbox must be [x, y, w, h]")
+    store_ = get_detection_rejections()
+    store_.record(payload.camera_id, payload.bbox, score=payload.score,
+                  frame_url=payload.frame_url, by=current_user.username,
+                  note=payload.note)
+    get_store().append_audit("detection_rejected", {
+        "user": current_user.username, "camera_id": payload.camera_id,
+        "bbox": payload.bbox, "score": payload.score,
+    })
+    return {"status": "learned", "camera_id": payload.camera_id,
+            "suppressed_regions": len(store_.regions(payload.camera_id)),
+            "message": "Learned — this spot won't be reported as a person again. "
+                       "Someone standing there still will be."}
+
+
+@app.get("/people/not-a-person/list", tags=["People"])
+async def list_not_a_person(current_user: User = Depends(get_current_user)):
+    """Everything currently suppressed as 'not a person', so it's visible and
+    can be undone — a silent blind spot would be worse than the false alarm."""
+    from alibi.learning.detections import get_detection_rejections
+    return {"regions": get_detection_rejections().summary()}
+
+
+@app.post("/people/not-a-person/restore", tags=["People"])
+async def restore_not_a_person(payload: NotAPersonRequest,
+                               current_user: User = Depends(require_role([Role.SUPERVISOR, Role.ADMIN]))):
+    """Undo a suppression — start reporting this region again."""
+    from alibi.learning.detections import get_detection_rejections
+    if len(payload.bbox or []) != 4:
+        raise HTTPException(status_code=400, detail="bbox must be [x, y, w, h]")
+    get_detection_rejections().restore(payload.camera_id, payload.bbox)
+    get_store().append_audit("detection_rejection_restored", {
+        "user": current_user.username, "camera_id": payload.camera_id,
+        "bbox": payload.bbox,
+    })
+    return {"status": "restored", "camera_id": payload.camera_id}
+
+
 class IdentifyIncidentRequest(BaseModel):
     label: str                       # who it actually is
     details: str = ""                # anything worth remembering about them
@@ -2010,7 +2069,15 @@ async def dashboard_overview(range: str = "24h",
             i = _dash_intel(e)
             if not e.snapshot_url:
                 continue
-            for d in (i.get("detections") or []):
+            # Drop boxes the operator has already ruled out on this camera —
+            # the pot plant at the front gate that reads as a person every time.
+            _dets = i.get("detections") or []
+            try:
+                from alibi.learning.detections import get_detection_rejections
+                _dets = get_detection_rejections().filter_detections(e.camera_id, _dets)
+            except Exception as _e:
+                print(f"[dashboard] detection rejections unavailable: {_e}", flush=True)
+            for d in _dets:
                 if d.get("class") != "person" or len(recent_people) >= 12:
                     continue
                 bbox = d.get("bbox") or []

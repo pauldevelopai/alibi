@@ -845,6 +845,24 @@ function PersonCard({ p, i, onEnrolled }: { p: DashboardPerson; i: number; onEnr
     }
   }
 
+  // "That isn't a person." Scenery — a pot plant, a bin — read as a person on
+  // every frame because it never moves. Recorded against the camera and the box.
+  const [dismissed, setDismissed] = useState(false);
+  async function notAPerson() {
+    if (!p.bbox || !p.camera_id) return;
+    setBusy(true);
+    setErr(null);
+    try {
+      await api.notAPerson(p.camera_id, p.bbox as number[], p.frame_url || null);
+      setDismissed(true);
+      setTimeout(onEnrolled, 1400);      // refresh so it drops off the strip
+    } catch (e: any) {
+      setErr(e?.message || 'Could not save that');
+    } finally {
+      setBusy(false);
+    }
+  }
+
   // "Yes, that's them." Confirms the system's best guess: adds this view to that
   // person's gallery, so the next angle of them is recognised on its own — and
   // the claim path re-sweeps the backlog, so other near-matches get named too.
@@ -906,11 +924,25 @@ function PersonCard({ p, i, onEnrolled }: { p: DashboardPerson; i: number; onEnr
             {busy ? '…' : `✓ Yes, ${p.suggested_label}`}
           </button>
         )}
-        {!enrolled && canEnroll && !naming && (
+        {!enrolled && canEnroll && !naming && isFace && (
           <button onClick={() => setNaming(true)}
                   className="mt-1 w-full text-[9px] font-medium text-indigo-400 hover:text-indigo-300 border border-indigo-500/30 hover:border-indigo-400/60 rounded px-1 py-0.5 transition-colors">
             {p.suggested_label ? 'No — someone else' : 'Add to Faces'}
           </button>
+        )}
+        {/* "That's a pot plant." Only on body-only detections — the ones that
+            read as a person with no face — since that's what scenery produces.
+            The spot is remembered per camera; a person standing there still
+            registers. */}
+        {!isFace && canEnroll && p.bbox && !dismissed && (
+          <button onClick={notAPerson} disabled={busy}
+                  title="Tell the system this is scenery, not a person — it won't report this spot again"
+                  className="mt-1 w-full text-[9px] font-medium text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 rounded px-1 py-0.5 transition-colors disabled:opacity-50">
+            {busy ? '…' : 'Not a person'}
+          </button>
+        )}
+        {dismissed && (
+          <p className="mt-1 text-[9px] text-emerald-400 leading-snug">✓ Learned — won't report this spot again.</p>
         )}
         {naming && (
           <div className="mt-1 space-y-1">

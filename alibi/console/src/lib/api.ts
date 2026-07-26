@@ -73,6 +73,21 @@ export const api = {
     return res.json();
   },
 
+  /** "That's a pot plant, not a person." The region is remembered per camera so
+   *  the same scenery stops being reported — a person standing there still is. */
+  async notAPerson(cameraId: string, bbox: number[], frameUrl?: string | null, note?: string): Promise<any> {
+    const res = await fetchWithAuth(`${API_BASE}/people/not-a-person`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ camera_id: cameraId, bbox, frame_url: frameUrl || null, note: note || '' }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || 'Could not save that correction');
+    }
+    return res.json();
+  },
+
   /** "That's actually Paul." Correct who an incident is about: the faces on its
    *  frames join that person's gallery (so the missed angle is recognised next
    *  time) and the ranker learns they're known. */
